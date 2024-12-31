@@ -11,4 +11,11 @@ const ROUTER_PATH = {
   BOOKMARK: '/bookmark',
 };
 
-export { ROUTER_PATH };
+const NAVIGATION_BAR = {
+  HOME: 'HOME',
+  PLAYLIST: 'PLAYLIST',
+  BOOKMARK: 'BOOKMARK',
+  MY_PAGE: 'MYPAGE',
+};
+
+export { ROUTER_PATH, NAVIGATION_BAR };
