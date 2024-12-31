@@ -37,12 +37,12 @@
     --color-background-dark: #8F9285;
 
     /* FontSize */
-    --font-xlarge: 2rem;
-    --font-large: 1.25rem;
+    --font-xlarge: 3rem;
+    --font-large: 1.5rem;
     
     /* Paragraph */
-    --font-medium: 0.75rem;
-    --font-small: 0.25rem;
+    --font-medium: 1rem;
+    --font-small: 0.5rem;
     --font-sans: 'Pretendard', sans-serif;
 
     /** border radius **/
