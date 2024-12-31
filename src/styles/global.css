@@ -1,3 +1,71 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+
+    /* Primary */
+    --color-primary: #1FD86D;
+    --color-hover-primary: #9EF1C0;
+    --color-secondary: #78AE8A;
+    --color-hover-secondary: #D5DEC8;
+    --color-tertiary: #4D9D98;
+    --color-hover-tertiary: #DFF4F0;
+
+    /* Dark & Light */
+    --color-dark: #4A493F;
+    --color-light: #FFFFFF;
+
+    /* Status-Result */
+    --color-danger: #FF8581;
+    --color-hover-danger: #FF5449;
+    --color-success: #78AE8A;
+    --color-hover-success: #D5DEC8;
+
+    /* Status-neutral */
+    --color-neutral: #91918B;
+    --color-neutral-variant: #8F9285;
+
+    /* Text */
+    --color-text-dark: #4A493F;
+    --color-text-light: #FFFFFF;
+    --color-text-gray: #91918B;
+
+    /* Background */
+    --color-background-light: #FAFAFA;
+    --color-background: #91918B;
+    --color-background-dark: #8F9285;
+
+    /* FontSize */
+    --font-xlarge: clamp(2rem, 3rem, 4rem);
+    --font-large: clamp(1.25rem, 1.5rem, 2rem);
+
+    /* Paragraph */
+    --font-medium: clamp(0.75rem, 1rem, 1.25rem);
+    --font-small: clamp(0.25rem, 0.5rem, 0.75rem);
+    --font-sans: 'Pretendard', sans-serif;
+
+    /** border radius **/
+    --border-radius-small: 5px;
+    --border-radius-medium: 10px;
+    --border-radius-large: 20px;
+    --border-radius-xlarge: 50%;
+
+    /** space-size **/
+    --space-xsmall: 4px;
+    --space-small: 8px;
+    --space-medium: 16px;
+    --space-large: 32px;
+    --space-xlarge: 64px;
+    --space-xxlarge: 128px;
+}
+
+body {
+    font-family: var(--font-sans); 
+    line-height: 1.5;
+    font-weight: 400;
+    color: var(--color-text-dark);
+    background-color: var(--color-background-light); 
+    font-size: var(--font-medium);
+    cursor: default;
+}
