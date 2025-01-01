@@ -5,8 +5,8 @@ import LogoHeader from '@/components/header/LogoHeader';
 
 const Layout = () => {
   return (
-    <main className="flex min-h-screen justify-center bg-gray-100">
-      <section className="relative w-full max-w-[600px] bg-white">
+    <main className="flex min-h-screen justify-center">
+      <section className="relative w-full max-w-container bg-white">
         <LogoHeader />
         <div className="pb-28">
           <Outlet />

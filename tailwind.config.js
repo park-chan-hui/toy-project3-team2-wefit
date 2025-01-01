@@ -23,10 +23,13 @@ export default {
         gray: 'var(--color-text-gray)',
       },
       fontSize: {
+        xxlarge: 'var(--font-xxlarge)',
         xlarge: 'var(--font-xlarge)',
         large: 'var(--font-large)',
-        medium: 'var(--font-medium)',
+        medium: 'var(--font-base)',
         small: 'var(--font-small)',
+        xsmall: 'var(--font-xsmall)',
+        xxsmall: 'var(--font-xxsmall)',
       },
       fontFamily: {
         sans: ['var(--font-sans)', 'Arial', 'sans-serif'],
@@ -49,6 +52,9 @@ export default {
         basic: 'var(--color-background)',
         light: 'var(--color-background-light)',
         dark: 'var(--color-background-dark)',
+      },
+      maxWidth: {
+        container: 'var(--width-max)',
       },
     },
   },

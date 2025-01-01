@@ -3,69 +3,75 @@
 @tailwind utilities;
 
 :root {
+  /* Primary */
+  --color-primary: #1fd86d;
+  --color-hover-primary: #9ef1c0;
+  --color-secondary: #78ae8a;
+  --color-hover-secondary: #d5dec8;
+  --color-tertiary: #4d9d98;
+  --color-hover-tertiary: #dff4f0;
 
-    /* Primary */
-    --color-primary: #1FD86D;
-    --color-hover-primary: #9EF1C0;
-    --color-secondary: #78AE8A;
-    --color-hover-secondary: #D5DEC8;
-    --color-tertiary: #4D9D98;
-    --color-hover-tertiary: #DFF4F0;
+  /* Dark & Light */
+  --color-dark: #4a493f;
+  --color-light: #ffffff;
 
-    /* Dark & Light */
-    --color-dark: #4A493F;
-    --color-light: #FFFFFF;
+  /* Status-Result */
+  --color-danger: #ff8581;
+  --color-hover-danger: #ff5449;
+  --color-success: #78ae8a;
+  --color-hover-success: #d5dec8;
 
-    /* Status-Result */
-    --color-danger: #FF8581;
-    --color-hover-danger: #FF5449;
-    --color-success: #78AE8A;
-    --color-hover-success: #D5DEC8;
+  /* Status-neutral */
+  --color-neutral: #91918b;
+  --color-neutral-variant: #8f9285;
 
-    /* Status-neutral */
-    --color-neutral: #91918B;
-    --color-neutral-variant: #8F9285;
+  /* Text */
+  --color-text-dark: #4a493f;
+  --color-text-light: #ffffff;
+  --color-text-gray: #91918b;
 
-    /* Text */
-    --color-text-dark: #4A493F;
-    --color-text-light: #FFFFFF;
-    --color-text-gray: #91918B;
+  /* Background */
+  --color-background-light: #fafafa;
+  --color-background: #91918b;
+  --color-background-dark: #8f9285;
 
-    /* Background */
-    --color-background-light: #FAFAFA;
-    --color-background: #91918B;
-    --color-background-dark: #8F9285;
+  /* FontSize */
+  --font-xxlarge: 1.875rem; /* 30px */
+  --font-xlarge: 1.5rem; /* 24px */
+  --font-large: 1.25rem; /* 20px */
+  --font-base: 1rem; /* 16px */
+  --font-small: 0.875rem; /* 14px */
+  --font-xsmall: 0.75rem; /* 12px */
+  --font-xxsmall: 0.625rem; /* 10px */
 
-    /* FontSize */
-    --font-xlarge: 3rem;
-    --font-large: 1.5rem;
-    
-    /* Paragraph */
-    --font-medium: 1rem;
-    --font-small: 0.5rem;
-    --font-sans: 'Pretendard', sans-serif;
+  /* Paragraph */
+  --font-sans: 'Pretendard', sans-serif;
 
-    /** border radius **/
-    --border-radius-small: 5px;
-    --border-radius-medium: 10px;
-    --border-radius-large: 20px;
-    --border-radius-xlarge: 50%;
+  /** border radius **/
+  --border-radius-small: 4px;
+  --border-radius-medium: 8px;
+  --border-radius-large: 12px;
+  --border-radius-xlarge: 16px;
+  --border-radius-full: 50%;
 
-    /** space-size **/
-    --space-xsmall: 4px;
-    --space-small: 8px;
-    --space-medium: 16px;
-    --space-large: 32px;
-    --space-xlarge: 64px;
-    --space-xxlarge: 128px;
+  /** space-size **/
+  --space-xsmall: 4px;
+  --space-small: 8px;
+  --space-medium: 16px;
+  --space-large: 32px;
+  --space-xlarge: 64px;
+  --space-xxlarge: 128px;
+
+  /** max width **/
+  --width-max: 600px;
 }
 
 body {
-    font-family: var(--font-sans); 
-    line-height: 1.5;
-    font-weight: 400;
-    color: var(--color-text-dark);
-    background-color: var(--color-background-light); 
-    font-size: var(--font-medium);
-    cursor: default;
+  font-family: var(--font-sans);
+  line-height: 1.5;
+  font-weight: 400;
+  color: var(--color-text-dark);
+  background-color: var(--color-background-light);
+  font-size: var(--font-base);
+  cursor: default;
 }
