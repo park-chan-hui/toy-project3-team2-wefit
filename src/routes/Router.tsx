@@ -1,6 +1,7 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import Layout from '@/layout/Layout';
+import SplashPage from '@/pages/SplashPage';
 import HomePage from '@/pages/HomePage';
 import LoginPage from '@/pages/LoginPage';
 import MyPage from '@/pages/my-page/MyPage';
@@ -12,9 +13,9 @@ import BookmarkPage from '@/pages/BookmarkPage';
 import PlayListPage from '@/pages/playlist/PlayListPage';
 import PlayListDetailPage from '@/pages/playlist/PlayListDetailPage';
 import { ROUTER_PATH } from '@/constants/constants';
-
 const Router = () => {
   const {
+    SPLASH,
     HOME,
     MY_PAGE,
     PLAYLIST,
@@ -28,6 +29,10 @@ const Router = () => {
   } = ROUTER_PATH;
 
   const router = createBrowserRouter([
+    {
+      path: SPLASH,
+      element: <SplashPage />,
+    },
     {
       element: <Layout />,
       children: [
