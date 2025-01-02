@@ -1,5 +1,6 @@
 const ROUTER_PATH = {
-  HOME: '/',
+  SPLASH: '/',
+  HOME: '/home',
   LOGIN: '/login',
   MY_PAGE: '/mypage',
   MY_PAGE_EDIT: '/mypage/edit',
