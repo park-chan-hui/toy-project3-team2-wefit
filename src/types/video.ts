@@ -1,3 +1,4 @@
+/* eslint-disable */
 type VideoProps = {
   video_id: string;
   video_url: string;
@@ -12,4 +13,9 @@ type VideoProps = {
   created_at: Date;
 };
 
-export type { VideoProps };
+type VideoCategoryProps = {
+  selectedCategory: string;
+  onCategoryChange: (category: string) => void;
+};
+
+export type { VideoProps, VideoCategoryProps };
