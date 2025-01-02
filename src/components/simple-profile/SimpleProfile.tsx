@@ -1,5 +1,5 @@
-import { CgProfile } from 'react-icons/cg';
 import { useNavigate } from 'react-router-dom';
+import { CgProfile } from 'react-icons/cg';
 
 type userData = {
   user_id: string;
@@ -10,20 +10,25 @@ type userData = {
 const SimpleProfile = (userData: userData) => {
   const navigate = useNavigate();
 
+  const handleClick = () => {
+    navigate(`/author/${userData.user_id}`);
+  };
+
   return (
-    <div
-      onClick={() => navigate(`/author/${userData.user_id}`)}
-      className="inline-block cursor-pointer"
-    >
-      <div className="flex items-center">
+    <div onClick={handleClick} className="inline-block cursor-pointer">
+      <div className="flex items-center gap-1">
         <div className="flex h-5 w-5 justify-center overflow-auto rounded-full border border-none">
           {userData.user_image ? (
-            <img src={userData.user_image} alt="프로필사진" />
+            <img
+              src={userData.user_image}
+              alt="프로필사진"
+              className="object-cover"
+            />
           ) : (
             <CgProfile size={20} />
           )}
         </div>
-        <div className="ml-1 text-xxsmall font-semibold text-gray">
+        <div className="text-gray-700 text-xs font-semibold">
           {userData.nickname || '데이터가 없습니다.'}
         </div>
       </div>
