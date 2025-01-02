@@ -13,7 +13,7 @@ const NavigationBar = () => {
   const location = useLocation();
 
   return (
-    <nav className="fixed bottom-0 w-full max-w-[600px] rounded-t-xl bg-[#1FD86D] text-white">
+    <nav className="fixed bottom-0 w-full max-w-container rounded-t-xl bg-primary text-light">
       <ul className="flex items-center justify-between px-2 py-2">
         <li className="flex-1 text-center">
           <NavLink
@@ -21,12 +21,12 @@ const NavigationBar = () => {
             className={({ isActive }) =>
               cn(
                 'flex flex-col items-center gap-1',
-                isActive ? 'text-black' : 'text-white',
+                isActive ? 'text-black' : 'text-light',
               )
             }
           >
             <AiOutlineHome size={34} />
-            <span className="text-[10px]">{NAVIGATION_BAR.HOME}</span>
+            <span className="text-xxsmall">{NAVIGATION_BAR.HOME}</span>
           </NavLink>
         </li>
         <li className="flex-1 text-center">
@@ -35,12 +35,12 @@ const NavigationBar = () => {
             className={({ isActive }) =>
               cn(
                 'flex flex-col items-center gap-1',
-                isActive ? 'text-black' : 'text-white',
+                isActive ? 'text-black' : 'text-light',
               )
             }
           >
             <BsCollectionPlay size={34} />
-            <span className="text-[10px]">{NAVIGATION_BAR.PLAYLIST}</span>
+            <span className="text-xxsmall">{NAVIGATION_BAR.PLAYLIST}</span>
           </NavLink>
         </li>
         <li className="relative -top-5 flex-1 text-center">
@@ -48,7 +48,7 @@ const NavigationBar = () => {
             to={ROUTER_PATH.VIDEO_ADD}
             className="flex flex-col items-center gap-1"
           >
-            <div className="rounded-full bg-[#78AE8A] p-5">
+            <div className="rounded-full bg-secondary p-5">
               <FaPlus
                 size={34}
                 color={cn(
@@ -66,12 +66,12 @@ const NavigationBar = () => {
             className={({ isActive }) =>
               cn(
                 'flex flex-col items-center gap-1',
-                isActive ? 'text-black' : 'text-white',
+                isActive ? 'text-black' : 'text-light',
               )
             }
           >
             <HiOutlineBookmark size={34} />
-            <span className="text-[10px]">{NAVIGATION_BAR.BOOKMARK}</span>
+            <span className="text-xxsmall">{NAVIGATION_BAR.BOOKMARK}</span>
           </NavLink>
         </li>
         <li className="flex-1 text-center">
@@ -80,12 +80,12 @@ const NavigationBar = () => {
             className={({ isActive }) =>
               cn(
                 'flex flex-col items-center gap-1',
-                isActive ? 'text-black' : 'text-white',
+                isActive ? 'text-black' : 'text-light',
               )
             }
           >
             <CgProfile size={34} />
-            <span className="text-[10px]">{NAVIGATION_BAR.MY_PAGE}</span>
+            <span className="text-xxsmall">{NAVIGATION_BAR.MY_PAGE}</span>
           </NavLink>
         </li>
       </ul>
