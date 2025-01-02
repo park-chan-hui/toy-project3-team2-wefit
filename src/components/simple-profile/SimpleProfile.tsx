@@ -1,6 +1,5 @@
-import { ROUTER_PATH } from '@/constants/constants';
 import { CgProfile } from 'react-icons/cg';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 type userData = {
   user_id: string;
@@ -9,9 +8,11 @@ type userData = {
 };
 
 const SimpleProfile = (userData: userData) => {
+  const navigate = useNavigate();
+
   return (
-    <Link
-      to={ROUTER_PATH.AUTHOR_DETAIL}
+    <div
+      onClick={() => navigate(`/author/${userData.user_id}`)}
       className="inline-block cursor-pointer"
     >
       <div className="flex items-center">
@@ -26,7 +27,7 @@ const SimpleProfile = (userData: userData) => {
           {userData.nickname || '데이터가 없습니다.'}
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 
