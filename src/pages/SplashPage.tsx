@@ -1,18 +1,20 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ROUTER_PATH } from '@/constants/constants';
 import logoSvg from '@/assets/we-fit-logo.svg';
 
 const SplashPage = () => {
   const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+  const { HOME, LOGIN } = ROUTER_PATH;
   const navigate = useNavigate();
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigate(isLoggedIn ? '/home' : '/login');
+      navigate(isLoggedIn ? HOME : LOGIN);
     }, 1000);
 
     return () => clearTimeout(timer);
-  }, [isLoggedIn, navigate]);
+  }, [isLoggedIn, navigate, HOME, LOGIN]);
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center">
