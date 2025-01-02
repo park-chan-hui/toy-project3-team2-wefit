@@ -18,7 +18,7 @@ const LabelInput = (props: LabelInputProps) => {
     <div className="mb-2 max-w-container">
       <p className="text-large font-bold">{title}</p>
       <input
-        className="mt-1 w-full rounded-medium border border-black p-2 focus:!border-primary focus:outline-none"
+        className="mt-1 w-full rounded-medium border border-black p-2 pl-4 pr-4 focus:!border-primary focus:outline-none"
         placeholder={placeholder}
         value={desc}
         onChange={handleChange}
