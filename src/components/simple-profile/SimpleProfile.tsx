@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { CgProfile } from 'react-icons/cg';
 
 type userData = {
@@ -8,14 +8,8 @@ type userData = {
 };
 
 const SimpleProfile = (userData: userData) => {
-  const navigate = useNavigate();
-
-  const handleClick = () => {
-    navigate(`/author/${userData.user_id}`);
-  };
-
   return (
-    <div onClick={handleClick} className="inline-block cursor-pointer">
+    <Link to={`/author/${userData.user_id}`} className="inline-block">
       <div className="flex items-center gap-1">
         <div className="flex h-5 w-5 justify-center overflow-auto rounded-full border border-none">
           {userData.user_image ? (
@@ -32,7 +26,7 @@ const SimpleProfile = (userData: userData) => {
           {userData.nickname || '데이터가 없습니다.'}
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
