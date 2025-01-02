@@ -10,7 +10,9 @@ type ButtonProps = {
     | 'danger'
     | 'success'
     | 'tertiary'
-    | 'outline';
+    | 'outline'
+    | 'kakao'
+    | 'google';
   size?: 'small' | 'medium' | 'large';
   disabled?: boolean;
   className?: string;
@@ -35,6 +37,9 @@ const Button = ({
     tertiary: 'bg-tertiary text-black hover:bg-hover-tertiary',
     outline:
       'border border-primary text-black hover:bg-primary hover:text-light',
+    kakao: 'bg-[#FEE500] text-black hover:bg-[#FFEB3B]',
+    google:
+      'bg-transparent border border-gray-300 text-gray-700 hover:bg-gray-100',
   };
   const sizeStyles = {
     small: 'px-4 py-1 text-xs',
