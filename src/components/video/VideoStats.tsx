@@ -6,7 +6,7 @@ import { FaStar, FaRegStar } from 'react-icons/fa';
 import { formatNumber } from '@/utils/formatNumber';
 import { getTimeAgo } from '@/utils/getTimeAgo';
 
-type VideoStatsProps = {
+export type VideoStatsProps = {
   created_at: Date;
   like_heart: number;
   comments: string[];

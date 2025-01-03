@@ -1,7 +1,7 @@
 import VideoItem from './VideoItem';
 import { VideoProps } from '@/types/video';
 
-interface VideoListProps {
+export interface VideoListProps {
   videos: VideoProps[];
 }
 
