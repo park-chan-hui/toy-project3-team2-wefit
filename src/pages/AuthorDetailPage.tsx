@@ -2,8 +2,8 @@ import { useState } from 'react';
 
 import { useParams } from 'react-router-dom';
 
-import Button from '@/components/common/button/Button';
 import VideoList from '@/components/video/VideoList';
+import VideoSortNav from '@/components/video/VideoSortNav';
 import AuthorProfile from '@/components/author/AuthorProfile';
 import { mockUsers } from '@/mocks/mockUsers';
 import { mockVideos } from '@/mocks/mockVideos';
@@ -42,22 +42,7 @@ const AuthorDetailPage = () => {
           <h2 className="font-bold">
             작성자가 업로드한 영상 ({authorVideos.length}개)
           </h2>
-          <nav className="flex items-center gap-2">
-            <Button
-              variant={sortType === 'latest' ? 'primary' : 'outline'}
-              size="small"
-              onClick={() => setSortType('latest')}
-            >
-              최신순
-            </Button>
-            <Button
-              variant={sortType === 'popular' ? 'primary' : 'outline'}
-              size="small"
-              onClick={() => setSortType('popular')}
-            >
-              인기순
-            </Button>
-          </nav>
+          <VideoSortNav sortType={sortType} onSortChange={setSortType} />
         </header>
         <VideoList videos={authorVideos} />
       </section>
