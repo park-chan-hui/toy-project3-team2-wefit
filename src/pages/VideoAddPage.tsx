@@ -25,11 +25,7 @@ const VideoAddPage = () => {
         </div>
       </section>
 
-      <LabelInput
-        title="영상 제목"
-        placeholder="영상 제목을 입력해주세요."
-        description=""
-      />
+      <LabelInput title="영상 제목" placeholder="영상 제목을 입력해주세요." />
 
       <section className="flex flex-col gap-2">
         <p className="text-base font-bold">해시 태그</p>
