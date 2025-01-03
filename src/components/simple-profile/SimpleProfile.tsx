@@ -1,33 +1,33 @@
+import { Link } from 'react-router-dom';
 import { CgProfile } from 'react-icons/cg';
-import { useNavigate } from 'react-router-dom';
 
-type userData = {
-  user_id: string;
-  user_image: string;
-  nickname: string;
-};
+import { UserProps } from '@/types/user';
 
-const SimpleProfile = (userData: userData) => {
-  const navigate = useNavigate();
+type SimpleProfileProps = Pick<
+  UserProps,
+  'user_id' | 'user_image' | 'nickname'
+>;
 
+const SimpleProfile = (userData: SimpleProfileProps) => {
   return (
-    <div
-      onClick={() => navigate(`/author/${userData.user_id}`)}
-      className="inline-block cursor-pointer"
-    >
-      <div className="flex items-center">
+    <Link to={`/author/${userData.user_id}`} className="inline-block">
+      <div className="flex items-center gap-1">
         <div className="flex h-5 w-5 justify-center overflow-auto rounded-full border border-none">
           {userData.user_image ? (
-            <img src={userData.user_image} alt="프로필사진" />
+            <img
+              src={userData.user_image}
+              alt="프로필사진"
+              className="object-cover"
+            />
           ) : (
             <CgProfile size={20} />
           )}
         </div>
-        <div className="ml-1 text-xxsmall font-semibold text-gray">
+        <div className="text-gray-700 text-xs font-semibold">
           {userData.nickname || '데이터가 없습니다.'}
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
