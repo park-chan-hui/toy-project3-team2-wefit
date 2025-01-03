@@ -1,5 +1,6 @@
 const ROUTER_PATH = {
-  HOME: '/',
+  SPLASH: '/',
+  HOME: '/home',
   LOGIN: '/login',
   MY_PAGE: '/mypage',
   MY_PAGE_EDIT: '/mypage/edit',
@@ -7,8 +8,10 @@ const ROUTER_PATH = {
   PLAYLIST_DETAIL: '/playlist/:playlistId',
   VIDEO_ADD: '/video-add',
   VIDEO_DETAIL: '/video/:videoId',
+  VIDEO_EDIT: '/mypage/video-edit/:videoId',
   AUTHOR_DETAIL: '/author/:userId',
   BOOKMARK: '/bookmark',
+  BOOKMARK_CATEGORY_ADD: '/bookmark/category-add',
 };
 
 const NAVIGATION_BAR = {
