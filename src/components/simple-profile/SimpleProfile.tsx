@@ -1,13 +1,14 @@
 import { Link } from 'react-router-dom';
 import { CgProfile } from 'react-icons/cg';
 
-type userData = {
-  user_id: string;
-  user_image: string;
-  nickname: string;
-};
+import { UserProps } from '@/types/user';
 
-const SimpleProfile = (userData: userData) => {
+type SimpleProfileProps = Pick<
+  UserProps,
+  'user_id' | 'user_image' | 'nickname'
+>;
+
+const SimpleProfile = (userData: SimpleProfileProps) => {
   return (
     <Link to={`/author/${userData.user_id}`} className="inline-block">
       <div className="flex items-center gap-1">
