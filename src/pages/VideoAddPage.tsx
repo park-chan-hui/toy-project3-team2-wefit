@@ -3,20 +3,12 @@ import LabelInput from '@/components/common/label-input/LabelInput';
 import { useRef, useState } from 'react';
 import videoUpload from '@/assets/video-upload.svg';
 import thumnailUpload from '@/assets/thumnail-upload.svg';
+import { videoCategories } from '@/mocks/videoCategories';
 
 const VideoAddPage = () => {
   const [imgFile, setImgFile] = useState('');
   const imgRef = useRef<HTMLInputElement>(null);
-  const hashTagArr = [
-    '가슴',
-    '등',
-    '어깨',
-    '하체',
-    '복근',
-    '팔',
-    '엉덩이',
-    '종아리',
-  ];
+  const hashTagArr = videoCategories;
 
   const handleInput = () => {
     imgRef.current?.click();
@@ -66,11 +58,11 @@ const VideoAddPage = () => {
         <p className="mb-2 text-base font-bold">해시 태그</p>
         <div className="flex flex-wrap gap-small">
           {hashTagArr.map(tag => (
-            <Button size="small" variant="outline">
+            <Button key={tag} size="small" variant="outline">
               {tag}
             </Button>
           ))}
-          <Button size="small" variant="outline">
+          <Button key="addHashTag" size="small" variant="outline">
             추가 입력
           </Button>
         </div>
