@@ -41,14 +41,14 @@ const AuthorProfile = ({ author, authorVideos }: AuthorProfileProps) => {
         <dl className="flex items-center gap-8">
           {stats.map(({ label, value }) => (
             <div key={label} className="text-center">
-              <dt className="text-gray-600 text-sm">{label}</dt>
+              <dt className="text-sm">{label}</dt>
               <dd className="text-lg font-bold">{formatNumber(value)}</dd>
             </div>
           ))}
         </dl>
       </article>
 
-      <p className="text-gray-600 px-2 text-sm">{author.description}</p>
+      <p className="px-2 text-sm text-gray">{author.description}</p>
     </section>
   );
 };

@@ -23,7 +23,7 @@ const SimpleProfile = (userData: SimpleProfileProps) => {
             <CgProfile size={20} />
           )}
         </div>
-        <div className="text-gray-700 text-xs font-semibold">
+        <div className="text-xs font-semibold text-gray">
           {userData.nickname || '데이터가 없습니다.'}
         </div>
       </div>
