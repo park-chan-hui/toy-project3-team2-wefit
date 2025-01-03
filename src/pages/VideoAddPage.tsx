@@ -1,11 +1,13 @@
 import Button from '@/components/common/button/Button';
 import LabelInput from '@/components/common/label-input/LabelInput';
 import { useRef, useState } from 'react';
-import { FaMagnifyingGlassPlus } from 'react-icons/fa6';
+import videoUpload from '@/assets/video-upload.svg';
+import thumnailUpload from '@/assets/thumnail-upload.svg';
 
 const VideoAddPage = () => {
   const [imgFile, setImgFile] = useState('');
   const imgRef = useRef<HTMLInputElement>(null);
+  const hashTagArr = ['가슴', '엉덩이', '등', '어깨', '하체', '복근', '팔'];
 
   const handleInput = () => {
     imgRef.current?.click();
@@ -34,12 +36,14 @@ const VideoAddPage = () => {
   return (
     <div className="mt-4">
       <div className="mb-4">
-        <p className="mb-2 text-large font-bold">영상 업로드</p>
-        <div className="flex flex-col items-center">
-          <FaMagnifyingGlassPlus className="mb-5 h-20 w-full" />
-          <p className="text-xsmall font-bold">
-            업로드 할 동영상을 선택하세요!
-          </p>
+        <p className="mb-2 text-base font-bold">영상 업로드</p>
+        <div className="flex flex-col items-center rounded-medium bg-gray-100 p-medium shadow-inner">
+          <img
+            src={videoUpload}
+            alt="영상 업로드 이미지"
+            className="mb-5 h-20 w-full"
+          />
+          <p className="text-xsmall font-bold">원하는 동영상을 추가해보아요!</p>
         </div>
       </div>
       <div className="mb-2">
@@ -47,51 +51,35 @@ const VideoAddPage = () => {
           title="영상 제목"
           placeholder="영상 제목을 입력해주세요."
           description=""
-        ></LabelInput>
+        />
       </div>
       <div className="mb-2">
-        <p className="mb-2 text-large font-bold">해시 태그</p>
+        <p className="mb-2 text-base font-bold">해시 태그</p>
         <div className="flex flex-wrap gap-small">
-          <Button size="small" variant="outline">
-            가슴
-          </Button>
-          <Button size="small" variant="outline">
-            엉덩이
-          </Button>
-          <Button size="small" variant="outline">
-            등
-          </Button>
-          <Button size="small" variant="outline">
-            어깨
-          </Button>
-          <Button size="small" variant="outline">
-            하체
-          </Button>
-          <Button size="small" variant="outline">
-            복근
-          </Button>
-          <Button size="small" variant="outline">
-            팔
-          </Button>
+          {hashTagArr.map(tag => (
+            <Button size="small" variant="outline">
+              {tag}
+            </Button>
+          ))}
           <Button size="small" variant="outline">
             추가 입력
           </Button>
         </div>
       </div>
       <div className="mb-4">
-        <p className="mb-2 text-large font-bold">썸네일</p>
-        <div className="w-full overflow-auto">
+        <p className="mb-2 text-base font-bold">썸네일</p>
+        <div className="w-full overflow-auto rounded-medium">
           {imgFile ? (
             <img src={imgFile} alt="프로필 이미지" />
           ) : (
-            <div className="flex flex-col items-center">
-              <FaMagnifyingGlassPlus
+            <div className="flex flex-col items-center bg-gray-100 p-medium shadow-inner">
+              <img
+                src={thumnailUpload}
+                alt="썸네일 업로드 이미지"
                 className="mb-5 h-20 w-full cursor-pointer"
                 onClick={handleInput}
               />
-              <p className="text-xsmall font-bold">
-                업로드할 썸네일을 선택해 보세요!
-              </p>
+              <p className="text-xsmall font-bold">썸네일을 추가해보아요!</p>
             </div>
           )}
         </div>
