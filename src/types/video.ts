@@ -18,4 +18,9 @@ type VideoCategoryProps = {
   onCategoryChange: (category: string) => void;
 };
 
-export type { VideoProps, VideoCategoryProps };
+type VideoSortNavProps = {
+  sortType: 'latest' | 'popular';
+  onSortChange: (type: 'latest' | 'popular') => void;
+};
+
+export type { VideoProps, VideoCategoryProps, VideoSortNavProps };
