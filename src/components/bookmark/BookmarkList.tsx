@@ -1,5 +1,5 @@
 import BookmarkItem from './BookmarkItem';
-import { VideoListProps } from '@/components/video/VideoList';
+import { VideoListProps } from '@/types/video';
 
 const BookmarkList = ({ videos }: VideoListProps) => {
   return (

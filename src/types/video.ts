@@ -18,4 +18,15 @@ type VideoCategoryProps = {
   onCategoryChange: (category: string) => void;
 };
 
-export type { VideoProps, VideoCategoryProps };
+interface VideoListProps {
+  videos: VideoProps[];
+}
+
+type VideoStatsProps = {
+  created_at: Date;
+  like_heart: number;
+  comments: string[];
+  is_bookmarked: boolean;
+};
+
+export type { VideoProps, VideoCategoryProps, VideoListProps, VideoStatsProps };
