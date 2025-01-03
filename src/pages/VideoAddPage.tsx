@@ -7,7 +7,16 @@ import thumnailUpload from '@/assets/thumnail-upload.svg';
 const VideoAddPage = () => {
   const [imgFile, setImgFile] = useState('');
   const imgRef = useRef<HTMLInputElement>(null);
-  const hashTagArr = ['가슴', '엉덩이', '등', '어깨', '하체', '복근', '팔'];
+  const hashTagArr = [
+    '가슴',
+    '등',
+    '어깨',
+    '하체',
+    '복근',
+    '팔',
+    '엉덩이',
+    '종아리',
+  ];
 
   const handleInput = () => {
     imgRef.current?.click();
@@ -34,7 +43,7 @@ const VideoAddPage = () => {
     }
   };
   return (
-    <div className="mt-4">
+    <>
       <div className="mb-4">
         <p className="mb-2 text-base font-bold">영상 업로드</p>
         <div className="flex flex-col items-center rounded-medium bg-gray-100 p-medium shadow-inner">
@@ -105,7 +114,7 @@ const VideoAddPage = () => {
           취소
         </Button>
       </div>
-    </div>
+    </>
   );
 };
 
