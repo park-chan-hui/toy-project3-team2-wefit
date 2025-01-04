@@ -15,27 +15,30 @@ const BookmarkItem = ({
   video_id,
 }: VideoProps) => {
   const userData = mockUsers.find(user => user.user_id === user_id);
+
   return (
     <article className="mb-1 flex h-16 w-full">
-      <figure className="relative mb-3 h-full w-32">
+      <figure className="relative flex h-full w-32 items-center">
         <Link to={`/video/${video_id}`}>
           <img
             src={thumbnail}
             alt={title}
-            className="aspect-video h-full w-full rounded-small object-cover"
+            className="aspect-video h-full max-w-32 rounded-small object-cover"
           />
         </Link>
       </figure>
-      <div className="ml-3 flex flex-col">
+      <div className="ml-3 flex w-full min-w-0 flex-col">
         <Link to={`/video/${video_id}`}>
-          <p className="mb-1 w-56 overflow-hidden text-ellipsis whitespace-nowrap text-black">
+          <p className="mb-1 w-full overflow-hidden text-ellipsis whitespace-nowrap text-black">
             {title}
           </p>
         </Link>
-        {userData && <SimpleProfile {...userData} />}
-        <BookmarkStatus
-          {...{ like_heart, comments, created_at, is_bookmarked }}
-        />
+        <div className="flex w-full flex-row justify-between">
+          {userData && <SimpleProfile {...userData} />}
+          <BookmarkStatus
+            {...{ like_heart, comments, created_at, is_bookmarked }}
+          />
+        </div>
       </div>
     </article>
   );
