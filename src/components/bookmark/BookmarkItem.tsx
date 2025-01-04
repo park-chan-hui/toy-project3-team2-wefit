@@ -33,8 +33,10 @@ const BookmarkItem = ({
             {title}
           </p>
         </Link>
-        <div className="flex w-full flex-row justify-between">
-          {userData && <SimpleProfile {...userData} />}
+        <div className="flex w-full flex-row items-center justify-between">
+          {userData && (
+            <SimpleProfile {...userData} imageSize="large" textSize="small" />
+          )}
           <BookmarkStatus
             {...{ like_heart, comments, created_at, is_bookmarked }}
           />
