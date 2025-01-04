@@ -13,7 +13,7 @@ const VideoStats = ({
   like_heart,
 }: VideoStatsProps) => {
   return (
-    <div className="text-gray-600 flex items-center gap-2">
+    <div className="flex items-center gap-2 text-gray">
       <time className="flex items-center">
         <BsClockHistory size={16} className="mr-1" />
         <span className="text-xs">{getTimeAgo(created_at)}</span>

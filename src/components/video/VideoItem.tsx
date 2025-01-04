@@ -44,7 +44,7 @@ const VideoItem = ({
 
           <footer className="flex flex-wrap gap-1">
             {hash_tag.map((tag, index) => (
-              <span key={index} className="text-gray-600 text-xs">
+              <span key={index} className="text-xs text-gray">
                 #{tag}
               </span>
             ))}
