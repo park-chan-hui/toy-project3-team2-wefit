@@ -8,10 +8,10 @@ const BookmarkItem = ({
   thumbnail,
   user_id,
   title,
-  like_heart,
+  //like_heart,
   is_bookmarked,
-  comments,
-  created_at,
+  //comments,
+  //created_at,
   video_id,
 }: VideoProps) => {
   const userData = mockUsers.find(user => user.user_id === user_id);
@@ -37,9 +37,7 @@ const BookmarkItem = ({
           {userData && (
             <SimpleProfile {...userData} imageSize="large" textSize="small" />
           )}
-          <BookmarkStatus
-            {...{ like_heart, comments, created_at, is_bookmarked }}
-          />
+          <BookmarkStatus is_bookmarked={is_bookmarked} />
         </div>
       </div>
     </article>

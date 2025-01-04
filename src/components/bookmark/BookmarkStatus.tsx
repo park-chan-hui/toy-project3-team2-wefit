@@ -2,7 +2,9 @@ import { FaStar } from 'react-icons/fa';
 import { FaRegTrashAlt } from 'react-icons/fa';
 import { VideoStatsProps } from '@/types/video';
 
-const BookmarkStatus = ({ is_bookmarked }: VideoStatsProps) => {
+const BookmarkStatus = ({
+  is_bookmarked,
+}: Pick<VideoStatsProps, 'is_bookmarked'>) => {
   return (
     <div className="mt-1 flex w-14 justify-between text-gray">
       <div className="flex flex-grow items-center">
