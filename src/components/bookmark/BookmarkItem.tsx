@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import BookmarkStatus from './BookmarkStatus';
-import SimpleProfile from '../simple-profile/SimpleProfile';
+import SimpleProfile from '../common/simple-profile/SimpleProfile';
 import { mockUsers } from '@/mocks/mockUsers';
 import { VideoProps } from '@/types/video';
 
