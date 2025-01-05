@@ -6,7 +6,7 @@ import { ThumbnailUploadProps } from '@/types/thumbnail';
 const ThumbnailUpload = ({
   imgFile,
   onImageChange,
-  edit,
+  isEditPage,
 }: ThumbnailUploadProps) => {
   const imgRef = useRef<HTMLInputElement>(null);
 
@@ -28,7 +28,7 @@ const ThumbnailUpload = ({
     }
   };
 
-  if (edit) {
+  if (isEditPage) {
     return (
       <figure className="flex flex-col gap-2">
         <p className="text-base font-bold">썸네일</p>

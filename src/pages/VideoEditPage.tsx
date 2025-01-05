@@ -26,7 +26,7 @@ const VideoEditPage = () => {
   };
   return (
     <main className="flex flex-col gap-4">
-      <VideoUploadBox edit videoURL={video.video_url} />
+      <VideoUploadBox isEditPage videoURL={video.video_url} />
 
       <LabelInput
         title="영상 제목"
@@ -53,7 +53,11 @@ const VideoEditPage = () => {
         </nav>
       </section>
 
-      <ThumbnailUpload imgFile={imgFile} onImageChange={setImgFile} edit />
+      <ThumbnailUpload
+        imgFile={imgFile}
+        onImageChange={setImgFile}
+        isEditPage
+      />
 
       <div className="flex w-full gap-small">
         <Button type="submit" className="w-1/2">
