@@ -10,7 +10,6 @@ const VideoEditPage = () => {
   const video = mockVideos[0];
   const hashTagList = [...videoCategories, ...video.hash_tag];
   const setHashTagList = new Set(hashTagList);
-  console.log(setHashTagList);
   const uniqueHashTagList = [...setHashTagList];
 
   const [imgFile, setImgFile] = useState(video.thumbnail);
@@ -41,7 +40,7 @@ const VideoEditPage = () => {
           {uniqueHashTagList.map((tag, index) => (
             <Button
               size="small"
-              variant={`${selectedTags.includes(tag) ? 'primary' : 'outline'}`}
+              variant={selectedTags.includes(tag) ? 'primary' : 'outline'}
               key={index}
               onClick={() => toggleTag(tag)}
             >

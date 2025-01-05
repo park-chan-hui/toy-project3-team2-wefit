@@ -32,7 +32,7 @@ const VideoAddPage = () => {
           {videoCategories.map((tag, index) => (
             <Button
               size="small"
-              variant={`${selectedTags.includes(tag) ? 'primary' : 'outline'}`}
+              variant={selectedTags.includes(tag) ? 'primary' : 'outline'}
               key={index}
               onClick={() => toggleTag(tag)}
             >

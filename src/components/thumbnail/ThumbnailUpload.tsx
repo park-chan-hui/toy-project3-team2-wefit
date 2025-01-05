@@ -28,17 +28,11 @@ const ThumbnailUpload = ({
     }
   };
 
-  return (
-    <figure className="flex flex-col gap-2">
-      <p className="text-base font-bold">썸네일</p>
-      <div className="aspect-video w-full overflow-auto rounded-medium">
-        {imgFile && !edit ? (
-          <img
-            src={imgFile}
-            alt="프로필 이미지"
-            className="h-full w-full object-cover"
-          />
-        ) : edit ? (
+  if (edit) {
+    return (
+      <figure className="flex flex-col gap-2">
+        <p className="text-base font-bold">썸네일</p>
+        <div className="aspect-video w-full overflow-auto rounded-medium">
           <div className="flex aspect-video cursor-pointer flex-col items-center justify-center bg-gray-100 p-0 shadow-inner">
             <img
               src={imgFile}
@@ -56,6 +50,29 @@ const ThumbnailUpload = ({
               <p className="text-small font-bold">썸네일을 추가해보아요!</p>
             </div>
           </div>
+        </div>
+        <input
+          id="profileImg"
+          ref={imgRef}
+          type="file"
+          accept="image/jpeg, image/png, image/jpg"
+          onChange={saveImgFile}
+          className="hidden"
+        />
+      </figure>
+    );
+  }
+
+  return (
+    <figure className="flex flex-col gap-2">
+      <p className="text-base font-bold">썸네일</p>
+      <div className="aspect-video w-full overflow-auto rounded-medium">
+        {imgFile ? (
+          <img
+            src={imgFile}
+            alt="프로필 이미지"
+            className="h-full w-full object-cover"
+          />
         ) : (
           <div className="flex aspect-video flex-col items-center justify-center bg-gray-100 p-medium shadow-inner">
             <img
