@@ -3,18 +3,31 @@ import LabelInput from '@/components/common/label-input/LabelInput';
 import { useState } from 'react';
 import { videoCategories } from '@/mocks/videoCategories';
 import VideoUploadBox from '@/components/video/VideoUploadBox';
-import { VideoProps } from '@/types/video';
 import ThumbnailUpload from '@/components/thumbnail/ThumbnailUpload';
+import { mockVideos } from '@/mocks/mockVideos';
 
-const VideoEditPage = (video: VideoProps) => {
+const VideoEditPage = () => {
+  const video = mockVideos[0];
+  const hashTagList = [...videoCategories, ...video.hash_tag];
+  const setHashTagList = new Set(hashTagList);
+  console.log(setHashTagList);
+  const uniqueHashTagList = [...setHashTagList];
+
   const [imgFile, setImgFile] = useState(video.thumbnail);
+  const [selectedTags, setSelectedTags] = useState<string[]>(video.hash_tag);
+
+  const toggleTag = (tag: string) => {
+    setSelectedTags(prev =>
+      prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag],
+    );
+  };
 
   const handleImageReset = () => {
     setImgFile(video.thumbnail);
   };
   return (
     <main className="flex flex-col gap-4">
-      <VideoUploadBox edit />
+      <VideoUploadBox edit videoURL={video.video_url} />
 
       <LabelInput
         title="영상 제목"
@@ -25,8 +38,13 @@ const VideoEditPage = (video: VideoProps) => {
       <section className="flex flex-col gap-2">
         <p className="text-base font-bold">해시 태그</p>
         <nav className="flex flex-wrap gap-small">
-          {videoCategories.map((tag, index) => (
-            <Button size="small" variant="outline" key={index}>
+          {uniqueHashTagList.map((tag, index) => (
+            <Button
+              size="small"
+              variant={`${selectedTags.includes(tag) ? 'primary' : 'outline'}`}
+              key={index}
+              onClick={() => toggleTag(tag)}
+            >
               {tag}
             </Button>
           ))}
@@ -36,7 +54,7 @@ const VideoEditPage = (video: VideoProps) => {
         </nav>
       </section>
 
-      <ThumbnailUpload imgFile={imgFile} onImageChange={setImgFile} />
+      <ThumbnailUpload imgFile={imgFile} onImageChange={setImgFile} edit />
 
       <div className="flex w-full gap-small">
         <Button type="submit" className="w-1/2">

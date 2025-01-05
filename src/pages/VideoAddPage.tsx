@@ -8,6 +8,13 @@ import VideoUploadBox from '@/components/video/VideoUploadBox';
 
 const VideoAddPage = () => {
   const [imgFile, setImgFile] = useState('');
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+
+  const toggleTag = (tag: string) => {
+    setSelectedTags(prev =>
+      prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag],
+    );
+  };
 
   const handleImageReset = () => {
     setImgFile('');
@@ -23,7 +30,12 @@ const VideoAddPage = () => {
         <p className="text-base font-bold">해시 태그</p>
         <nav className="flex flex-wrap gap-small">
           {videoCategories.map((tag, index) => (
-            <Button size="small" variant="outline" key={index}>
+            <Button
+              size="small"
+              variant={`${selectedTags.includes(tag) ? 'primary' : 'outline'}`}
+              key={index}
+              onClick={() => toggleTag(tag)}
+            >
               {tag}
             </Button>
           ))}
