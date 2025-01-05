@@ -3,7 +3,11 @@ import { useRef } from 'react';
 import thumnailUpload from '@/assets/thumnail-upload.svg';
 import { ThumbnailUploadProps } from '@/types/thumbnail';
 
-const ThumbnailUpload = ({ imgFile, onImageChange }: ThumbnailUploadProps) => {
+const ThumbnailUpload = ({
+  imgFile,
+  onImageChange,
+  edit,
+}: ThumbnailUploadProps) => {
   const imgRef = useRef<HTMLInputElement>(null);
 
   const handleInput = () => {
@@ -28,12 +32,30 @@ const ThumbnailUpload = ({ imgFile, onImageChange }: ThumbnailUploadProps) => {
     <figure className="flex flex-col gap-2">
       <p className="text-base font-bold">썸네일</p>
       <div className="aspect-video w-full overflow-auto rounded-medium">
-        {imgFile ? (
+        {imgFile && !edit ? (
           <img
             src={imgFile}
             alt="프로필 이미지"
             className="h-full w-full object-cover"
           />
+        ) : edit ? (
+          <div className="flex aspect-video cursor-pointer flex-col items-center justify-center bg-gray-100 p-0 shadow-inner">
+            <img
+              src={imgFile}
+              alt="프로필 이미지"
+              className="h-full w-full object-cover opacity-40"
+              onClick={handleInput}
+            />
+            <div className="absolute z-10 flex flex-col">
+              <img
+                src={thumnailUpload}
+                alt="썸네일 업로드 이미지"
+                className="z-10"
+                onClick={handleInput}
+              />
+              <p className="text-small font-bold">썸네일을 추가해보아요!</p>
+            </div>
+          </div>
         ) : (
           <div className="flex aspect-video flex-col items-center justify-center bg-gray-100 p-medium shadow-inner">
             <img
@@ -42,9 +64,7 @@ const ThumbnailUpload = ({ imgFile, onImageChange }: ThumbnailUploadProps) => {
               className="cursor-pointer"
               onClick={handleInput}
             />
-            <p className="text-xsmall font-bold text-gray">
-              썸네일을 추가해보아요!
-            </p>
+            <p className="text-small font-bold">썸네일을 추가해보아요!</p>
           </div>
         )}
       </div>
