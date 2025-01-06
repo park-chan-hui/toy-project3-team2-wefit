@@ -37,7 +37,7 @@ const CommentItem = ({
         </figure>
       </article>
 
-      <article className="mx-4 flex flex-col gap-2">
+      <article className="mx-6 flex flex-col gap-2">
         <p className="whitespace-pre-wrap text-sm">
           {isReply ? comment.reply_comment : comment.comment}
         </p>
