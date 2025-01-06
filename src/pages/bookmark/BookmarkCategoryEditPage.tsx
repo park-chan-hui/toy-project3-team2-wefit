@@ -40,28 +40,35 @@ const BookmarkCategoryEditPage = (thumbnail: ThumbnailUploadProps) => {
         onImageChange={setImgFile}
         isEditPage={false}
       />
-      <p className="my-2 text-base font-bold">카테고리에 넣을 영상</p>
-      <div className="my-2 h-[32vh] w-full overflow-y-auto">
+      <p className="flex flex-col gap-2 text-base font-bold">
+        카테고리에 넣을 영상
+      </p>
+      <div className="flex h-[32vh] w-full flex-col gap-4 overflow-y-auto">
         {filteredVideos.map(video => (
-          <div key={video.video_id} className="my-3 flex items-center">
+          <div key={video.video_id} className="flex items-center gap-2">
             {checkedVideos[video.video_id] ? (
               <FaCheckCircle
-                className="mx-2 flex-shrink-0 cursor-pointer text-3xl"
+                className="flex-shrink-0 cursor-pointer text-3xl"
                 onClick={() => handleClick(video.video_id)}
               />
             ) : (
               <FaRegCircle
-                className="mx-2 flex-shrink-0 cursor-pointer text-3xl"
+                className="flex-shrink-0 cursor-pointer text-3xl"
                 onClick={() => handleClick(video.video_id)}
               />
             )}
-            <div className="flex-1 overflow-hidden">
-              <BookmarkItem {...video} />
+            <div
+              className="w-full cursor-pointer overflow-hidden"
+              onClick={() => handleClick(video.video_id)}
+            >
+              <div className="pointer-events-none flex-1 overflow-hidden">
+                <BookmarkItem {...video} />
+              </div>
             </div>
           </div>
         ))}
       </div>
-      <Button variant="secondary" className="w-full rounded-medium">
+      <Button variant="secondary" className="mt-4 w-full rounded-medium">
         해당 카테고리 추가
       </Button>
     </>
