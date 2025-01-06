@@ -3,6 +3,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import NavigationBar from '@/components/navigation-bar/NavigationBar';
 import LogoHeader from '@/components/header/LogoHeader';
 import BackHeader from '@/components/header/BackHeader';
+import ScrollToTop from '@/components/common/scroll/ScrollToTop';
 import { ROUTER_PATH } from '@/constants/constants';
 import { cn } from '@/utils/cn';
 
@@ -21,6 +22,7 @@ const Layout = () => {
 
   return (
     <main className="flex min-h-screen justify-center">
+      <ScrollToTop />
       <section className="relative w-full max-w-container bg-white">
         {!isLoginPage &&
           (shouldShowBackButton ? <BackHeader /> : <LogoHeader />)}
