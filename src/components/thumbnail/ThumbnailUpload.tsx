@@ -3,7 +3,11 @@ import { useRef } from 'react';
 import thumnailUpload from '@/assets/thumnail-upload.svg';
 import { ThumbnailUploadProps } from '@/types/thumbnail';
 
-const ThumbnailUpload = ({ imgFile, onImageChange }: ThumbnailUploadProps) => {
+const ThumbnailUpload = ({
+  imgFile,
+  onImageChange,
+  isEditPage,
+}: ThumbnailUploadProps) => {
   const imgRef = useRef<HTMLInputElement>(null);
 
   const handleInput = () => {
@@ -24,6 +28,32 @@ const ThumbnailUpload = ({ imgFile, onImageChange }: ThumbnailUploadProps) => {
     }
   };
 
+  if (isEditPage) {
+    return (
+      <figure className="flex flex-col gap-2">
+        <p className="text-base font-bold">썸네일</p>
+        <div className="aspect-video w-full overflow-auto rounded-medium">
+          <div className="flex aspect-video cursor-pointer flex-col items-center justify-center bg-gray-100 p-0 shadow-inner">
+            <img
+              src={imgFile}
+              alt="프로필 이미지"
+              className="h-full w-full object-cover"
+              onClick={handleInput}
+            />
+          </div>
+        </div>
+        <input
+          id="profileImg"
+          ref={imgRef}
+          type="file"
+          accept="image/jpeg, image/png, image/jpg"
+          onChange={saveImgFile}
+          className="hidden"
+        />
+      </figure>
+    );
+  }
+
   return (
     <figure className="flex flex-col gap-2">
       <p className="text-base font-bold">썸네일</p>
@@ -42,9 +72,7 @@ const ThumbnailUpload = ({ imgFile, onImageChange }: ThumbnailUploadProps) => {
               className="cursor-pointer"
               onClick={handleInput}
             />
-            <p className="text-xsmall font-bold text-gray">
-              썸네일을 추가해보아요!
-            </p>
+            <p className="text-small font-bold">썸네일을 추가해보아요!</p>
           </div>
         )}
       </div>

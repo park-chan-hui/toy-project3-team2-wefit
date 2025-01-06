@@ -3,11 +3,18 @@ import { useState } from 'react';
 import Button from '@/components/common/button/Button';
 import LabelInput from '@/components/common/label-input/LabelInput';
 import ThumbnailUpload from '@/components/thumbnail/ThumbnailUpload';
-import videoUpload from '@/assets/video-upload.svg';
 import { videoCategories } from '@/mocks/videoCategories';
+import VideoUploadBox from '@/components/video/VideoUploadBox';
 
 const VideoAddPage = () => {
   const [imgFile, setImgFile] = useState('');
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+
+  const toggleTag = (tag: string) => {
+    setSelectedTags(prev =>
+      prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag],
+    );
+  };
 
   const handleImageReset = () => {
     setImgFile('');
@@ -15,15 +22,7 @@ const VideoAddPage = () => {
 
   return (
     <main className="flex flex-col gap-4">
-      <section className="flex flex-col gap-2">
-        <p className="text-base font-bold">영상 업로드</p>
-        <div className="flex aspect-video flex-col items-center justify-center rounded-medium bg-gray-100 p-medium shadow-inner">
-          <img src={videoUpload} alt="영상 업로드 이미지" />
-          <p className="text-xsmall font-bold text-gray">
-            원하는 동영상을 추가해보아요!
-          </p>
-        </div>
-      </section>
+      <VideoUploadBox />
 
       <LabelInput title="영상 제목" placeholder="영상 제목을 입력해주세요." />
 
@@ -31,11 +30,16 @@ const VideoAddPage = () => {
         <p className="text-base font-bold">해시 태그</p>
         <nav className="flex flex-wrap gap-small">
           {videoCategories.map((tag, index) => (
-            <Button size="small" variant="outline" key={index}>
+            <Button
+              size="small"
+              variant={selectedTags.includes(tag) ? 'primary' : 'outline'}
+              key={index}
+              onClick={() => toggleTag(tag)}
+            >
               {tag}
             </Button>
           ))}
-          <Button size="small" variant="outline">
+          <Button key="addHashTag" size="small" variant="outline">
             추가 입력
           </Button>
         </nav>
