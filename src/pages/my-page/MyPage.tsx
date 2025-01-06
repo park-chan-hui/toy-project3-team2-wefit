@@ -22,8 +22,8 @@ const MyPage = () => {
       <MyPageProfile userData={userData} />
 
       <section>
-        <p className="my-3 text-lg font-bold">내가 시청한 동영상</p>
-        <hr className="my-1" aria-hidden="true" />
+        <p className="text-lg font-bold">내가 시청한 동영상</p>
+        <hr className="my-2" aria-hidden="true" />
         <ScrollContainer>
           <WatchedVideoList videos={watchedVideos} />
         </ScrollContainer>
@@ -31,20 +31,20 @@ const MyPage = () => {
 
       <section>
         <div className="flex items-center justify-between">
-          <p className="my-3 text-lg font-bold">내가 업로드한 동영상</p>
+          <p className="text-lg font-bold">내가 업로드한 동영상</p>
           <Link to={MY_UPLOAD_VIDEO}>
-            <Button variant="primary">더보기</Button>
+            <Button size="small">더보기</Button>
           </Link>
         </div>
-        <hr className="my-1" aria-hidden="true" />
+        <hr className="my-2" aria-hidden="true" />
         <ScrollContainer>
           <UploadVideoList videos={uploadVideos} />
         </ScrollContainer>
       </section>
 
       <section>
-        <p className="my-3 text-lg font-bold">내 댓글</p>
-        <hr className="my-1" aria-hidden="true" />
+        <p className="text-lg font-bold">내 댓글</p>
+        <hr className="my-2" aria-hidden="true" />
         <div>
           <p className="overflow-hidden text-ellipsis whitespace-nowrap font-bold">
             댓글이 달린 동영상: 댓글 동영상
