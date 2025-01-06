@@ -74,4 +74,21 @@ const mockVideos = [
   },
 ];
 
-export { mockVideos };
+const mockBookmark = [
+  {
+    bookmark_id: '1',
+    title: '내 가슴을 울리는 북마크1🔥🔥🔥',
+    thumbnail: thumbnail1,
+    created_at: new Date('2024-12-02'),
+    video_list: [mockVideos[1], mockVideos[2], mockVideos[3]],
+  },
+  {
+    bookmark_id: '2',
+    title: '내 가슴을 울리는 북마크2🔥🔥🔥',
+    thumbnail: thumbnail2,
+    created_at: new Date('2025-01-05'),
+    video_list: [mockVideos[1], mockVideos[3]],
+  },
+];
+
+export { mockVideos, mockBookmark };
