@@ -51,10 +51,10 @@ const SimpleProfile = (userData: SimpleProfileProps) => {
           )}
         </div>
         <div
-          className={
-            (cn('font-semibold text-gray', textSizeStyles[textSize]),
-            'overflow-hidden text-ellipsis whitespace-nowrap')
-          }
+          className={cn(
+            'overflow-hidden text-ellipsis whitespace-nowrap font-semibold text-gray',
+            textSizeStyles[textSize],
+          )}
         >
           {userData.nickname || '데이터가 없습니다.'}
         </div>
