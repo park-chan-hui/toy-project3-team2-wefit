@@ -57,7 +57,7 @@ const ThumbnailUpload = ({
 
   return (
     <figure className="flex flex-col gap-2">
-      <p className="text-base font-bold">썸네일</p>
+      <p className="text-base font-bold">{title}</p>
       <div className="aspect-video w-full overflow-auto rounded-medium">
         {imgFile ? (
           <img
