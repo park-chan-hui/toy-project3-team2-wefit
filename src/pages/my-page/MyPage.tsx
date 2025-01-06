@@ -1,6 +1,7 @@
 import Button from '@/components/common/button/Button';
 import MyPageProfile from '@/components/my-page/MyPageProfile';
-import MyPageVideoList from '@/components/my-page/MyPageVideoList';
+import UploadVideoList from '@/components/my-page/UploadVideoList';
+import WatchedVideoList from '@/components/my-page/WatchedVideoList';
 import { ROUTER_PATH } from '@/constants/constants';
 import { mockUsers } from '@/mocks/mockUsers';
 import { mockVideos } from '@/mocks/mockVideos';
@@ -17,14 +18,14 @@ const MyPage = () => {
     userData.my_watched_video.includes(watch.video_id),
   );
   return (
-    <main>
+    <main className="flex flex-col gap-2">
       <MyPageProfile userData={userData} />
 
       <section>
         <p className="my-3 text-lg font-bold">내가 시청한 동영상</p>
-        <hr className="my-3" aria-hidden="true" />
+        <hr className="my-1" aria-hidden="true" />
         <ScrollContainer>
-          <MyPageVideoList videos={watchedVideos} />
+          <WatchedVideoList videos={watchedVideos} />
         </ScrollContainer>
       </section>
 
@@ -35,15 +36,15 @@ const MyPage = () => {
             <Button variant="primary">더보기</Button>
           </Link>
         </div>
-        <hr className="my-3" aria-hidden="true" />
+        <hr className="my-1" aria-hidden="true" />
         <ScrollContainer>
-          <MyPageVideoList videos={uploadVideos} myUploadVideos />
+          <UploadVideoList videos={uploadVideos} />
         </ScrollContainer>
       </section>
 
       <section>
         <p className="my-3 text-lg font-bold">내 댓글</p>
-        <hr className="my-3" aria-hidden="true" />
+        <hr className="my-1" aria-hidden="true" />
         <div>
           <p className="overflow-hidden text-ellipsis whitespace-nowrap font-bold">
             댓글이 달린 동영상: 댓글 동영상

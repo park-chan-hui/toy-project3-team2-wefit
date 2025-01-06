@@ -11,8 +11,7 @@ const MyPageVideoItem = ({
   like_heart,
   comments,
   video_id,
-  myUploadVideos,
-}: VideoProps & { myUploadVideos?: boolean }) => {
+}: VideoProps) => {
   const userData = mockUsers.find(user => user.user_id === user_id);
 
   return (
@@ -29,15 +28,15 @@ const MyPageVideoItem = ({
 
       <div className="px-1">
         <div className="mb-2 flex items-center justify-between">
-          {userData && <SimpleProfile imageSize="small" {...userData} />}
+          {userData && <SimpleProfile {...userData} />}
         </div>
 
         <Link to={`/video/${video_id}`}>
-          <h2 className="overflow-hidden text-ellipsis whitespace-nowrap text-sm font-bold text-black">
+          <h2 className="overflow-hidden text-ellipsis whitespace-nowrap text-base font-bold text-black">
             {title}
           </h2>
         </Link>
-        {myUploadVideos && <MyPageVideoStats {...{ comments, like_heart }} />}
+        <MyPageVideoStats {...{ comments, like_heart }} />
       </div>
     </article>
   );
