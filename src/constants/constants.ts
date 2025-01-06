@@ -4,6 +4,7 @@ const ROUTER_PATH = {
   LOGIN: '/login',
   MY_PAGE: '/mypage',
   MY_PAGE_EDIT: '/mypage/edit',
+  MY_UPLOAD_VIDEO: '/mypage/myupload-video',
   PLAYLIST: '/playlist',
   PLAYLIST_DETAIL: '/playlist/:playlistId',
   VIDEO_ADD: '/video-add',

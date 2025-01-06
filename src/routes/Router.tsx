@@ -15,6 +15,8 @@ import BookmarkCategoryEditPage from '@/pages/bookmark/BookmarkCategoryEditPage'
 import PlayListPage from '@/pages/playlist/PlayListPage';
 import PlayListDetailPage from '@/pages/playlist/PlayListDetailPage';
 import { ROUTER_PATH } from '@/constants/constants';
+import MyUploadVideoPage from '@/pages/my-page/MyUploadVideoPage';
+
 const Router = () => {
   const {
     SPLASH,
@@ -27,6 +29,7 @@ const Router = () => {
     LOGIN,
     AUTHOR_DETAIL,
     MY_PAGE_EDIT,
+    MY_UPLOAD_VIDEO,
     PLAYLIST_DETAIL,
     VIDEO_DETAIL,
     VIDEO_EDIT,
@@ -47,6 +50,7 @@ const Router = () => {
           children: [
             { index: true, element: <MyPage /> },
             { path: MY_PAGE_EDIT, element: <MyPageEdit /> },
+            { path: MY_UPLOAD_VIDEO, element: <MyUploadVideoPage /> },
             { path: VIDEO_EDIT, element: <VideoEditPage /> },
           ],
         },
