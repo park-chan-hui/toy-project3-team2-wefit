@@ -21,20 +21,6 @@ const mockComments = [
         updated_at: new Date('2024-01-01'),
         thumb_up: 244,
         thumb_down: 0,
-        replies: [
-          {
-            reply_id: 'reply100',
-            comment_id: 'comment1',
-            user_id: 'user5',
-            nickname: '운동하는 개발자',
-            reply_comment: '찐이다 이거',
-            created_at: new Date('2025-01-01'),
-            updated_at: new Date('2024-01-01'),
-            thumb_up: 100,
-            thumb_down: 0,
-            replies: [],
-          },
-        ],
       },
       {
         reply_id: 'reply2',
