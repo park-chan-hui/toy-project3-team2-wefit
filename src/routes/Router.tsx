@@ -15,6 +15,7 @@ import BookmarkCategoryEditPage from '@/pages/bookmark/BookmarkCategoryEditPage'
 import PlayListPage from '@/pages/playlist/PlayListPage';
 import PlayListDetailPage from '@/pages/playlist/PlayListDetailPage';
 import { ROUTER_PATH } from '@/constants/constants';
+import BookmarkCategoryPage from '@/pages/bookmark/BookmarkCategoryPage';
 const Router = () => {
   const {
     SPLASH,
@@ -24,6 +25,7 @@ const Router = () => {
     VIDEO_ADD,
     BOOKMARK,
     BOOKMARK_CATEGORY_ADD,
+    BOOKMARK_CATEGORY,
     LOGIN,
     AUTHOR_DETAIL,
     MY_PAGE_EDIT,
@@ -66,6 +68,10 @@ const Router = () => {
             {
               path: BOOKMARK_CATEGORY_ADD,
               element: <BookmarkCategoryEditPage />,
+            },
+            {
+              path: BOOKMARK_CATEGORY,
+              element: <BookmarkCategoryPage />,
             },
           ],
         },
