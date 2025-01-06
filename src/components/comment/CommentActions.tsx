@@ -1,8 +1,9 @@
 import { IoMdThumbsUp, IoMdThumbsDown } from 'react-icons/io';
-import { IoChevronUp, IoChevronDown } from 'react-icons/io5';
+import { IoChevronDown } from 'react-icons/io5';
 
 import { formatNumber } from '@/utils/formatNumber';
 import { CommentActionsProps } from '@/types/comment';
+import { cn } from '@/utils/cn';
 
 const CommentActions = ({
   thumb_up,
@@ -29,7 +30,14 @@ const CommentActions = ({
           className="flex items-center gap-1 transition-colors duration-300 hover:text-primary"
         >
           답글{' '}
-          {isExpanded ? <IoChevronUp size={16} /> : <IoChevronDown size={16} />}
+          <div
+            className={cn(
+              'transform transition-transform duration-300',
+              isExpanded && 'rotate-180',
+            )}
+          >
+            <IoChevronDown size={16} />
+          </div>
         </button>
       )}
     </div>
