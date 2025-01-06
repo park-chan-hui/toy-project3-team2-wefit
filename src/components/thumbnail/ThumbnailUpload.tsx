@@ -37,18 +37,9 @@ const ThumbnailUpload = ({
             <img
               src={imgFile}
               alt="프로필 이미지"
-              className="h-full w-full object-cover opacity-40"
+              className="h-full w-full object-cover"
               onClick={handleInput}
             />
-            <div className="absolute z-10 flex flex-col">
-              <img
-                src={thumnailUpload}
-                alt="썸네일 업로드 이미지"
-                className="z-10"
-                onClick={handleInput}
-              />
-              <p className="text-small font-bold">썸네일을 추가해보아요!</p>
-            </div>
           </div>
         </div>
         <input
