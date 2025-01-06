@@ -8,9 +8,9 @@ type VideoProps = {
   title: string;
   hash_tag: string[];
   like_heart: number;
-  comments: string[];
   is_bookmarked: boolean;
   created_at: Date;
+  isVideoDetailPage?: boolean;
 };
 
 type VideoCategoryProps = {
@@ -22,11 +22,11 @@ interface VideoListProps {
   videos: VideoProps[];
 }
 
-type VideoStatsProps = {
-  created_at: Date;
-  like_heart: number;
-  comments: string[];
-  is_bookmarked: boolean;
-};
+type VideoStatsProps = Omit<
+  Pick<VideoProps, 'created_at' | 'like_heart' | 'is_bookmarked'> & {
+    video_id: string;
+  },
+  ''
+>;
 
 export type { VideoProps, VideoCategoryProps, VideoListProps, VideoStatsProps };
