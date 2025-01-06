@@ -1,9 +1,10 @@
 import { useRef } from 'react';
-
 import thumnailUpload from '@/assets/thumnail-upload.svg';
 import { ThumbnailUploadProps } from '@/types/thumbnail';
 
 const ThumbnailUpload = ({
+  title = '썸네일',
+  message = '썸네일을 추가해보아요!',
   imgFile,
   onImageChange,
   isEditPage,
@@ -31,7 +32,7 @@ const ThumbnailUpload = ({
   if (isEditPage) {
     return (
       <figure className="flex flex-col gap-2">
-        <p className="text-base font-bold">썸네일</p>
+        <p className="text-base font-bold">{title}</p>
         <div className="aspect-video w-full overflow-auto rounded-medium">
           <div className="flex aspect-video cursor-pointer flex-col items-center justify-center bg-gray-100 p-0 shadow-inner">
             <img
@@ -56,7 +57,7 @@ const ThumbnailUpload = ({
 
   return (
     <figure className="flex flex-col gap-2">
-      <p className="text-base font-bold">썸네일</p>
+      <p className="text-base font-bold">{title}</p>
       <div className="aspect-video w-full overflow-auto rounded-medium">
         {imgFile ? (
           <img
@@ -72,7 +73,7 @@ const ThumbnailUpload = ({
               className="cursor-pointer"
               onClick={handleInput}
             />
-            <p className="text-small font-bold">썸네일을 추가해보아요!</p>
+            <p className="text-small font-bold">{message}</p>
           </div>
         )}
       </div>

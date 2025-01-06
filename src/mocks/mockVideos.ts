@@ -29,7 +29,7 @@ const mockVideos = [
     hash_tag: ['팔', '올라잇', '팔운동', '루틴'],
     like_heart: 40592,
     comments: ['와우', '대박', '좋아요'],
-    is_bookmarked: false,
+    is_bookmarked: true,
     created_at: new Date('2025-01-01'),
   },
   {
@@ -56,7 +56,7 @@ const mockVideos = [
     hash_tag: ['등', '등운동', 'RTO', '키온 피어슨', '챔피언'],
     like_heart: 303556,
     comments: ['와우', '대박', '좋아요'],
-    is_bookmarked: false,
+    is_bookmarked: true,
     created_at: new Date('2024-11-27'),
   },
   {
