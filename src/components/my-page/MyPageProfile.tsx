@@ -2,9 +2,11 @@ import { UserProps } from '@/types/user';
 import editLogo from '@/assets/basil_edit-outline.svg';
 import { formatNumber } from '@/utils/formatNumber';
 import { Link } from 'react-router-dom';
+import { ROUTER_PATH } from '@/constants/constants';
 
 const MyPageProfile = (props: { userData: UserProps }) => {
   const userData = props.userData;
+  const { MY_PAGE_EDIT } = ROUTER_PATH;
 
   return (
     <figure className="flex flex-col gap-3">
@@ -23,7 +25,7 @@ const MyPageProfile = (props: { userData: UserProps }) => {
             <div>팔로잉: {formatNumber(userData.following)}</div>
           </div>
         </div>
-        <Link to="/mypage/edit">
+        <Link to={MY_PAGE_EDIT}>
           <img src={editLogo} alt="수정 로고" className="self-start" />
         </Link>
       </div>

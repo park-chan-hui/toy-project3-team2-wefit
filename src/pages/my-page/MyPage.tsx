@@ -1,6 +1,7 @@
 import Button from '@/components/common/button/Button';
 import MyPageProfile from '@/components/my-page/MyPageProfile';
 import MyPageVideoList from '@/components/my-page/MyPageVideoList';
+import { ROUTER_PATH } from '@/constants/constants';
 import { mockUsers } from '@/mocks/mockUsers';
 import { mockVideos } from '@/mocks/mockVideos';
 import ScrollContainer from 'react-indiana-drag-scroll';
@@ -8,6 +9,7 @@ import { Link } from 'react-router-dom';
 
 const MyPage = () => {
   const userData = mockUsers[0];
+  const { MY_UPLOAD_VIDEO } = ROUTER_PATH;
   const watchedVideos = mockVideos.filter(watch =>
     userData.my_watched_video.includes(watch.video_id),
   );
@@ -29,7 +31,7 @@ const MyPage = () => {
       <section>
         <div className="flex items-center justify-between">
           <p className="my-3 text-lg font-bold">내가 업로드한 동영상</p>
-          <Link to="/mypage/myupload-video">
+          <Link to={MY_UPLOAD_VIDEO}>
             <Button variant="primary">더보기</Button>
           </Link>
         </div>
