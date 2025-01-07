@@ -10,8 +10,8 @@ const UploadVideoList = ({ videos }: UploadVideoListProps) => {
   return (
     <Swiper slidesPerView={2.5} spaceBetween={16} className="z-0">
       {videos.map((video: VideoProps) => (
-        <SwiperSlide>
-          <div className="flex flex-col" key={video.video_id}>
+        <SwiperSlide key={video.video_id}>
+          <div className="flex flex-col">
             <MyPageVideoItem {...video} myUploadVideos />
           </div>
         </SwiperSlide>
