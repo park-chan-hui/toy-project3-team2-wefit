@@ -1,4 +1,5 @@
 import Button from '../common/button/Button';
+import blankProfile from '@/assets/user/blank-user.webp';
 import { UserProps } from '@/types/user';
 import { VideoProps } from '@/types/video';
 import { formatNumber } from '@/utils/formatNumber';
@@ -32,9 +33,9 @@ const AuthorProfile = ({ author, authorVideos }: AuthorProfileProps) => {
       <article className="flex items-center gap-6 px-2">
         <figure className="h-16 w-16 overflow-hidden rounded-full">
           <img
-            src={author.user_image}
+            src={author.user_image ? author.user_image : blankProfile}
             alt={`${author.nickname}님의 프로필`}
-            className="w-ull h-full object-cover"
+            className="h-full w-full object-cover"
           />
         </figure>
 

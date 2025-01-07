@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
-import { CgProfile } from 'react-icons/cg';
+
+import blankProfile from '@/assets/user/blank-user.webp';
 import { UserProps } from '@/types/user';
 import { cn } from '@/utils/cn';
 
@@ -35,21 +36,17 @@ const SimpleProfile = (userData: SimpleProfileProps) => {
   return (
     <Link to={`/author/${userData.user_id}`} className="inline-block">
       <div className="flex items-center gap-1">
-        <div
+        <figure
           className={
             'flex justify-center overflow-auto rounded-full border border-none'
           }
         >
-          {userData.user_image ? (
-            <img
-              src={userData.user_image}
-              alt="프로필사진"
-              className={cn('object-cover', imageSizeStyles[imageSize])}
-            />
-          ) : (
-            <CgProfile size={20} />
-          )}
-        </div>
+          <img
+            src={userData.user_image ? userData.user_image : blankProfile}
+            alt={`${userData.nickname}님의 프로필`}
+            className={cn('object-cover', imageSizeStyles[imageSize])}
+          />
+        </figure>
         <div
           className={cn(
             'overflow-hidden text-ellipsis whitespace-nowrap font-semibold text-gray',

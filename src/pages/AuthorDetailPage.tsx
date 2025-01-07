@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import VideoList from '@/components/video/VideoList';
 import VideoSortNav from '@/components/video/VideoSortNav';
 import AuthorProfile from '@/components/author/AuthorProfile';
+import EmptyResult from '@/components/empty/EmptyResult';
 import { mockUsers } from '@/mocks/mockUsers';
 import { mockVideos } from '@/mocks/mockVideos';
 
@@ -44,7 +45,12 @@ const AuthorDetailPage = () => {
           </h2>
           <VideoSortNav sortType={sortType} onSortChange={setSortType} />
         </header>
-        <VideoList videos={authorVideos} />
+
+        {authorVideos.length > 0 ? (
+          <VideoList videos={authorVideos} />
+        ) : (
+          <EmptyResult message="작성자가 업로드한 영상이 없어요!" />
+        )}
       </section>
     </main>
   );
