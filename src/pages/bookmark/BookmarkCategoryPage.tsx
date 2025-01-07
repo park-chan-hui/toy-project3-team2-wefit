@@ -31,8 +31,8 @@ const BookmarkCategoryPage = () => {
         ))}
       </div>
       <hr className="border-gray my-3 border"></hr>
-      <p className="text-base font-bold">북마크 카테고리</p>
-      <div className="flex h-[32vh] w-full flex-col gap-1 overflow-y-auto">
+      <p className="my-1 text-large font-bold text-black">북마크 카테고리</p>
+      <div className="flex w-full flex-col gap-1 overflow-y-auto">
         <BookmarkCategoryList />
       </div>
     </main>
