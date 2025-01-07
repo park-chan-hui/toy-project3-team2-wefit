@@ -81,6 +81,10 @@ const mockBookmarks = [
     thumbnail: thumbnail1,
     created_at: new Date('2024-12-02'),
     video_list: [mockVideos[1], mockVideos[2], mockVideos[3]],
+    user_id: 'user1',
+    nickname: 'Allright24_박재훈',
+    is_open: true,
+    is_like: true,
   },
   {
     bookmark_id: '2',
@@ -88,6 +92,10 @@ const mockBookmarks = [
     thumbnail: thumbnail2,
     created_at: new Date('2025-01-05'),
     video_list: [mockVideos[1], mockVideos[3]],
+    user_id: 'user2',
+    nickname: 'Allright24_박재훈',
+    is_open: true,
+    is_like: false,
   },
 ];
 
