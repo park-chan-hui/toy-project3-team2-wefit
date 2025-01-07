@@ -45,6 +45,7 @@ const CommentItem = ({ comment, isReply = false }: CommentItemProps) => {
           hasReplies={hasReplies}
           comment_id={comment.comment_id}
           isExpanded={isExpanded}
+          isReply={isReply}
         />
       </article>
     </section>

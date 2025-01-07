@@ -12,8 +12,9 @@ const CommentActions = ({
   hasReplies,
   comment_id,
   isExpanded,
+  isReply = false,
 }: CommentActionsProps) => {
-  const { toggleReplies } = useCommentStore();
+  const { toggleReplies, setInputFocus } = useCommentStore();
 
   return (
     <div className="flex items-center gap-4 text-sm text-gray">
@@ -25,6 +26,15 @@ const CommentActions = ({
         <IoMdThumbsDown size={14} />
         <span>{formatNumber(thumb_down)}</span>
       </button>
+
+      {!isReply && (
+        <button
+          onClick={() => setInputFocus(true)}
+          className="flex items-center gap-1 transition-colors duration-300 hover:text-primary"
+        >
+          댓글 달기
+        </button>
+      )}
 
       {hasReplies && (
         <button

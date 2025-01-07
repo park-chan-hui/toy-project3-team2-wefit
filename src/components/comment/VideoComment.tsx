@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 
 import CommentList from './CommentList';
+import CommentInput from './CommentInput';
 import EmptyResult from '../empty/EmptyResult';
 import { useCommentStore } from '@/store/useCommentStore';
 import { formatNumber } from '@/utils/formatNumber';
@@ -16,7 +17,11 @@ const VideoComment = ({ videoId }: VideoCommentProps) => {
     fetchCommentsByVideoId(videoId);
 
     return () => {
-      useCommentStore.setState({ comments: [], expandedComments: [] });
+      useCommentStore.setState({
+        comments: [],
+        expandedComments: [],
+        isInputFocused: false,
+      });
     };
   }, [videoId, fetchCommentsByVideoId]);
 
@@ -32,6 +37,7 @@ const VideoComment = ({ videoId }: VideoCommentProps) => {
       ) : (
         <EmptyResult message="작성된 댓글이 없습니다." />
       )}
+      <CommentInput />
     </main>
   );
 };
