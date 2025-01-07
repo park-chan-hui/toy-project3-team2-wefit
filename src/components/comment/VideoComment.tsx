@@ -14,6 +14,10 @@ const VideoComment = ({ videoId }: VideoCommentProps) => {
 
   useEffect(() => {
     fetchCommentsByVideoId(videoId);
+
+    return () => {
+      useCommentStore.setState({ comments: [], expandedComments: [] });
+    };
   }, [videoId, fetchCommentsByVideoId]);
 
   return (

@@ -10,7 +10,7 @@ const useCommentStore = create<CommentStore>(set => ({
     const comments = mockComments.filter(
       comment => comment.video_id === video_id,
     );
-    set({ comments });
+    set({ comments, expandedComments: [] });
   },
   toggleReplies: (comment_id: string) => {
     set(state => ({
