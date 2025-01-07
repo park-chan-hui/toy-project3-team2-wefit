@@ -13,6 +13,7 @@ const ROUTER_PATH = {
   AUTHOR_DETAIL: '/author/:userId',
   BOOKMARK: '/bookmark',
   BOOKMARK_CATEGORY_ADD: '/bookmark/category-add',
+  BOOKMARK_CATEGORY: '/bookmark/category',
 };
 
 const NAVIGATION_BAR = {
