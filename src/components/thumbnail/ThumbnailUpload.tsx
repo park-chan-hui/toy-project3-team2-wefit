@@ -1,6 +1,6 @@
-import { useRef } from 'react';
 import thumnailUpload from '@/assets/thumnail-upload.svg';
 import { ThumbnailUploadProps } from '@/types/thumbnail';
+import { useSelectImage } from '@/hooks/useSelectImage';
 
 const ThumbnailUpload = ({
   title = '썸네일',
@@ -9,25 +9,7 @@ const ThumbnailUpload = ({
   onImageChange,
   isEditPage,
 }: ThumbnailUploadProps) => {
-  const imgRef = useRef<HTMLInputElement>(null);
-
-  const handleInput = () => {
-    imgRef.current?.click();
-  };
-
-  const saveImgFile = () => {
-    if (imgRef.current?.files && imgRef.current.files[0]) {
-      const file = imgRef.current.files[0];
-      const reader = new FileReader();
-
-      reader.readAsDataURL(file);
-      reader.onloadend = () => {
-        if (reader.result) {
-          onImageChange(reader.result as string);
-        }
-      };
-    }
-  };
+  const { imgRef, saveImgFile, handleInput } = useSelectImage(onImageChange);
 
   if (isEditPage) {
     return (

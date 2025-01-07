@@ -57,7 +57,7 @@ const VideoAddPage = () => {
           className="w-1/2"
           onClick={handleImageReset}
         >
-          취소
+          초기화
         </Button>
       </div>
     </main>
