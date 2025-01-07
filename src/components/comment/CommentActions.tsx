@@ -1,8 +1,9 @@
 import { IoMdThumbsUp, IoMdThumbsDown } from 'react-icons/io';
 import { IoChevronDown } from 'react-icons/io5';
 
-import { formatNumber } from '@/utils/formatNumber';
+import { useCommentStore } from '@/store/useCommentStore';
 import { CommentActionsProps } from '@/types/comment';
+import { formatNumber } from '@/utils/formatNumber';
 import { cn } from '@/utils/cn';
 
 const CommentActions = ({
@@ -11,8 +12,9 @@ const CommentActions = ({
   hasReplies,
   comment_id,
   isExpanded,
-  onToggle,
 }: CommentActionsProps) => {
+  const { toggleReplies } = useCommentStore();
+
   return (
     <div className="flex items-center gap-4 text-sm text-gray">
       <button className="tansition-colors flex items-center gap-1 duration-300 hover:text-primary">
@@ -26,7 +28,7 @@ const CommentActions = ({
 
       {hasReplies && (
         <button
-          onClick={() => onToggle(comment_id)}
+          onClick={() => toggleReplies(comment_id)}
           className="flex items-center gap-1 transition-colors duration-300 hover:text-primary"
         >
           답글{' '}
