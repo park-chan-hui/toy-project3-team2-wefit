@@ -1,10 +1,10 @@
-import { mockBookmark } from '@/mocks/mockVideos';
+import { mockBookmarks } from '@/mocks/mockVideos';
 import { getTimeAgo } from '@/utils/getTimeAgo';
 
 const BookmarkCategoryList = () => {
   return (
     <>
-      {mockBookmark.map(bookmark => (
+      {mockBookmarks.map(bookmark => (
         <div key={bookmark.bookmark_id} className="mb-2">
           <figure className="relative mb-3 aspect-video h-[80%] w-full overflow-hidden rounded-lg">
             <img

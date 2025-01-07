@@ -74,7 +74,7 @@ const mockVideos = [
   },
 ];
 
-const mockBookmark = [
+const mockBookmarks = [
   {
     bookmark_id: '1',
     title: '내 가슴을 울리는 북마크1🔥🔥🔥',
@@ -91,4 +91,4 @@ const mockBookmark = [
   },
 ];
 
-export { mockVideos, mockBookmark };
+export { mockVideos, mockBookmarks };
