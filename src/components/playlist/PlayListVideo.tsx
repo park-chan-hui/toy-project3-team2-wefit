@@ -3,12 +3,17 @@ import { IoHeartOutline, IoHeartSharp } from 'react-icons/io5';
 import { LuTableOfContents } from 'react-icons/lu';
 import type { BookmarkProps } from '@/types/bookmark';
 
-const PlayList = ({ bookmark }: { bookmark: BookmarkProps }) => {
+type PlayListProps = {
+  bookmark: BookmarkProps;
+  thumbnail: string;
+};
+
+const PlayList = ({ bookmark, thumbnail }: PlayListProps) => {
   return (
     <div className="sticky top-0 z-10 mb-2 bg-white">
       <figure className="relative mb-3 aspect-video h-[80%] w-full overflow-hidden rounded-lg">
         <img
-          src={bookmark.thumbnail}
+          src={thumbnail ? thumbnail : bookmark.thumbnail}
           alt={bookmark.title}
           className="h-full w-full object-cover"
         />
