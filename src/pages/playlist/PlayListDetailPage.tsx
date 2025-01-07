@@ -2,12 +2,13 @@ import SimpleProfile from '@/components/common/simple-profile/SimpleProfile';
 import PlayList from '@/components/playlist/PlayList';
 import { mockUsers } from '@/mocks/mockUsers';
 import { mockBookmarks } from '@/mocks/mockVideos';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 const PlayListDetailPage = () => {
-  const bookmark_id = window.location.pathname.split('/').pop();
+  const { playlistId } = useParams();
+
   const filteredBookmarks = mockBookmarks.filter(
-    bookmark => bookmark.bookmark_id === bookmark_id,
+    bookmark => bookmark.bookmark_id === playlistId,
   );
 
   return (
