@@ -36,6 +36,7 @@ type CommentActionsProps = {
   hasReplies?: boolean;
   comment_id: string;
   isExpanded: boolean;
+  isReply?: boolean;
 };
 
 type CommentItemProps = {
@@ -46,8 +47,10 @@ type CommentItemProps = {
 interface CommentStore {
   comments: Comment[];
   expandedComments: string[];
+  isInputFocused: boolean;
   fetchCommentsByVideoId: (video_id: string) => void;
   toggleReplies: (comment_id: string) => void;
+  setInputFocus: (isFocused: boolean) => void;
 }
 
 export type {

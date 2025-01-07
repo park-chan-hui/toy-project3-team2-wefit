@@ -6,6 +6,7 @@ import { mockComments } from '@/mocks/mockComment';
 const useCommentStore = create<CommentStore>(set => ({
   comments: [],
   expandedComments: [],
+  isInputFocused: false,
   fetchCommentsByVideoId: (video_id: string) => {
     const comments = mockComments.filter(
       comment => comment.video_id === video_id,
@@ -18,6 +19,9 @@ const useCommentStore = create<CommentStore>(set => ({
         ? state.expandedComments.filter(id => id !== comment_id)
         : [...state.expandedComments, comment_id],
     }));
+  },
+  setInputFocus: (isFocused: boolean) => {
+    set({ isInputFocused: isFocused });
   },
 }));
 
