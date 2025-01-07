@@ -5,7 +5,6 @@ import WatchedVideoList from '@/components/my-page/WatchedVideoList';
 import { ROUTER_PATH } from '@/constants/constants';
 import { mockUsers } from '@/mocks/mockUsers';
 import { mockVideos } from '@/mocks/mockVideos';
-import ScrollContainer from 'react-indiana-drag-scroll';
 import { Link } from 'react-router-dom';
 
 const MyPage = () => {
@@ -24,9 +23,7 @@ const MyPage = () => {
       <section>
         <p className="text-lg font-bold">내가 시청한 동영상</p>
         <hr className="my-2" aria-hidden="true" />
-        <ScrollContainer>
-          <WatchedVideoList videos={watchedVideos} />
-        </ScrollContainer>
+        <WatchedVideoList videos={watchedVideos} />
       </section>
 
       <section>
@@ -37,9 +34,7 @@ const MyPage = () => {
           </Link>
         </div>
         <hr className="my-2" aria-hidden="true" />
-        <ScrollContainer>
-          <UploadVideoList videos={uploadVideos} />
-        </ScrollContainer>
+        <UploadVideoList videos={uploadVideos} />
       </section>
 
       <section>

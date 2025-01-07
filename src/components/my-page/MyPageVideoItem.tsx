@@ -16,7 +16,7 @@ const MyPageVideoItem = ({
   const userData = mockUsers.find(user => user.user_id === user_id);
 
   return (
-    <article className="mb-1 w-40">
+    <article className="mb-1">
       <Link to={`/video/${video_id}`}>
         <figure className="relative mb-3 aspect-video w-full overflow-hidden rounded-lg">
           <img
