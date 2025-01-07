@@ -36,21 +36,19 @@ type CommentActionsProps = {
   hasReplies?: boolean;
   comment_id: string;
   isExpanded: boolean;
-  onToggle: (comment_id: string) => void;
 };
 
 type CommentItemProps = {
   comment: CombinedCommentProps;
   isReply?: boolean;
-  expandedComments: string[];
-  onToggle: (comment_id: string) => void;
 };
 
-type CommentListProps = {
+interface CommentStore {
   comments: Comment[];
   expandedComments: string[];
-  onToggle: (comment_id: string) => void;
-};
+  fetchCommentsByVideoId: (video_id: string) => void;
+  toggleReplies: (comment_id: string) => void;
+}
 
 export type {
   Comment,
@@ -58,5 +56,5 @@ export type {
   CombinedCommentProps,
   CommentActionsProps,
   CommentItemProps,
-  CommentListProps,
+  CommentStore,
 };

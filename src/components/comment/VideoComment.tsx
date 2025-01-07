@@ -1,28 +1,20 @@
-import { useState } from 'react';
+import { useEffect } from 'react';
 
 import CommentList from './CommentList';
 import EmptyResult from '../empty/EmptyResult';
+import { useCommentStore } from '@/store/useCommentStore';
 import { formatNumber } from '@/utils/formatNumber';
-import { mockComments } from '@/mocks/mockComment';
-import { Comment } from '@/types/comment';
 
 type VideoCommentProps = {
   videoId: string;
 };
 
 const VideoComment = ({ videoId }: VideoCommentProps) => {
-  const comments = mockComments.filter(
-    comment => comment.video_id === videoId,
-  ) as Comment[];
-  const [expandedComments, setExpandedComments] = useState<string[]>([]);
+  const { comments, fetchCommentsByVideoId } = useCommentStore();
 
-  const toggleReplies = (commentId: string) => {
-    setExpandedComments(prev =>
-      prev.includes(commentId)
-        ? prev.filter(id => id !== commentId)
-        : [...prev, commentId],
-    );
-  };
+  useEffect(() => {
+    fetchCommentsByVideoId(videoId);
+  }, [videoId, fetchCommentsByVideoId]);
 
   return (
     <main className="mt-6">
@@ -32,11 +24,7 @@ const VideoComment = ({ videoId }: VideoCommentProps) => {
       <hr className="my-1" aria-hidden="true" />
 
       {comments.length > 0 ? (
-        <CommentList
-          comments={comments}
-          expandedComments={expandedComments}
-          onToggle={toggleReplies}
-        />
+        <CommentList />
       ) : (
         <EmptyResult message="작성된 댓글이 없습니다." />
       )}

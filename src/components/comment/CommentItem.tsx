@@ -1,16 +1,14 @@
 import SimpleProfile from '../common/simple-profile/SimpleProfile';
 import CommentActions from './CommentActions';
+import { useCommentStore } from '@/store/useCommentStore';
 import { CommentItemProps } from '@/types/comment';
-import { mockUsers } from '@/mocks/mockUsers';
 import { getTimeAgo } from '@/utils/getTimeAgo';
 import { cn } from '@/utils/cn';
+import { mockUsers } from '@/mocks/mockUsers';
 
-const CommentItem = ({
-  comment,
-  isReply = false,
-  expandedComments,
-  onToggle,
-}: CommentItemProps) => {
+const CommentItem = ({ comment, isReply = false }: CommentItemProps) => {
+  const { expandedComments } = useCommentStore();
+
   const user = mockUsers.find(user => user.user_id === comment.user_id);
   const hasReplies = !isReply && comment.replies && comment.replies.length > 0;
   const isExpanded = expandedComments.includes(comment.comment_id);
@@ -47,7 +45,6 @@ const CommentItem = ({
           hasReplies={hasReplies}
           comment_id={comment.comment_id}
           isExpanded={isExpanded}
-          onToggle={onToggle}
         />
       </article>
     </section>

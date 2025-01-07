@@ -1,12 +1,10 @@
 import CommentItem from './CommentItem';
-import { CommentListProps } from '@/types/comment';
+import { useCommentStore } from '@/store/useCommentStore';
 import { cn } from '@/utils/cn';
 
-const CommentList = ({
-  comments,
-  expandedComments,
-  onToggle,
-}: CommentListProps) => {
+const CommentList = () => {
+  const { comments, expandedComments } = useCommentStore();
+
   return (
     <ul className="space-y-6">
       {comments.map(comment => {
@@ -15,11 +13,7 @@ const CommentList = ({
 
         return (
           <li key={comment.comment_id}>
-            <CommentItem
-              comment={comment}
-              expandedComments={expandedComments}
-              onToggle={onToggle}
-            />
+            <CommentItem comment={comment} />
             {hasReplies && (
               <ul
                 className={cn(
@@ -31,12 +25,7 @@ const CommentList = ({
               >
                 {comment.replies.map(reply => (
                   <li key={reply.reply_id}>
-                    <CommentItem
-                      comment={reply}
-                      isReply={true}
-                      expandedComments={expandedComments}
-                      onToggle={onToggle}
-                    />
+                    <CommentItem comment={reply} isReply={true} />
                   </li>
                 ))}
               </ul>
