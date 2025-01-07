@@ -8,7 +8,7 @@ type PlayListProps = {
   thumbnail: string;
 };
 
-const PlayList = ({ bookmark, thumbnail }: PlayListProps) => {
+const PlayListVideo = ({ bookmark, thumbnail }: PlayListProps) => {
   return (
     <div className="sticky top-0 z-10 mb-2 bg-white">
       <figure className="relative mb-3 aspect-video h-[80%] w-full overflow-hidden rounded-lg">
@@ -49,4 +49,4 @@ const PlayList = ({ bookmark, thumbnail }: PlayListProps) => {
   );
 };
 
-export default PlayList;
+export default PlayListVideo;
