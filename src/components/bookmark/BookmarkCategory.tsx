@@ -2,7 +2,7 @@ import Button from '../common/button/Button';
 import { bookmarkCategories } from '@/mocks/bookmarkCategories';
 import { VideoCategoryProps } from '@/types/video';
 
-const bookmarkCategory = ({
+const BookmarkCategory = ({
   selectedCategory,
   onCategoryChange,
 }: VideoCategoryProps) => {
@@ -23,4 +23,4 @@ const bookmarkCategory = ({
   );
 };
 
-export default bookmarkCategory;
+export default BookmarkCategory;
