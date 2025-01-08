@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
 
+import NotFoundPage from './NotFoundPage';
 import VideoItem from '@/components/video/VideoItem';
 import VideoComment from '@/components/comment/VideoComment';
 import { mockVideos } from '@/mocks/mockVideos';
@@ -13,7 +14,7 @@ const VideoDetailPage = () => {
   ) as VideoProps;
 
   if (!videoId || !videoData) {
-    return null;
+    return <NotFoundPage />;
   }
 
   return (
