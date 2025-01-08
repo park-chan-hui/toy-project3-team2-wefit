@@ -6,7 +6,7 @@ type UploadVideoListProps = {
   videos: VideoProps[];
 };
 
-const UploadVideoList = ({ videos }: UploadVideoListProps) => {
+const MyPageUploadVideoList = ({ videos }: UploadVideoListProps) => {
   return (
     <Swiper slidesPerView={2.5} spaceBetween={16} className="z-0">
       {videos.map((video: VideoProps) => (
@@ -20,4 +20,4 @@ const UploadVideoList = ({ videos }: UploadVideoListProps) => {
   );
 };
 
-export default UploadVideoList;
+export default MyPageUploadVideoList;

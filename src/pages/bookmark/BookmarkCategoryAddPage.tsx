@@ -3,7 +3,6 @@ import Button from '@/components/common/button/Button';
 import LabelInput from '@/components/common/label-input/LabelInput';
 import ThumbnailUpload from '@/components/thumbnail/ThumbnailUpload';
 import { mockVideos } from '@/mocks/mockVideos';
-import { ThumbnailUploadProps } from '@/types/thumbnail';
 import { useState } from 'react';
 import { FaCheckCircle } from 'react-icons/fa';
 import { FaRegCircle } from 'react-icons/fa6';
@@ -12,8 +11,8 @@ type CheckedVideos = {
   [key: string]: boolean;
 };
 
-const BookmarkCategoryEditPage = (thumbnail: ThumbnailUploadProps) => {
-  const [imgFile, setImgFile] = useState(thumbnail.imgFile);
+const BookmarkCategoryEditPage = () => {
+  const [imgFile, setImgFile] = useState('');
   const [checkedVideos, setCheckedVideos] = useState<CheckedVideos>({});
 
   const filteredVideos = mockVideos.filter(video => {

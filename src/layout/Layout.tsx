@@ -13,6 +13,7 @@ const Layout = () => {
   const isLoginPage = pathname === ROUTER_PATH.LOGIN;
   const shouldShowBackButton = [
     ROUTER_PATH.MY_PAGE_EDIT,
+    ROUTER_PATH.MY_UPLOAD_VIDEO,
     ROUTER_PATH.VIDEO_DETAIL.replace(':videoId', ''),
     ROUTER_PATH.VIDEO_EDIT.replace(':videoId', ''),
     ROUTER_PATH.PLAYLIST_DETAIL.replace(':playlistId', ''),
