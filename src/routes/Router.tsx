@@ -14,8 +14,10 @@ import BookmarkPage from '@/pages/bookmark/BookmarkPage';
 import BookmarkCategoryAddPage from '@/pages/bookmark/BookmarkCategoryAddPage';
 import PlayListPage from '@/pages/playlist/PlayListPage';
 import PlayListDetailPage from '@/pages/playlist/PlayListDetailPage';
-import { ROUTER_PATH } from '@/constants/constants';
 import MyUploadVideoPage from '@/pages/my-page/MyUploadVideoPage';
+import KakaoOAuthHandler from '@/components/auth/KakaoOAuthHandler';
+import GoogleOAuthHandler from '@/components/auth/GoogleOAuthHandler';
+import { ROUTER_PATH } from '@/constants/constants';
 
 const Router = () => {
   const {
@@ -33,6 +35,8 @@ const Router = () => {
     PLAYLIST_DETAIL,
     VIDEO_DETAIL,
     VIDEO_EDIT,
+    KAKAO_REDIRECT,
+    GOOGLE_REDIRECT,
   } = ROUTER_PATH;
 
   const router = createBrowserRouter([
@@ -40,6 +44,8 @@ const Router = () => {
       path: SPLASH,
       element: <SplashPage />,
     },
+    { path: KAKAO_REDIRECT, element: <KakaoOAuthHandler /> },
+    { path: GOOGLE_REDIRECT, element: <GoogleOAuthHandler /> },
     {
       element: <Layout />,
       children: [
