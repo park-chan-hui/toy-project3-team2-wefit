@@ -15,6 +15,7 @@ import BookmarkCategoryAddPage from '@/pages/bookmark/BookmarkCategoryAddPage';
 import PlayListPage from '@/pages/playlist/PlayListPage';
 import PlayListDetailPage from '@/pages/playlist/PlayListDetailPage';
 import MyUploadVideoPage from '@/pages/my-page/MyUploadVideoPage';
+import NotFoundPage from '@/pages/NotFoundPage';
 import KakaoOAuthHandler from '@/components/auth/KakaoOAuthHandler';
 import GoogleOAuthHandler from '@/components/auth/GoogleOAuthHandler';
 import { ROUTER_PATH } from '@/constants/constants';
@@ -41,14 +42,11 @@ const Router = () => {
 
   const router = createBrowserRouter([
     {
-      path: SPLASH,
-      element: <SplashPage />,
-    },
-    { path: KAKAO_REDIRECT, element: <KakaoOAuthHandler /> },
-    { path: GOOGLE_REDIRECT, element: <GoogleOAuthHandler /> },
-    {
       element: <Layout />,
       children: [
+        { path: SPLASH, element: <SplashPage /> },
+        { path: KAKAO_REDIRECT, element: <KakaoOAuthHandler /> },
+        { path: GOOGLE_REDIRECT, element: <GoogleOAuthHandler /> },
         { path: LOGIN, element: <LoginPage /> },
         { path: HOME, element: <HomePage /> },
         {
@@ -80,6 +78,7 @@ const Router = () => {
           ],
         },
         { path: AUTHOR_DETAIL, element: <AuthorDetailPage /> },
+        { path: '*', element: <NotFoundPage /> },
       ],
     },
   ]);

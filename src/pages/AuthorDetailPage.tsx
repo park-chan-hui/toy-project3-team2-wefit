@@ -8,6 +8,7 @@ import AuthorProfile from '@/components/author/AuthorProfile';
 import EmptyResult from '@/components/empty/EmptyResult';
 import { mockUsers } from '@/mocks/mockUsers';
 import { mockVideos } from '@/mocks/mockVideos';
+import NotFoundPage from './NotFoundPage';
 
 const AuthorDetailPage = () => {
   const [sortType, setSortType] = useState<'latest' | 'popular'>('latest');
@@ -26,11 +27,7 @@ const AuthorDetailPage = () => {
     });
 
   if (!author) {
-    return (
-      <main className="p-4">
-        <h1>존재하지 않는 유저입니다.</h1>
-      </main>
-    );
+    return <NotFoundPage />;
   }
 
   return (

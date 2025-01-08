@@ -11,6 +11,14 @@ const Layout = () => {
   const { pathname } = useLocation();
 
   const isLoginPage = pathname === ROUTER_PATH.LOGIN;
+  const isSplashPage = pathname === ROUTER_PATH.SPLASH;
+  const isOAuthRedirectPage = [
+    ROUTER_PATH.KAKAO_REDIRECT,
+    ROUTER_PATH.GOOGLE_REDIRECT,
+  ].includes(pathname);
+  const shouldHideHeaderAndNav =
+    isLoginPage || isSplashPage || isOAuthRedirectPage;
+
   const shouldShowBackButton = [
     ROUTER_PATH.MY_PAGE_EDIT,
     ROUTER_PATH.MY_UPLOAD_VIDEO,
@@ -25,12 +33,12 @@ const Layout = () => {
     <main className="flex min-h-screen justify-center">
       <ScrollToTop />
       <section className="relative w-full max-w-container bg-white">
-        {!isLoginPage &&
+        {!shouldHideHeaderAndNav &&
           (shouldShowBackButton ? <BackHeader /> : <LogoHeader />)}
-        <div className={cn('px-3', !isLoginPage && 'pb-28')}>
+        <div className={cn('px-3', !shouldHideHeaderAndNav && 'pb-28')}>
           <Outlet />
         </div>
-        {!isLoginPage && <NavigationBar />}
+        {!shouldHideHeaderAndNav && <NavigationBar />}
       </section>
     </main>
   );
