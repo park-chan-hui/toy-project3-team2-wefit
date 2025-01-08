@@ -1,45 +1,58 @@
 import { Link } from 'react-router-dom';
 import SimpleProfile from '../common/simple-profile/SimpleProfile';
 import { mockUsers } from '@/mocks/mockUsers';
-import MyPageVideoStats from './MyPageVideoStats';
 import { VideoProps } from '@/types/video';
+import editLogo from '@/assets/basil_edit-outline.svg';
+import { FaRegTrashAlt } from 'react-icons/fa';
 
-const MyPageVideoItem = ({
+const MyUploadVideoItem = ({
   thumbnail,
   title,
   user_id,
-  like_heart,
-  comments,
   video_id,
 }: VideoProps) => {
   const userData = mockUsers.find(user => user.user_id === user_id);
 
   return (
-    <article className="mb-1 w-40">
-      <Link to={`/video/${video_id}`}>
-        <figure className="relative mb-3 aspect-video w-full overflow-hidden rounded-lg">
+    <article className="mb-1 flex h-16 w-full">
+      <figure className="relative flex h-full w-32 items-center">
+        <Link to={`/video/${video_id}`}>
           <img
             src={thumbnail}
             alt={title}
-            className="h-full w-full object-cover"
+            className="aspect-video h-full max-w-32 rounded-small object-cover"
           />
-        </figure>
-      </Link>
-
-      <div className="px-1">
-        <div className="mb-2 flex items-center justify-between">
-          {userData && <SimpleProfile {...userData} />}
-        </div>
-
-        <Link to={`/video/${video_id}`}>
-          <h2 className="overflow-hidden text-ellipsis whitespace-nowrap text-base font-bold text-black">
-            {title}
-          </h2>
         </Link>
-        <MyPageVideoStats {...{ comments, like_heart }} />
+      </figure>
+
+      <div className="ml-3 flex w-full min-w-0 flex-col">
+        <Link to={`/video/${video_id}`}>
+          <p className="mb-1 w-full overflow-hidden text-ellipsis whitespace-nowrap text-black">
+            {title}
+          </p>
+        </Link>
+        <div className="flex w-full flex-row items-center justify-between">
+          {userData && (
+            <SimpleProfile {...userData} imageSize="large" textSize="small" />
+          )}
+
+          <div className="mt-1 flex w-14 justify-between text-gray">
+            <div className="flex flex-grow items-center">
+              <FaRegTrashAlt size={25} className="mr-1 cursor-pointer" />
+
+              <Link to={`/mypage/video-edit/${video_id}`}>
+                <img
+                  src={editLogo}
+                  alt="수정 로고"
+                  className="h-[30px] w-[30px] self-start"
+                />
+              </Link>
+            </div>
+          </div>
+        </div>
       </div>
     </article>
   );
 };
 
-export default MyPageVideoItem;
+export default MyUploadVideoItem;

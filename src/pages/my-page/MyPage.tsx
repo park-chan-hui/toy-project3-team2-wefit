@@ -1,6 +1,6 @@
 import Button from '@/components/common/button/Button';
 import MyPageProfile from '@/components/my-page/MyPageProfile';
-import UploadVideoList from '@/components/my-page/UploadVideoList';
+import MyPageUploadVideoList from '@/components/my-page/MyPageUploadVideoList';
 import WatchedVideoList from '@/components/my-page/WatchedVideoList';
 import { ROUTER_PATH } from '@/constants/constants';
 import { mockUsers } from '@/mocks/mockUsers';
@@ -34,7 +34,7 @@ const MyPage = () => {
           </Link>
         </div>
         <hr className="my-2" aria-hidden="true" />
-        <UploadVideoList videos={uploadVideos} />
+        <MyPageUploadVideoList videos={uploadVideos} />
       </section>
 
       <section>
