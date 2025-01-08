@@ -1,7 +1,5 @@
-import { RiKakaoTalkFill } from 'react-icons/ri';
-import { FcGoogle } from 'react-icons/fc';
-
-import Button from '@/components/common/button/Button';
+import KakaoLoginButton from '@/components/auth/KakaoLoginButton';
+import GoogleLoginButton from '@/components/auth/GoogleLoginButton';
 import logoSvg from '@/assets/we-fit-logo.svg';
 import treadmillSvg from '@/assets/treadmill.svg';
 
@@ -18,18 +16,8 @@ const LoginPage = () => {
 
       <main className="flex w-full flex-col gap-2">
         <p className="font-semibold">5초만에 빠른 로그인을 해보아요!</p>
-        <Button variant="kakao" size="large">
-          <div className="flex items-center justify-center gap-2 font-semibold">
-            <RiKakaoTalkFill size={22} />
-            카카오 계정으로 로그인하기
-          </div>
-        </Button>
-        <Button variant="google" size="large">
-          <div className="flex items-center justify-center gap-2 font-semibold">
-            <FcGoogle size={22} />
-            구글 계정으로 로그인하기
-          </div>
-        </Button>
+        <KakaoLoginButton />
+        <GoogleLoginButton />
       </main>
     </div>
   );
