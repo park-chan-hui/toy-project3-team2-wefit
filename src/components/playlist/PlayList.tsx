@@ -68,6 +68,7 @@ const PlayList = ({
                       onClick={handleClick}
                     >
                       <PlayListItem
+                        key={video.video_id}
                         video={video}
                         thumbnail={thumbnail}
                         onThumbnailChange={onThumbnailChange}
