@@ -11,7 +11,7 @@ import VideoAddPage from '@/pages/VideoAddPage';
 import VideoEditPage from '@/pages/VideoEditPage';
 import VideoDetailPage from '@/pages/VideoDetailPage';
 import BookmarkPage from '@/pages/bookmark/BookmarkPage';
-import BookmarkCategoryEditPage from '@/pages/bookmark/BookmarkCategoryEditPage';
+import BookmarkCategoryAddPage from '@/pages/bookmark/BookmarkCategoryAddPage';
 import PlayListPage from '@/pages/playlist/PlayListPage';
 import PlayListDetailPage from '@/pages/playlist/PlayListDetailPage';
 import { ROUTER_PATH } from '@/constants/constants';
@@ -69,7 +69,7 @@ const Router = () => {
             { index: true, element: <BookmarkPage /> },
             {
               path: BOOKMARK_CATEGORY_ADD,
-              element: <BookmarkCategoryEditPage />,
+              element: <BookmarkCategoryAddPage />,
             },
           ],
         },
