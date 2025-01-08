@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { mockUsers } from '@/mocks/mockUsers';
 import type { BookmarkProps } from '@/types/bookmark';
 import PlayListItem from '@/components/playlist/PlayListItem';
@@ -6,6 +6,7 @@ import {
   DragDropContext,
   Draggable,
   Droppable,
+  DroppableProps,
   DropResult,
 } from 'react-beautiful-dnd';
 
@@ -14,6 +15,25 @@ type PlayListProps = {
   // eslint-disable-next-line no-unused-vars
   onThumbnailChange: (thumbnail: string) => void;
   thumbnail: string;
+};
+
+const StrictModeDroppable = ({ children, ...props }: DroppableProps) => {
+  const [enabled, setEnabled] = useState(false);
+
+  useEffect(() => {
+    const animation = requestAnimationFrame(() => setEnabled(true));
+
+    return () => {
+      cancelAnimationFrame(animation);
+      setEnabled(false);
+    };
+  }, []);
+
+  if (!enabled) {
+    return null;
+  }
+
+  return <Droppable {...props}>{children}</Droppable>;
 };
 
 const PlayList = ({
@@ -43,7 +63,7 @@ const PlayList = ({
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <Droppable droppableId="droppable">
+      <StrictModeDroppable droppableId="droppable">
         {provided => (
           <div
             ref={provided.innerRef}
@@ -82,7 +102,7 @@ const PlayList = ({
             {provided.placeholder}
           </div>
         )}
-      </Droppable>
+      </StrictModeDroppable>
     </DragDropContext>
   );
 };
