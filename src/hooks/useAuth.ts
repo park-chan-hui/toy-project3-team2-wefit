@@ -3,13 +3,20 @@ import { useMutation } from '@tanstack/react-query';
 import { supabase } from '@/api/Supabase';
 import { ROUTER_PATH } from '@/constants/constants';
 
-const useAuth = () => {
-  const kakaoLoginMutation = useMutation({
+type Provider = 'kakao' | 'google';
+type RedirectPath = 'KAKAO_REDIRECT' | 'GOOGLE_REDIRECT';
+
+const getRedirectPath = (provider: Provider): RedirectPath => {
+  return `${provider.toUpperCase()}_REDIRECT` as RedirectPath;
+};
+
+const useAuth = (provider: Provider) => {
+  const loginMutation = useMutation({
     mutationFn: async () => {
       const { data, error } = await supabase.auth.signInWithOAuth({
-        provider: 'kakao',
+        provider,
         options: {
-          redirectTo: `${window.location.origin}${ROUTER_PATH.KAKAO_REDIRECT}`,
+          redirectTo: `${window.location.origin}${ROUTER_PATH[getRedirectPath(provider)]}`,
         },
       });
 
@@ -21,8 +28,8 @@ const useAuth = () => {
   });
 
   return {
-    handleKakaoLogin: kakaoLoginMutation.mutate,
-    isLoading: kakaoLoginMutation.isPending,
+    handleLogin: loginMutation.mutate,
+    isLoading: loginMutation.isPending,
   };
 };
 

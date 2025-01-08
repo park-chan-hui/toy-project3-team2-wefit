@@ -1,5 +1,4 @@
-import KakaoLoginButton from '@/components/auth/KakaoLoginButton';
-import GoogleLoginButton from '@/components/auth/GoogleLoginButton';
+import SocialLoginButton from '@/components/auth/SocialLoginButton';
 import logoSvg from '@/assets/we-fit-logo.svg';
 import treadmillSvg from '@/assets/treadmill.svg';
 
@@ -16,8 +15,8 @@ const LoginPage = () => {
 
       <main className="flex w-full flex-col gap-2">
         <p className="font-semibold">5초만에 빠른 로그인을 해보아요!</p>
-        <KakaoLoginButton />
-        <GoogleLoginButton />
+        <SocialLoginButton provider="kakao" />
+        <SocialLoginButton provider="google" />
       </main>
     </div>
   );
