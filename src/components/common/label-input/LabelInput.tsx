@@ -26,41 +26,22 @@ const LabelInput = (props: LabelInputProps) => {
     setDesc(e.target.value);
   };
 
-  if ((props.value === '' || props.value) && props.onChange) {
-    return (
-      <div className="mb-2 max-w-container">
-        <p className="text-base font-bold">{title}</p>
-        <input
-          {...inputProps}
-          className="mt-1 w-full rounded-medium border border-black p-2 px-4 focus:!border-primary focus:outline-none"
-          placeholder={placeholder}
-          value={value}
-          onChange={onChange}
-        />
-      </div>
-    );
-  }
-
   return (
     <div className="mb-2 max-w-container">
       <p className="text-base font-bold">{title}</p>
-      {(props.value === '' || props.value) && props.onChange ? (
-        <input
-          {...inputProps}
-          className="mt-1 w-full rounded-medium border border-black p-2 px-4 focus:!border-primary focus:outline-none"
-          placeholder={placeholder}
-          value={value}
-          onChange={onChange}
-        />
-      ) : (
-        <input
-          {...inputProps}
-          className="mt-1 w-full rounded-medium border border-black p-2 px-4 focus:!border-primary focus:outline-none"
-          placeholder={placeholder}
-          value={desc}
-          onChange={handleChange}
-        />
-      )}
+      <input
+        {...inputProps}
+        className="mt-1 w-full rounded-medium border border-black p-2 px-4 focus:!border-primary focus:outline-none"
+        placeholder={placeholder}
+        value={
+          (props.value === '' || props.value) && props.onChange ? value : desc
+        }
+        onChange={
+          (props.value === '' || props.value) && props.onChange
+            ? onChange
+            : handleChange
+        }
+      />
     </div>
   );
 };
