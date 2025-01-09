@@ -25,4 +25,8 @@ const NAVIGATION_BAR = {
   MY_PAGE: 'MYPAGE',
 };
 
-export { ROUTER_PATH, NAVIGATION_BAR };
+const YOUTUBE_REGEX = {
+  URL: /(?<=v=)([^?]+)?/g,
+  SHORT_URL: /(?<=youtu\.be\/)([^?]+)?/g,
+};
+export { ROUTER_PATH, NAVIGATION_BAR, YOUTUBE_REGEX };
