@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { mockUsers } from '@/mocks/mockUsers';
 import type { BookmarkProps } from '@/types/bookmark';
+import type { MusicPlayListProps } from '@/types/musicPlayList';
 import PlayListItem from '@/components/playlist/PlayListItem';
 import {
   DragDropContext,
@@ -11,7 +12,8 @@ import {
 } from 'react-beautiful-dnd';
 
 type PlayListProps = {
-  bookmark: BookmarkProps;
+  bookmark?: BookmarkProps;
+  playlist?: MusicPlayListProps;
   // eslint-disable-next-line no-unused-vars
   onThumbnailChange: (thumbnail: string) => void;
   thumbnail: string;
@@ -38,10 +40,18 @@ const StrictModeDroppable = ({ children, ...props }: DroppableProps) => {
 
 const PlayList = ({
   bookmark,
+  playlist,
   onThumbnailChange,
   thumbnail,
 }: PlayListProps) => {
-  const [videoList, setVideoList] = useState(bookmark.video_list);
+  const initialVideoList = bookmark
+    ? bookmark.video_list
+    : playlist?.video_list || [];
+  const [videoList, setVideoList] = useState(initialVideoList);
+
+  const object = bookmark || playlist;
+
+  if (!object) return;
 
   const onDragEnd = (result: DropResult) => {
     if (!result?.destination) return;
@@ -70,7 +80,7 @@ const PlayList = ({
             {...provided.droppableProps}
             className="flex flex-col gap-4"
           >
-            {videoList.map((video, index) => {
+            {videoList?.map((video, index) => {
               const userData = mockUsers.find(
                 user => user.user_id === video.user_id,
               );

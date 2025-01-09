@@ -3,6 +3,7 @@ import thumbnail2 from '@/assets/thumbnail/thumbnail2.jpg';
 import thumbnail3 from '@/assets/thumbnail/thumbnail3.jpg';
 import thumbnail4 from '@/assets/thumbnail/thumbnail4.jpg';
 import thumbnail5 from '@/assets/thumbnail/thumbnail5.jpg';
+import { BookmarkProps } from '@/types/bookmark';
 
 const mockVideos = [
   {
@@ -74,7 +75,7 @@ const mockVideos = [
   },
 ];
 
-const mockBookmarks = [
+const mockBookmarks: BookmarkProps[] = [
   {
     bookmark_id: '1',
     title: '내 가슴을 울리는 북마크1🔥🔥🔥',
@@ -99,4 +100,53 @@ const mockBookmarks = [
   },
 ];
 
-export { mockVideos, mockBookmarks };
+const mockPlayLists = [
+  {
+    playlist_id: '10',
+    title:
+      '[PLAYLIST] 운동할 때 듣는 음악 광고없음, 운동할 때 에너지 불끈, 운동자극',
+    thumbnail: thumbnail2,
+    created_at: new Date('2024-12-02'),
+    video_list: [mockVideos[1], mockVideos[2], mockVideos[3]],
+    user_id: 'user2',
+    nickname: 'Allright24_박재훈',
+    is_open: true,
+    is_like: false,
+  },
+  {
+    playlist_id: '11',
+    title: '[PLAYLIST] 뭐해? 밀어 GYM PLAYLIST',
+    thumbnail: thumbnail4,
+    created_at: new Date('2024-12-02'),
+    video_list: [mockVideos[1], mockVideos[2], mockVideos[3]],
+    user_id: 'user2',
+    nickname: 'Allright24_박재훈',
+    is_open: true,
+    is_like: false,
+  },
+  {
+    playlist_id: '12',
+    title:
+      '[PLAYLIST] 듣자마자 맥그리거 빙의하는 운동할 때 듣는 노래 muscle up training BGM Let`s Go!! ',
+    thumbnail: thumbnail5,
+    created_at: new Date('2024-12-02'),
+    video_list: [mockVideos[1], mockVideos[2], mockVideos[3]],
+    user_id: 'user2',
+    nickname: 'Allright24_박재훈',
+    is_open: true,
+    is_like: false,
+  },
+  {
+    playlist_id: '13',
+    title: '[PLAYLIST] 진짜 괜찮은 헬스 음악 운동효과 보장!',
+    thumbnail: thumbnail4,
+    created_at: new Date('2024-12-02'),
+    video_list: [mockVideos[1], mockVideos[2], mockVideos[3]],
+    user_id: 'user2',
+    nickname: 'Allright24_박재훈',
+    is_open: true,
+    is_like: false,
+  },
+];
+
+export { mockVideos, mockBookmarks, mockPlayLists };
