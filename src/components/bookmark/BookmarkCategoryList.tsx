@@ -6,10 +6,7 @@ const BookmarkCategoryList = () => {
   return (
     <>
       {mockBookmarks.map(bookmark => (
-        <Link
-          to={`/playlist/${bookmark.bookmark_id}`}
-          key={bookmark.bookmark_id}
-        >
+        <Link to={`/playlist/${bookmark.list_id}`} key={bookmark.list_id}>
           <div className="mb-2">
             <figure className="relative mb-3 aspect-video h-[80%] w-full overflow-hidden rounded-lg">
               <img

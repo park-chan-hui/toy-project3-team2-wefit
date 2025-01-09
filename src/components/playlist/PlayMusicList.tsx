@@ -6,10 +6,7 @@ const PlayMusicList = () => {
   return (
     <>
       {mockPlayLists.map(playlist => (
-        <Link
-          to={`/playlist/${playlist.playlist_id}`}
-          key={playlist.playlist_id}
-        >
+        <Link to={`/playlist/${playlist.list_id}`} key={playlist.list_id}>
           <div className="mb-2">
             <figure className="relative mb-3 aspect-video h-[80%] w-full overflow-hidden rounded-lg">
               <img

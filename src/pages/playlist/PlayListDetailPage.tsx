@@ -9,11 +9,11 @@ const PlayListDetailPage = () => {
   const [thumbnail, setThumbnail] = useState('');
 
   const filteredBookmarks = mockBookmarks.filter(
-    bookmark => bookmark.bookmark_id === playlistId,
+    bookmark => bookmark.list_id === playlistId,
   );
 
   const filteredPlayLists = mockPlayLists.filter(
-    playlist => playlist.playlist_id === playlistId,
+    playlist => playlist.list_id === playlistId,
   );
 
   const handleThumbnailChange = (newThumbnail: string) => {
@@ -24,7 +24,7 @@ const PlayListDetailPage = () => {
     <>
       {filteredBookmarks.length > 0
         ? filteredBookmarks.map(bookmark => (
-            <div key={bookmark.bookmark_id}>
+            <div key={bookmark.list_id}>
               <PlayListVideo bookmark={bookmark} thumbnail={thumbnail} />
               <PlayList
                 bookmark={bookmark}
@@ -34,7 +34,7 @@ const PlayListDetailPage = () => {
             </div>
           ))
         : filteredPlayLists.map(playlist => (
-            <div key={playlist.playlist_id}>
+            <div key={playlist.list_id}>
               <PlayListVideo playlist={playlist} thumbnail={thumbnail} />
               <PlayList
                 playlist={playlist}

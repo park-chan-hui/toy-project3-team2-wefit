@@ -1,16 +1,19 @@
 import { getTimeAgo } from '@/utils/getTimeAgo';
 import { IoHeartOutline, IoHeartSharp } from 'react-icons/io5';
 import { LuTableOfContents } from 'react-icons/lu';
-import type { BookmarkProps } from '@/types/bookmark';
-import type { MusicPlayListProps } from '@/types/musicPlayList';
+import type { playListProps } from '@/types/playList';
 
-type PlayListProps = {
-  bookmark?: BookmarkProps;
-  playlist?: MusicPlayListProps;
+type PlayListVideoProps = {
+  bookmark?: playListProps;
+  playlist?: playListProps;
   thumbnail: string;
 };
 
-const PlayListVideo = ({ bookmark, playlist, thumbnail }: PlayListProps) => {
+const PlayListVideo = ({
+  bookmark,
+  playlist,
+  thumbnail,
+}: PlayListVideoProps) => {
   const object = bookmark || playlist;
 
   if (!object) {

@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
 import { mockUsers } from '@/mocks/mockUsers';
-import type { BookmarkProps } from '@/types/bookmark';
-import type { MusicPlayListProps } from '@/types/musicPlayList';
 import PlayListItem from '@/components/playlist/PlayListItem';
 import {
   DragDropContext,
@@ -10,10 +8,11 @@ import {
   DroppableProps,
   DropResult,
 } from 'react-beautiful-dnd';
+import { playListProps } from '@/types/playList';
 
-type PlayListProps = {
-  bookmark?: BookmarkProps;
-  playlist?: MusicPlayListProps;
+type PlayListVideoProps = {
+  bookmark?: playListProps;
+  playlist?: playListProps;
   // eslint-disable-next-line no-unused-vars
   onThumbnailChange: (thumbnail: string) => void;
   thumbnail: string;
@@ -43,7 +42,7 @@ const PlayList = ({
   playlist,
   onThumbnailChange,
   thumbnail,
-}: PlayListProps) => {
+}: PlayListVideoProps) => {
   const initialVideoList = bookmark
     ? bookmark.video_list
     : playlist?.video_list || [];

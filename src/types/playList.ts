@@ -1,7 +1,7 @@
 import { VideoProps } from '@/types/video';
 
-type BookmarkProps = {
-  bookmark_id: string;
+type playListProps = {
+  list_id: string;
   created_at: Date;
   is_like: boolean;
   is_open: boolean;
@@ -12,4 +12,4 @@ type BookmarkProps = {
   video_list: VideoProps[];
 };
 
-export type { BookmarkProps };
+export type { playListProps };
