@@ -14,6 +14,8 @@ const ROUTER_PATH = {
   BOOKMARK: '/bookmark',
   BOOKMARK_CATEGORY_ADD: '/bookmark/category-add',
   BOOKMARK_CATEGORY: '/bookmark/category',
+  KAKAO_REDIRECT: '/oauth/kakao',
+  GOOGLE_REDIRECT: '/oauth/google',
 };
 
 const NAVIGATION_BAR = {

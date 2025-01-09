@@ -1,3 +1,4 @@
+import NotFoundPage from '../NotFoundPage';
 import PlayListVideo from '@/components/playlist/PlayListVideo';
 import PlayList from '@/components/playlist/PlayList';
 import { mockBookmarks } from '@/mocks/mockVideos';
@@ -11,6 +12,10 @@ const PlayListDetailPage = () => {
   const filteredBookmarks = mockBookmarks.filter(
     bookmark => bookmark.bookmark_id === playlistId,
   );
+
+  if (filteredBookmarks.length === 0) {
+    return <NotFoundPage />;
+  }
 
   const handleThumbnailChange = (newThumbnail: string) => {
     setThumbnail(newThumbnail);

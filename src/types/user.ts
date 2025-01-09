@@ -9,4 +9,10 @@ type UserProps = {
   my_watched_video: string[];
 };
 
-export type { UserProps };
+type UpdateData = {
+  user_image?: string;
+  nickname?: string;
+  description: string;
+};
+
+export type { UserProps, UpdateData };

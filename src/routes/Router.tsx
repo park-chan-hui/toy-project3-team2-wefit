@@ -11,11 +11,14 @@ import VideoAddPage from '@/pages/VideoAddPage';
 import VideoEditPage from '@/pages/VideoEditPage';
 import VideoDetailPage from '@/pages/VideoDetailPage';
 import BookmarkPage from '@/pages/bookmark/BookmarkPage';
-import BookmarkCategoryEditPage from '@/pages/bookmark/BookmarkCategoryEditPage';
+import BookmarkCategoryAddPage from '@/pages/bookmark/BookmarkCategoryAddPage';
 import PlayListPage from '@/pages/playlist/PlayListPage';
 import PlayListDetailPage from '@/pages/playlist/PlayListDetailPage';
-import { ROUTER_PATH } from '@/constants/constants';
 import MyUploadVideoPage from '@/pages/my-page/MyUploadVideoPage';
+import NotFoundPage from '@/pages/NotFoundPage';
+import KakaoOAuthHandler from '@/components/auth/KakaoOAuthHandler';
+import GoogleOAuthHandler from '@/components/auth/GoogleOAuthHandler';
+import { ROUTER_PATH } from '@/constants/constants';
 
 const Router = () => {
   const {
@@ -33,16 +36,17 @@ const Router = () => {
     PLAYLIST_DETAIL,
     VIDEO_DETAIL,
     VIDEO_EDIT,
+    KAKAO_REDIRECT,
+    GOOGLE_REDIRECT,
   } = ROUTER_PATH;
 
   const router = createBrowserRouter([
     {
-      path: SPLASH,
-      element: <SplashPage />,
-    },
-    {
       element: <Layout />,
       children: [
+        { path: SPLASH, element: <SplashPage /> },
+        { path: KAKAO_REDIRECT, element: <KakaoOAuthHandler /> },
+        { path: GOOGLE_REDIRECT, element: <GoogleOAuthHandler /> },
         { path: LOGIN, element: <LoginPage /> },
         { path: HOME, element: <HomePage /> },
         {
@@ -69,11 +73,12 @@ const Router = () => {
             { index: true, element: <BookmarkPage /> },
             {
               path: BOOKMARK_CATEGORY_ADD,
-              element: <BookmarkCategoryEditPage />,
+              element: <BookmarkCategoryAddPage />,
             },
           ],
         },
         { path: AUTHOR_DETAIL, element: <AuthorDetailPage /> },
+        { path: '*', element: <NotFoundPage /> },
       ],
     },
   ]);

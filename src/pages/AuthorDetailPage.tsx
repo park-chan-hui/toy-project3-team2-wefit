@@ -6,32 +6,45 @@ import VideoList from '@/components/video/VideoList';
 import VideoSortNav from '@/components/video/VideoSortNav';
 import AuthorProfile from '@/components/author/AuthorProfile';
 import EmptyResult from '@/components/empty/EmptyResult';
-import { mockUsers } from '@/mocks/mockUsers';
-import { mockVideos } from '@/mocks/mockVideos';
+import AuthorProfileSkeleton from '@/components/skeleton/author/AuthorProfileSkeleton';
+import VideoListSkeleton from '@/components/skeleton/video/VideoListSkeleton';
+import { useVideos } from '@/hooks/useVideos';
+import { useUsers } from '@/hooks/useUsers';
 
 const AuthorDetailPage = () => {
   const [sortType, setSortType] = useState<'latest' | 'popular'>('latest');
   const { userId } = useParams<{ userId: string }>();
+  const { userQuery } = useUsers(userId);
+  const { videosQuery } = useVideos();
 
-  const author = mockUsers.find(user => user.user_id === userId);
-  const authorVideos = mockVideos
-    .filter(video => video.user_id === userId)
-    .sort((a, b) => {
-      if (sortType === 'latest') {
-        return (
-          new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-        );
-      }
-      return b.like_heart - a.like_heart;
-    });
+  const { data: author, isLoading: isAuthorLoading } = userQuery;
+  const { data: videos, isLoading: isVideosLoading } = videosQuery;
 
-  if (!author) {
+  if (isAuthorLoading || isVideosLoading) {
     return (
-      <main className="p-4">
-        <h1>존재하지 않는 유저입니다.</h1>
+      <main className="flex flex-col">
+        <AuthorProfileSkeleton />
+        <hr className="my-3" aria-hidden="true" />
+        <header className="mb-2 flex items-center justify-between">
+          <h2 className="font-bold">작성자가 업로드한 영상</h2>
+          <VideoSortNav sortType={sortType} onSortChange={setSortType} />
+        </header>
+        <VideoListSkeleton />
       </main>
     );
   }
+
+  const authorVideos =
+    videos
+      ?.filter(video => video.user_id === userId)
+      .sort((a, b) => {
+        if (sortType === 'latest') {
+          return (
+            new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+          );
+        }
+        return b.like_heart - a.like_heart;
+      }) ?? [];
 
   return (
     <main className="flex flex-col">

@@ -1,8 +1,9 @@
-const getTimeAgo = (date: Date) => {
+const getTimeAgo = (date: Date | string) => {
+  const dateObject = date instanceof Date ? date : new Date(date);
   const now = new Date();
 
   const diffInHours = Math.floor(
-    (now.getTime() - date.getTime()) / (1000 * 60 * 60),
+    (now.getTime() - dateObject.getTime()) / (1000 * 60 * 60),
   );
   if (diffInHours < 24) {
     return `${diffInHours}시간 전`;
