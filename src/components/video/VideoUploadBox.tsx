@@ -1,8 +1,8 @@
-import videoUpload from '@/assets/video-upload.svg';
 import { useState } from 'react';
 import YouTube from 'react-youtube';
 import LabelInput from '../common/label-input/LabelInput';
 import Button from '../common/button/Button';
+import { YOUTUBE_REGEX } from '@/constants/constants';
 
 type VideoUploadBoxProps = {
   isEditPage?: boolean;
@@ -15,16 +15,14 @@ const VideoUploadBox = (videoUploadProps: VideoUploadBoxProps) => {
   const videoOption = {
     width: '100%',
   };
-  const regex = /(?<=youtu\.be\/)([^?]+)?/g;
-  const regex2 = /(?<=v=)([^?]+)?/g;
 
   const findVideoId = (url: string) => {
-    const match = url.match(regex);
-    const match2 = url.match(regex2);
-    if (match !== null) {
-      return match[0];
-    } else if (match2 !== null) {
-      return match2[0];
+    const matchURL = url.match(YOUTUBE_REGEX.URL);
+    const matchShortUrl = url.match(YOUTUBE_REGEX.SHORT_URL);
+    if (matchURL !== null) {
+      return matchURL[0];
+    } else if (matchShortUrl !== null) {
+      return matchShortUrl[0];
     }
   };
   const clickVideoUpload = () => {
@@ -39,8 +37,8 @@ const VideoUploadBox = (videoUploadProps: VideoUploadBoxProps) => {
     return (
       <YouTube
         videoId={findVideoId(youTubeUrl)}
-        className="[&>div]:aspect-video"
         title="youtube 동영상"
+        opts={videoOption}
       />
     );
   }
@@ -53,18 +51,13 @@ const VideoUploadBox = (videoUploadProps: VideoUploadBoxProps) => {
           value={youTubeUrl}
           onChange={handleInputChange}
         />
-        <Button
-          className="text-nowrap py-[18px]"
-          size="large"
-          onClick={clickVideoUpload}
-        >
-          임베드
-        </Button>
       </header>
       <>
         {!isClick ? (
           <div className="flex aspect-video flex-col items-center justify-center rounded-medium bg-gray-100 p-medium shadow-inner">
-            <img src={videoUpload} alt="영상 업로드 이미지" />
+            <Button className="text-nowrap" onClick={clickVideoUpload}>
+              영상 확인하기
+            </Button>
           </div>
         ) : (
           <YouTube
