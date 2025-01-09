@@ -8,15 +8,7 @@ import {
   DroppableProps,
   DropResult,
 } from 'react-beautiful-dnd';
-import { playListProps } from '@/types/playList';
-
-type PlayListVideoProps = {
-  bookmark?: playListProps;
-  playlist?: playListProps;
-  // eslint-disable-next-line no-unused-vars
-  onThumbnailChange: (thumbnail: string) => void;
-  thumbnail: string;
-};
+import type { PlayListVideoProps } from '@/types/playList';
 
 const StrictModeDroppable = ({ children, ...props }: DroppableProps) => {
   const [enabled, setEnabled] = useState(false);

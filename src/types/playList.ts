@@ -1,6 +1,6 @@
 import { VideoProps } from '@/types/video';
 
-type playListProps = {
+type PlayListProps = {
   list_id: string;
   created_at: Date;
   is_like: boolean;
@@ -12,4 +12,12 @@ type playListProps = {
   video_list: VideoProps[];
 };
 
-export type { playListProps };
+type PlayListVideoProps = {
+  bookmark?: PlayListProps;
+  playlist?: PlayListProps;
+  // eslint-disable-next-line no-unused-vars
+  onThumbnailChange: (thumbnail: string) => void;
+  thumbnail: string;
+};
+
+export type { PlayListVideoProps };
