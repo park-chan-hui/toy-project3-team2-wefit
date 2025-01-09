@@ -5,10 +5,14 @@ type LabelInputProps = InputHTMLAttributes<HTMLInputElement> & {
   title: string;
   placeholder: string;
   description?: string;
+  value?: string;
+  // eslint-disable-next-line no-unused-vars
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 const LabelInput = (props: LabelInputProps) => {
-  const { title, placeholder, description, ...inputProps } = props;
+  const { title, placeholder, description, value, onChange, ...inputProps } =
+    props;
   const [desc, setDesc] = useState(description);
 
   const debouncedValue = useDebounce({
@@ -25,13 +29,23 @@ const LabelInput = (props: LabelInputProps) => {
   return (
     <div className="mb-2 max-w-container">
       <p className="text-base font-bold">{title}</p>
-      <input
-        {...inputProps}
-        className="mt-1 w-full rounded-medium border border-black p-2 px-4 focus:!border-primary focus:outline-none"
-        placeholder={placeholder}
-        value={desc}
-        onChange={handleChange}
-      />
+      {props.value === '' && props.onChange ? (
+        <input
+          {...inputProps}
+          className="mt-1 w-full rounded-medium border border-black p-2 px-4 focus:!border-primary focus:outline-none"
+          placeholder={placeholder}
+          value={value}
+          onChange={onChange}
+        />
+      ) : (
+        <input
+          {...inputProps}
+          className="mt-1 w-full rounded-medium border border-black p-2 px-4 focus:!border-primary focus:outline-none"
+          placeholder={placeholder}
+          value={desc}
+          onChange={handleChange}
+        />
+      )}
     </div>
   );
 };
