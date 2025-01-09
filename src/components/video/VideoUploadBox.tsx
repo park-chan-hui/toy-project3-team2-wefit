@@ -17,7 +17,7 @@ const VideoUploadBox = (videoUploadProps: VideoUploadBoxProps) => {
   };
   const regex = /(?<=youtu\.be\/)([^?]+)?/g;
   const regex2 = /(?<=v=)([^?]+)?/g;
-  //www.youtube.com/watch?v=qotjnsbqXVM
+
   const findVideoId = (url: string) => {
     const match = url.match(regex);
     const match2 = url.match(regex2);
@@ -29,7 +29,6 @@ const VideoUploadBox = (videoUploadProps: VideoUploadBoxProps) => {
   };
   const clickVideoUpload = () => {
     setIsClick(true);
-    console.log(youTubeUrl);
   };
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsClick(false);

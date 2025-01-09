@@ -29,7 +29,7 @@ const LabelInput = (props: LabelInputProps) => {
   return (
     <div className="mb-2 max-w-container">
       <p className="text-base font-bold">{title}</p>
-      {props.value === '' && props.onChange ? (
+      {(props.value === '' || props.value) && props.onChange ? (
         <input
           {...inputProps}
           className="mt-1 w-full rounded-medium border border-black p-2 px-4 focus:!border-primary focus:outline-none"
