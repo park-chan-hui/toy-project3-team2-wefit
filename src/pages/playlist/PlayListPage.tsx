@@ -17,6 +17,48 @@ const PlayListPage = () => {
     return bookmark;
   });
 
+  const mainPlayList =
+    selectedCategory === '전체' ? (
+      <>
+        <div className="grid w-full grid-cols-2 gap-4 text-sm [&>a>div>div>div]:w-full [&>a>div>div]:flex-col">
+          <BookmarkCategoryList />
+        </div>
+        <hr className="border-gray my-3 border" />
+        <p className="text-large font-bold text-black">
+          운동할 때 듣기 좋은 플리
+        </p>
+        <div className="grid w-full grid-cols-2 gap-4 text-sm [&>a>div>div>div]:w-full [&>a>div>div]:flex-col">
+          <PlayMusicList />
+        </div>
+      </>
+    ) : null;
+
+  const mainMusicPlayList =
+    selectedCategory === '전체' ? (
+      <>
+        <hr className="border-gray my-3 border" />
+        <p className="text-large font-bold text-black">
+          운동할 때 듣기 좋은 플리
+        </p>
+        <div className="flex w-full flex-col gap-1">
+          <PlayMusicList />
+        </div>
+      </>
+    ) : null;
+
+  const onlyPlayList =
+    selectedCategory === '플리만 보기' ? (
+      <div className="flex w-full flex-col gap-5">
+        <BookmarkCategoryList />
+      </div>
+    ) : null;
+  const onlyMusicPlayList =
+    selectedCategory === '음악만 보기' ? (
+      <div className="flex w-full flex-col gap-1">
+        <PlayMusicList />
+      </div>
+    ) : null;
+
   return (
     <main className="flex flex-col gap-2">
       <PlayListCategory
@@ -47,49 +89,13 @@ const PlayListPage = () => {
               </Button>
             </Link>
           </div>
-
-          {selectedCategory === '전체' && (
-            <>
-              <hr className="border-gray my-3 border" />
-              <p className="text-large font-bold text-black">
-                운동할 때 듣기 좋은 플리
-              </p>
-              <div className="flex w-full flex-col gap-1">
-                <PlayMusicList />
-              </div>
-            </>
-          )}
+          {mainMusicPlayList}
         </>
       ) : (
         <>
-          {selectedCategory === '전체' && (
-            <>
-              <div className="grid w-full grid-cols-2 gap-4 text-sm [&>a>div>div>div]:w-full [&>a>div>div]:flex-col">
-                <BookmarkCategoryList />
-              </div>
-              <hr className="border-gray my-3 border" />
-              <p className="text-large font-bold text-black">
-                운동할 때 듣기 좋은 플리
-              </p>
-              <div className="grid w-full grid-cols-2 gap-4 text-sm [&>a>div>div>div]:w-full [&>a>div>div]:flex-col">
-                <PlayMusicList />
-              </div>
-            </>
-          )}
-          {selectedCategory === '플리만 보기' && (
-            <>
-              <div className="flex w-full flex-col gap-5">
-                <BookmarkCategoryList />
-              </div>
-            </>
-          )}
-          {selectedCategory === '음악만 보기' && (
-            <>
-              <div className="flex w-full flex-col gap-1">
-                <PlayMusicList />
-              </div>
-            </>
-          )}
+          {mainPlayList}
+          {onlyPlayList}
+          {onlyMusicPlayList}
         </>
       )}
     </main>
