@@ -9,7 +9,7 @@ type VideoProps = {
   hash_tag: string[];
   like_heart: number;
   is_bookmarked: boolean;
-  created_at: Date;
+  created_at: string | Date;
   isVideoDetailPage?: boolean;
 };
 
