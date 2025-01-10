@@ -1,33 +1,72 @@
-import { useRef, useEffect } from 'react';
+import { useEffect } from 'react';
 
-import { IoMdSend } from 'react-icons/io';
-
+import CommentSubmitForm from './CommentSubmitForm';
+import { useComments } from '@/hooks/useComments';
 import { useCommentStore } from '@/store/useCommentStore';
-import Button from '../common/button/Button';
 
-const CommentInput = () => {
-  const inputRef = useRef<HTMLInputElement>(null);
+interface CommentInputProps {
+  videoId: string;
+  commentId?: string;
+  isReply?: boolean;
+  onCancel?: () => void;
+}
+
+const CommentInput = ({ videoId, onCancel }: CommentInputProps) => {
   const isInputFocused = useCommentStore(state => state.isInputFocused);
   const setInputFocus = useCommentStore(state => state.setInputFocus);
+  const activeCommentId = useCommentStore(state => state.activeCommentId);
+  const setActiveCommentId = useCommentStore(state => state.setActiveCommentId);
+  const { addComment, addReply, isAddingComment, isAddingReply } =
+    useComments(videoId);
+
+  const isReplyMode = !!activeCommentId;
 
   useEffect(() => {
-    if (isInputFocused && inputRef.current) {
-      inputRef.current.focus();
-      inputRef.current.scrollIntoView({ behavior: 'smooth' });
-      setInputFocus(false);
+    if (isInputFocused) {
+      const input = document.querySelector('input[name="content"]');
+      if (input) {
+        input.scrollIntoView({ behavior: 'smooth' });
+
+        // 포커스는 스크롤이 완료된 후에 설정
+        setTimeout(() => {
+          (input as HTMLInputElement).focus();
+          setInputFocus(false);
+        }, 500);
+      }
     }
   }, [isInputFocused, setInputFocus]);
 
+  const handleCancel = () => {
+    setActiveCommentId(null);
+    onCancel?.();
+  };
+
+  const handleSubmit = async (content: string) => {
+    const userId = 'user9'; // 임시 사용자 정보
+    const nickname = '댓글맨3'; // 임시 사용자 정보
+
+    if (isReplyMode) {
+      await addReply({
+        commentId: activeCommentId,
+        userId,
+        nickname,
+        content,
+      });
+      setActiveCommentId(null);
+      onCancel?.();
+    } else {
+      await addComment({ userId, nickname, content });
+    }
+  };
+
   return (
-    <div className="mt-6 flex gap-2 border-t pt-4">
-      <input
-        ref={inputRef}
-        className="w-full rounded-lg border p-2 text-sm focus:border-primary focus:outline-none"
-        placeholder="댓글을 입력하세요..."
+    <div className="mt-2">
+      <CommentSubmitForm
+        isReplyMode={isReplyMode}
+        isSubmitting={isAddingComment || isAddingReply}
+        onSubmit={handleSubmit}
+        onCancel={handleCancel}
       />
-      <Button variant="outline" size="small">
-        <IoMdSend size={20} />
-      </Button>
     </div>
   );
 };

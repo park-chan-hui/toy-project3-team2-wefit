@@ -44,6 +44,13 @@ type CommentItemProps = {
   isReply?: boolean;
 };
 
+type CommentSubmitFormProps = {
+  isReplyMode?: boolean;
+  isSubmitting: boolean;
+  onSubmit: (content: string) => Promise<void>;
+  onCancel?: () => void;
+};
+
 interface CommentStore {
   expandedComments: string[];
   isInputFocused: boolean;
@@ -60,5 +67,6 @@ export type {
   CombinedCommentProps,
   CommentActionsProps,
   CommentItemProps,
+  CommentSubmitFormProps,
   CommentStore,
 };
