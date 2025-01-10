@@ -1,23 +1,31 @@
+import { SaveCategories } from '@/api/categories';
 import BookmarkItem from '@/components/bookmark/BookmarkItem';
 import Button from '@/components/common/button/Button';
 import LabelInput from '@/components/common/label-input/LabelInput';
 import ThumbnailUpload from '@/components/thumbnail/ThumbnailUpload';
-import { mockVideos } from '@/mocks/mockVideos';
+import { useVideos } from '@/hooks/useVideos';
+import { VideoProps } from '@/types/video';
 import { useState } from 'react';
 import { FaCheckCircle } from 'react-icons/fa';
 import { FaRegCircle } from 'react-icons/fa6';
+import { useNavigate } from 'react-router-dom';
 
 type CheckedVideos = {
   [key: string]: boolean;
 };
 
 const BookmarkCategoryEditPage = () => {
+  const [categoryName, setCategoryName] = useState('');
   const [imgFile, setImgFile] = useState('');
   const [checkedVideos, setCheckedVideos] = useState<CheckedVideos>({});
 
-  const filteredVideos = mockVideos.filter(video => {
-    return video.is_bookmarked === true;
-  });
+  const { videosQuery } = useVideos();
+  const navigate = useNavigate();
+
+  const filteredVideos: VideoProps[] =
+    videosQuery.data?.filter(video => {
+      return video.is_bookmarked === true;
+    }) || [];
 
   const handleClick = (videoId: string) => {
     setCheckedVideos(prevState => ({
@@ -26,11 +34,30 @@ const BookmarkCategoryEditPage = () => {
     }));
   };
 
+  const handleSave = async () => {
+    const userId = 'user1';
+
+    try {
+      await SaveCategories({
+        checkedVideos,
+        title: categoryName,
+        imgFile,
+        userId,
+      });
+      navigate(-1);
+    } catch (error) {
+      console.error('카테고리 저장 중 오류 발생:', error);
+      alert('카테고리 저장에 실패했습니다. 다시 시도해주세요.');
+    }
+  };
+
   return (
     <>
       <LabelInput
         title="카테고리 명"
         placeholder="카테고리 명을 입력해주세요."
+        value={categoryName}
+        onChange={e => setCategoryName(e.target.value)}
       />
 
       <ThumbnailUpload
@@ -71,7 +98,11 @@ const BookmarkCategoryEditPage = () => {
           ))}
         </div>
 
-        <Button variant="secondary" className="w-full rounded-medium">
+        <Button
+          variant="secondary"
+          className="w-full rounded-medium"
+          onClick={handleSave}
+        >
           해당 카테고리 추가
         </Button>
       </div>
