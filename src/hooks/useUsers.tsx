@@ -6,6 +6,7 @@ import {
   fetchUsers,
   fetchUserById,
   updateUser,
+  fetchCurrentUser,
 } from '@/api/users';
 
 import { UserProps, UpdateData } from '@/types/user';
@@ -22,6 +23,12 @@ const useUsers = (userId?: string) => {
     queryKey: ['user', userId],
     queryFn: () => fetchUserById(userId!),
     enabled: !!userId,
+  });
+
+  // 현재 사용자 조회
+  const currentUserQuery = useQuery({
+    queryKey: ['currentUser'],
+    queryFn: () => fetchCurrentUser(),
   });
 
   // 사용자 추가
@@ -48,6 +55,7 @@ const useUsers = (userId?: string) => {
   return {
     usersQuery,
     userQuery,
+    currentUserQuery,
     addUserMutation,
     deleteUserMutation,
     updateUserMutation,
