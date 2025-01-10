@@ -44,13 +44,21 @@ type CommentItemProps = {
   isReply?: boolean;
 };
 
+type CommentSubmitFormProps = {
+  isReplyMode?: boolean;
+  isSubmitting: boolean;
+  onSubmit: (content: string) => Promise<void>;
+  onCancel?: () => void;
+};
+
 interface CommentStore {
-  comments: Comment[];
   expandedComments: string[];
   isInputFocused: boolean;
-  fetchCommentsByVideoId: (video_id: string) => void;
+  activeCommentId: string | null;
   toggleReplies: (comment_id: string) => void;
   setInputFocus: (isFocused: boolean) => void;
+  resetExapandedComments: () => void;
+  setActiveCommentId: (comment_id: string | null) => void;
 }
 
 export type {
@@ -59,5 +67,6 @@ export type {
   CombinedCommentProps,
   CommentActionsProps,
   CommentItemProps,
+  CommentSubmitFormProps,
   CommentStore,
 };

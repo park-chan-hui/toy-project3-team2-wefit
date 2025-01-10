@@ -5,25 +5,24 @@ import CommentInput from './CommentInput';
 import EmptyResult from '../empty/EmptyResult';
 import { useCommentStore } from '@/store/useCommentStore';
 import { formatNumber } from '@/utils/formatNumber';
+import { useComments } from '@/hooks/useComments';
 
 type VideoCommentProps = {
   videoId: string;
 };
 
 const VideoComment = ({ videoId }: VideoCommentProps) => {
-  const { comments, fetchCommentsByVideoId } = useCommentStore();
+  const { comments, isLoading } = useComments(videoId);
+  const resetExpandedComments = useCommentStore(
+    state => state.resetExapandedComments,
+  );
 
+  // 펼쳐진 댓글 초기화를 위함
   useEffect(() => {
-    fetchCommentsByVideoId(videoId);
+    resetExpandedComments();
+  }, [videoId, resetExpandedComments]);
 
-    return () => {
-      useCommentStore.setState({
-        comments: [],
-        expandedComments: [],
-        isInputFocused: false,
-      });
-    };
-  }, [videoId, fetchCommentsByVideoId]);
+  if (isLoading) return <div>로딩중...</div>;
 
   return (
     <main className="mt-6">
@@ -33,11 +32,11 @@ const VideoComment = ({ videoId }: VideoCommentProps) => {
       <hr className="my-1" aria-hidden="true" />
 
       {comments.length > 0 ? (
-        <CommentList />
+        <CommentList comments={comments} />
       ) : (
         <EmptyResult message="작성된 댓글이 없습니다." />
       )}
-      <CommentInput />
+      <CommentInput videoId={videoId} />
     </main>
   );
 };
