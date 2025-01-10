@@ -45,12 +45,13 @@ type CommentItemProps = {
 };
 
 interface CommentStore {
-  comments: Comment[];
   expandedComments: string[];
   isInputFocused: boolean;
-  fetchCommentsByVideoId: (video_id: string) => void;
+  activeCommentId: string | null;
   toggleReplies: (comment_id: string) => void;
   setInputFocus: (isFocused: boolean) => void;
+  resetExapandedComments: () => void;
+  setActiveCommentId: (comment_id: string | null) => void;
 }
 
 export type {

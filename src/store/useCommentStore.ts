@@ -1,18 +1,11 @@
 import { create } from 'zustand';
 
 import { CommentStore } from '@/types/comment';
-import { mockComments } from '@/mocks/mockComment';
 
 const useCommentStore = create<CommentStore>(set => ({
-  comments: [],
   expandedComments: [],
   isInputFocused: false,
-  fetchCommentsByVideoId: (video_id: string) => {
-    const comments = mockComments.filter(
-      comment => comment.video_id === video_id,
-    );
-    set({ comments, expandedComments: [] });
-  },
+  activeCommentId: null,
   toggleReplies: (comment_id: string) => {
     set(state => ({
       expandedComments: state.expandedComments.includes(comment_id)
@@ -23,6 +16,10 @@ const useCommentStore = create<CommentStore>(set => ({
   setInputFocus: (isFocused: boolean) => {
     set({ isInputFocused: isFocused });
   },
+  resetExapandedComments: () => {
+    set({ expandedComments: [] });
+  },
+  setActiveCommentId: comment_id => set({ activeCommentId: comment_id }),
 }));
 
 export { useCommentStore };
