@@ -1,6 +1,5 @@
 import { supabase } from '@/api/supabase';
 import { getKSTDate } from '@/utils/getTimeNow';
-import { v4 as uuidv4 } from 'uuid';
 
 type SaveCategoriesProps = {
   checkedVideos: Record<string, boolean>;
@@ -24,6 +23,7 @@ export async function fetchCategories(userId: string) {
 // 카테고리 저장 함수
 export async function SaveCategories(props: SaveCategoriesProps) {
   const { checkedVideos, title, imgFile, userId } = props;
+  const uuid = crypto.randomUUID();
 
   const videoIds = Object.keys(checkedVideos).filter(
     videoId => checkedVideos[videoId],
@@ -33,7 +33,7 @@ export async function SaveCategories(props: SaveCategoriesProps) {
 
   const category = {
     categoried_videos: videoIds,
-    category_id: uuidv4(),
+    category_id: uuid,
     updated_at: now,
     user_id: userId,
     title: title,
