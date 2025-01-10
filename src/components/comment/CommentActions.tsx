@@ -14,7 +14,13 @@ const CommentActions = ({
   isExpanded,
   isReply = false,
 }: CommentActionsProps) => {
-  const { toggleReplies, setInputFocus } = useCommentStore();
+  const { toggleReplies, setInputFocus, setActiveCommentId } =
+    useCommentStore();
+
+  const handleReplyClick = () => {
+    setActiveCommentId(comment_id);
+    setInputFocus(true);
+  };
 
   return (
     <div className="flex items-center gap-4 text-sm text-gray">
@@ -29,7 +35,7 @@ const CommentActions = ({
 
       {!isReply && (
         <button
-          onClick={() => setInputFocus(true)}
+          onClick={handleReplyClick}
           className="flex items-center gap-1 transition-colors duration-300 hover:text-primary"
         >
           댓글 달기
