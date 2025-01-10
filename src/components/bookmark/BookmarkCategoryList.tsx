@@ -13,9 +13,13 @@ const BookmarkCategoryList = () => {
     return <div>Error: {categoriesQuery.error?.message}</div>;
   }
 
+  const filteredCategories = categoriesQuery.data?.filter(category => {
+    return category.is_like === true;
+  });
+
   return (
     <>
-      {categoriesQuery.data?.map(category => (
+      {filteredCategories?.map(category => (
         <Link
           to={`/playlist/${category.category_id}`}
           key={category.category_id}
