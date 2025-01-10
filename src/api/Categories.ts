@@ -1,4 +1,4 @@
-import { supabase } from '@/api/Supabase';
+import { supabase } from '@/api/supabase';
 
 // 특정 사용자 북마크 카테고리 조회
 export async function fetchCategories(userId: string) {

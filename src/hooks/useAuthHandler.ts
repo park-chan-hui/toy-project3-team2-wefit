@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useUsers } from './useUsers';
-import { supabase } from '@/api/Supabase';
+import { supabase } from '@/api/supabase';
 import { ROUTER_PATH } from '@/constants/constants';
 import { UserProps } from '@/types/user';
 

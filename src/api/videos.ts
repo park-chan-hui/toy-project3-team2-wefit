@@ -1,4 +1,4 @@
-import { supabase } from './Supabase';
+import { supabase } from './supabase';
 
 // 모든 영상 조회
 export async function fetchVideos() {
