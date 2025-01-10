@@ -3,10 +3,10 @@ import { IoHeartOutline } from 'react-icons/io5';
 import { VscComment } from 'react-icons/vsc';
 import { FaStar, FaRegStar } from 'react-icons/fa';
 
+import { useComments } from '@/hooks/useComments';
 import { formatNumber } from '@/utils/formatNumber';
 import { getTimeAgo } from '@/utils/getTimeAgo';
 import { VideoStatsProps } from '@/types/video';
-import { mockComments } from '@/mocks/mockComment';
 
 const VideoStats = ({
   video_id,
@@ -14,9 +14,7 @@ const VideoStats = ({
   is_bookmarked,
   like_heart,
 }: VideoStatsProps) => {
-  const commentsCount = mockComments.filter(
-    comment => comment.video_id === video_id,
-  ).length;
+  const { comments } = useComments(video_id);
 
   return (
     <div className="flex items-center gap-2 text-gray">
@@ -32,7 +30,7 @@ const VideoStats = ({
 
       <div className="flex items-center">
         <VscComment size={16} className="mr-1" />
-        <span className="text-xs">{formatNumber(commentsCount)}</span>
+        <span className="text-xs">{formatNumber(comments.length)}</span>
       </div>
 
       <div className="flex items-center">
