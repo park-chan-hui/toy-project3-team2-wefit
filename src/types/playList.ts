@@ -2,22 +2,22 @@ import { VideoProps } from '@/types/video';
 
 type PlayListProps = {
   list_id: string;
-  created_at: Date;
+  updated_at: Date;
   is_like: boolean;
   is_open: boolean;
   nickname: string;
-  thumbnail: string;
+  category_thumbnail: string;
   title: string;
   user_id: string;
-  video_list: VideoProps[];
+  categoried_videos: VideoProps[];
 };
 
 type PlayListVideoProps = {
-  bookmark?: PlayListProps;
-  playlist?: PlayListProps;
+  object: PlayListProps;
   // eslint-disable-next-line no-unused-vars
-  onThumbnailChange: (thumbnail: string) => void;
+  onThumbnailChange?: (thumbnail: string) => void;
   thumbnail: string;
+  updated_at?: Date;
 };
 
-export type { PlayListVideoProps };
+export type { PlayListProps, PlayListVideoProps };

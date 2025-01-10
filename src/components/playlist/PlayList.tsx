@@ -30,17 +30,12 @@ const StrictModeDroppable = ({ children, ...props }: DroppableProps) => {
 };
 
 const PlayList = ({
-  bookmark,
-  playlist,
+  object,
   onThumbnailChange,
   thumbnail,
 }: PlayListVideoProps) => {
-  const initialVideoList = bookmark
-    ? bookmark.video_list
-    : playlist?.video_list || [];
+  const initialVideoList = object?.categoried_videos || [];
   const [videoList, setVideoList] = useState(initialVideoList);
-
-  const object = bookmark || playlist;
 
   if (!object) return;
 
@@ -57,14 +52,15 @@ const PlayList = ({
     setVideoList(newList);
   };
 
-  // 이벤트 버블링 제한
   const handleClick = (e: React.MouseEvent) => {
     e.stopPropagation();
   };
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <StrictModeDroppable droppableId="droppable">
+      <StrictModeDroppable
+        droppableId={`droppable-${object.list_id || 'default'}`}
+      >
         {provided => (
           <div
             ref={provided.innerRef}
@@ -75,24 +71,26 @@ const PlayList = ({
               const userData = mockUsers.find(
                 user => user.user_id === video.user_id,
               );
+
+              const draggableId = String(video.video_id || `video-${index}`);
+
               return (
                 <Draggable
-                  key={video.video_id}
-                  draggableId={video.video_id}
+                  key={draggableId}
+                  draggableId={draggableId}
                   index={index}
                 >
-                  {provided => (
+                  {dragProvided => (
                     <div
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
+                      ref={dragProvided.innerRef}
+                      {...dragProvided.draggableProps}
+                      {...dragProvided.dragHandleProps}
                       onClick={handleClick}
                     >
                       <PlayListItem
-                        key={video.video_id}
                         video={video}
                         thumbnail={thumbnail}
-                        onThumbnailChange={onThumbnailChange}
+                        onThumbnailChange={onThumbnailChange ?? (() => {})}
                         userData={userData}
                       />
                     </div>
