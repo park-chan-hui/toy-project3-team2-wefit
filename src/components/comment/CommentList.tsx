@@ -1,9 +1,14 @@
 import CommentItem from './CommentItem';
 import { useCommentStore } from '@/store/useCommentStore';
+import { Comment } from '@/types/comment';
 import { cn } from '@/utils/cn';
 
-const CommentList = () => {
-  const { comments, expandedComments } = useCommentStore();
+type CommentListProps = {
+  comments: Comment[];
+};
+
+const CommentList = ({ comments }: CommentListProps) => {
+  const { expandedComments } = useCommentStore();
 
   return (
     <ul className="space-y-6">
