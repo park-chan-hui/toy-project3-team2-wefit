@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 
-import { supabase } from '@/api/Supabase';
+import { supabase } from '@/api/supabase';
 import { ROUTER_PATH } from '@/constants/constants';
 
 type Provider = 'kakao' | 'google';

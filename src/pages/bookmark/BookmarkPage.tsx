@@ -1,24 +1,24 @@
 import { useState } from 'react';
 import BookmarkCategory from '@/components/bookmark/BookmarkCategory';
 import EmptyResult from '@/components/empty/EmptyResult';
-import { mockBookmarks, mockVideos } from '@/mocks/mockVideos';
 import BookmarkHeader from '@/components/bookmark/BookmarkHeader';
 import BookmarkCategoryList from '@/components/bookmark/BookmarkCategoryList';
 import BookmarkList from '@/components/bookmark/BookmarkList';
+import { useVideos } from '@/hooks/useVideos';
+import { VideoProps } from '@/types/video';
 
 const BookmarkPage = () => {
   const [selectedCategory, setSelectedCategory] = useState('전체');
 
-  const filteredVideos = mockVideos.filter(video => {
-    if (selectedCategory === '전체' || selectedCategory === '북마크만 보기') {
-      return video.is_bookmarked === true;
-    }
-    return video.hash_tag.includes(selectedCategory);
-  });
+  const { videosQuery } = useVideos();
 
-  const filteredBookmarks = mockBookmarks.filter(bookmark => {
-    return bookmark;
-  });
+  const filteredVideos: VideoProps[] =
+    videosQuery.data?.filter(video => {
+      if (selectedCategory === '전체' || selectedCategory === '북마크만 보기') {
+        return video.is_bookmarked === true;
+      }
+      return video.hash_tag.includes(selectedCategory);
+    }) || [];
 
   return (
     <main className="flex flex-col gap-2">
@@ -33,7 +33,8 @@ const BookmarkPage = () => {
             : '북마크 카테고리'
         }
       />
-      {!filteredVideos.length && !filteredBookmarks.length ? (
+
+      {!filteredVideos?.length && !(selectedCategory === '카테고리') ? (
         <EmptyResult
           message={
             selectedCategory === '카테고리'
@@ -49,7 +50,7 @@ const BookmarkPage = () => {
                 <BookmarkList videos={filteredVideos} />
               </div>
               <hr className="border-gray my-3 border" />
-              <p className="text-large font-bold text-black">북마크 카테고리</p>
+              <p className="text-lg font-bold text-black">북마크 카테고리</p>
               <div className="flex w-full flex-col gap-1 overflow-y-auto">
                 <BookmarkCategoryList />
               </div>
