@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import VideoStats from './VideoStats';
+import EmbedYoutubeVideo from './EmbedYoutubeVideo';
 import SimpleProfile from '../common/simple-profile/SimpleProfile';
 import Button from '../common/button/Button';
 import { mockUsers } from '@/mocks/mockUsers';
@@ -8,6 +9,7 @@ import { VideoProps } from '@/types/video';
 
 const VideoItem = ({
   thumbnail,
+  video_url,
   title,
   user_id,
   hash_tag,
@@ -19,11 +21,18 @@ const VideoItem = ({
 }: VideoProps) => {
   const userData = mockUsers.find(user => user.user_id === user_id);
 
-  const ThumbnailContent = (
-    <figure className="relative mb-3 aspect-video w-full overflow-hidden rounded-lg">
-      <img src={thumbnail} alt={title} className="h-full w-full object-cover" />
-    </figure>
-  );
+  const ThumbnailContent =
+    isVideoDetailPage && video_url ? (
+      <EmbedYoutubeVideo videoUrl={video_url} className="mb-3" />
+    ) : (
+      <figure className="relative mb-3 aspect-video w-full overflow-hidden rounded-lg">
+        <img
+          src={thumbnail}
+          alt={title}
+          className="h-full w-full object-cover"
+        />
+      </figure>
+    );
 
   const TitleContent = (
     <h2 className="text-base font-bold text-black">{title}</h2>
