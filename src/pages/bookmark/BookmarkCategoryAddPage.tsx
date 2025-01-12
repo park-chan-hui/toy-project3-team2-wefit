@@ -9,7 +9,7 @@ import { useState } from 'react';
 import { FaCheckCircle } from 'react-icons/fa';
 import { FaRegCircle } from 'react-icons/fa6';
 import { useNavigate } from 'react-router-dom';
-
+import { toastSuccess, toastError } from '@/utils/toast';
 type CheckedVideos = {
   [key: string]: boolean;
 };
@@ -17,6 +17,11 @@ type CheckedVideos = {
 const BookmarkCategoryEditPage = () => {
   const [categoryName, setCategoryName] = useState('');
   const [imgFile, setImgFile] = useState('');
+  const [errors, setErrors] = useState({
+    categoryName: '',
+    imgFile: '',
+    videos: '',
+  });
   const [checkedVideos, setCheckedVideos] = useState<CheckedVideos>({});
 
   const { videosQuery } = useVideos();
@@ -34,7 +39,48 @@ const BookmarkCategoryEditPage = () => {
     }));
   };
 
+  const validInputs = () => {
+    let is_valid = true;
+    const newErrors = {
+      categoryName: '',
+      imgFile: '',
+      videos: '',
+    };
+
+    if (!categoryName) {
+      newErrors.categoryName = '카테고리 명을 입력해주세요';
+      is_valid = false;
+    }
+    if (!imgFile) {
+      newErrors.imgFile = '썸네일을 추가해주세요';
+      is_valid = false;
+    }
+    const hasCheckedVideos = Object.values(checkedVideos).some(
+      value => value === true,
+    );
+    if (!hasCheckedVideos) {
+      newErrors.videos = '최소 하나 영상을 선택해주세요';
+      is_valid = false;
+    }
+
+    setErrors(newErrors);
+    return is_valid;
+  };
+
   const handleSave = async () => {
+    if (!validInputs()) {
+      if (errors.categoryName) {
+        toastError(errors.categoryName);
+      }
+      if (errors.imgFile) {
+        toastError(errors.imgFile);
+      }
+      if (errors.videos) {
+        toastError(errors.videos);
+      }
+      return;
+    }
+
     const userId = 'user1';
 
     try {
@@ -44,10 +90,11 @@ const BookmarkCategoryEditPage = () => {
         imgFile,
         userId,
       });
+      toastSuccess('카테고리 저장 성공!');
       navigate(-1);
     } catch (error) {
+      toastError('다시 한번 시도해 주세요!');
       console.error('카테고리 저장 중 오류 발생:', error);
-      alert('카테고리 저장에 실패했습니다. 다시 시도해주세요.');
     }
   };
 
