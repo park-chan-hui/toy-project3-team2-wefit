@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { fetchVideos, fetchVideo } from '@/api/videos';
+import { fetchVideos, fetchVideo, fetchSelectVideos } from '@/api/videos';
 
-const useVideos = (videoId?: string) => {
+const useVideos = (videosId?: string[], videoId?: string) => {
   const videosQuery = useQuery({
     queryKey: ['videos'],
     queryFn: fetchVideos,
@@ -24,9 +24,22 @@ const useVideos = (videoId?: string) => {
     enabled: !!videoId,
   });
 
+  const selectVideosQuery = useQuery({
+    queryKey: ['selectVideos', videosId],
+    queryFn: () => fetchSelectVideos(videosId!),
+    select: data => {
+      return data.map(video => ({
+        ...video,
+        created_at: new Date(video.created_at),
+      }));
+    },
+    enabled: !!videosId,
+  });
+
   return {
     videosQuery,
     videoQuery,
+    selectVideosQuery,
   };
 };
 

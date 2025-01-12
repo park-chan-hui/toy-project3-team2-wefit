@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 type UserProps = {
   user_id: string;
   user_image?: string;
@@ -15,4 +17,9 @@ type UpdateData = {
   description: string;
 };
 
-export type { UserProps, UpdateData };
+type UserStore = {
+  user: UserProps | null;
+  setUser: (userData: UserProps) => void;
+  clearUser: () => void;
+};
+export type { UserProps, UpdateData, UserStore };

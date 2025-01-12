@@ -8,28 +8,33 @@ import MyPageVideoListSkeleton from '@/components/skeleton/my-page/MyPageVideoLi
 import { ROUTER_PATH } from '@/constants/constants';
 import { useUsers } from '@/hooks/useUsers';
 import { useVideos } from '@/hooks/useVideos';
+import { useUserStore } from '@/store/useUserStore';
 import { Link } from 'react-router-dom';
 
 const MyPage = () => {
-  // const [isLoading, setIsLoading] = useState(true);
   const { MY_UPLOAD_VIDEO } = ROUTER_PATH;
   const { currentUserQuery } = useUsers();
   const { data: currentUserData, isLoading: userDataLoading } =
     currentUserQuery;
+  const setUser = useUserStore(state => state.setUser);
+  setUser(currentUserData);
 
-  const myUploadVideos = currentUserData?.my_upload_video || [];
-  const myWatchedVideos = currentUserData?.my_watched_video || [];
+  const myVideoList = [
+    ...(currentUserData?.my_upload_video || []),
+    ...(currentUserData?.my_watched_video || []),
+  ];
 
-  // 비디오 쿼리 실행 (조건부로 실행)
-  const { videoQuery: myUploadVideoQuery } = useVideos(myUploadVideos);
-  const { data: uploadVideosData, isLoading: myuploadLoding } =
-    myUploadVideoQuery;
+  const { selectVideosQuery: myVideoQuery } = useVideos(myVideoList);
+  const { data: videosData, isLoading: myVideosLoding } = myVideoQuery;
 
-  const { videoQuery: myWatchedVideoQuery } = useVideos(myWatchedVideos);
-  const { data: watchedVideosData, isLoading: myWatchedLoding } =
-    myWatchedVideoQuery;
+  const watchedVideos = videosData?.filter(video =>
+    currentUserData?.my_watched_video.includes(video.video_id),
+  );
+  const uploadVideos = videosData?.filter(video =>
+    currentUserData?.my_upload_video.includes(video.video_id),
+  );
 
-  if (userDataLoading || myuploadLoding || myWatchedLoding) {
+  if (userDataLoading || myVideosLoding) {
     return (
       <main className="flex flex-col gap-2">
         <MyPageProfileSkeleton />
@@ -72,10 +77,10 @@ const MyPage = () => {
       <section>
         <p className="text-lg font-bold">내가 시청한 동영상</p>
         <hr className="my-2" aria-hidden="true" />
-        {!watchedVideosData ? (
+        {!watchedVideos ? (
           <EmptyResult message="영상이 아무것도 없어요!" />
         ) : (
-          <WatchedVideoList videos={[]} />
+          <WatchedVideoList videos={watchedVideos} />
         )}
       </section>
 
@@ -87,10 +92,10 @@ const MyPage = () => {
           </Link>
         </div>
         <hr className="my-2" aria-hidden="true" />
-        {!uploadVideosData ? (
+        {!uploadVideos ? (
           <EmptyResult message="영상이 아무것도 없어요!" />
         ) : (
-          <MyPageUploadVideoList videos={uploadVideosData} />
+          <MyPageUploadVideoList videos={uploadVideos} />
         )}
       </section>
 

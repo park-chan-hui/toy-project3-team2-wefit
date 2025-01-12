@@ -1,10 +1,12 @@
-import { UserProps } from '@/types/user';
+import { UserProps, UserStore } from '@/types/user';
 import { create } from 'zustand';
 
-const useUserStore = create(set => ({
+const useUserStore = create<UserStore>(set => ({
   user: null,
-  setUser: (userData: UserProps) => set(userData),
-  clearUser: () => set(null),
+  setUser: (userData: UserProps) => {
+    set({ user: userData });
+  },
+  clearUser: () => set({ user: null }),
 }));
 
 export { useUserStore };
