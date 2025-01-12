@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import YouTube from 'react-youtube';
+
+import EmbedYoutubeVideo from './EmbedYoutubeVideo';
 import LabelInput from '../common/label-input/LabelInput';
 import Button from '../common/button/Button';
-import { YOUTUBE_REGEX } from '@/constants/constants';
 
 type VideoUploadBoxProps = {
   isEditPage?: boolean;
@@ -12,35 +12,17 @@ const VideoUploadBox = (videoUploadProps: VideoUploadBoxProps) => {
   const [youTubeUrl, setYouTubeUrl] = useState('');
   const [isClick, setIsClick] = useState(false);
 
-  const videoOption = {
-    width: '100%',
-  };
-
-  const findVideoId = (url: string) => {
-    const matchURL = url.match(YOUTUBE_REGEX.URL);
-    const matchShortUrl = url.match(YOUTUBE_REGEX.SHORT_URL);
-    if (matchURL !== null) {
-      return matchURL[0];
-    } else if (matchShortUrl !== null) {
-      return matchShortUrl[0];
-    }
-  };
   const clickVideoUpload = () => {
     setIsClick(true);
   };
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsClick(false);
     setYouTubeUrl(e.target.value);
   };
 
   if (videoUploadProps.isEditPage) {
-    return (
-      <YouTube
-        videoId={findVideoId(youTubeUrl)}
-        title="youtube 동영상"
-        opts={videoOption}
-      />
-    );
+    return <EmbedYoutubeVideo videoUrl={youTubeUrl} />;
   }
   return (
     <section className="flex flex-col gap-2">
@@ -60,11 +42,7 @@ const VideoUploadBox = (videoUploadProps: VideoUploadBoxProps) => {
             </Button>
           </div>
         ) : (
-          <YouTube
-            videoId={findVideoId(youTubeUrl)}
-            title="youtube 동영상"
-            opts={videoOption}
-          />
+          <EmbedYoutubeVideo videoUrl={youTubeUrl} />
         )}
       </>
     </section>
