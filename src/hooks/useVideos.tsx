@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { fetchVideos, fetchVideo, fetchSelectVideos } from '@/api/videos';
 
-const useVideos = (videosId?: string[], videoId?: string) => {
+const useVideos = (videoId?: string, videosId?: string[]) => {
   const videosQuery = useQuery({
     queryKey: ['videos'],
     queryFn: fetchVideos,
