@@ -8,13 +8,11 @@ import { formatNumber } from '@/utils/formatNumber';
 import { getTimeAgo } from '@/utils/getTimeAgo';
 import { VideoStatsProps } from '@/types/video';
 
-const VideoStats = ({
-  video_id,
-  created_at,
-  is_bookmarked,
-  like_heart,
-}: VideoStatsProps) => {
+import { useBookmark } from '@/hooks/useBookmarks';
+
+const VideoStats = ({ video_id, created_at, like_heart }: VideoStatsProps) => {
   const { comments } = useComments(video_id);
+  const { isBookmarked, toggleBookmark, isLoading } = useBookmark(video_id);
 
   return (
     <div className="flex items-center gap-2 text-gray">
@@ -33,13 +31,17 @@ const VideoStats = ({
         <span className="text-xs">{formatNumber(comments.length)}</span>
       </div>
 
-      <div className="flex items-center">
-        {is_bookmarked ? (
+      <button
+        onClick={() => toggleBookmark()}
+        className="flex items-center"
+        disabled={isLoading}
+      >
+        {isBookmarked ? (
           <FaStar size={16} className="text-primary" />
         ) : (
           <FaRegStar size={16} />
         )}
-      </div>
+      </button>
     </div>
   );
 };
