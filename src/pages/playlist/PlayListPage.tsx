@@ -7,15 +7,17 @@ import PlayMusicList from '@/components/playlist/PlayMusicList';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ROUTER_PATH } from '@/constants/constants';
-import { mockBookmarks } from '@/mocks/mockVideos';
+import { useMusics } from '@/hooks/useMusics';
 
 const PlayListPage = () => {
   const [selectedCategory, setSelectedCategory] = useState('전체');
   const { BOOKMARK_CATEGORY_ADD } = ROUTER_PATH;
 
-  const filteredVideos = mockBookmarks.filter(bookmark => {
-    return bookmark;
-  });
+  const { data: musics, isLoading } = useMusics();
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   const mainPlayList = selectedCategory === '전체' && (
     <>
@@ -70,7 +72,7 @@ const PlayListPage = () => {
         }
       />
 
-      {!filteredVideos.length && !(selectedCategory === '음악만 보기') ? (
+      {!musics?.length && !(selectedCategory === '음악만 보기') ? (
         <>
           <EmptyResult
             message={
