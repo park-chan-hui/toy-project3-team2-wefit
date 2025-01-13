@@ -19,3 +19,13 @@ export async function fetchVideo(videoId: string) {
   if (error) throw error;
   return data;
 }
+
+export async function fetchSelectVideos(videoIds: string[]) {
+  const { data, error } = await supabase
+    .from('videos')
+    .select('*')
+    .in('video_id', videoIds);
+
+  if (error) throw error;
+  return data;
+}

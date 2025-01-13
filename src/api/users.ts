@@ -1,4 +1,4 @@
-import { supabase } from './supabase';
+import { supabase } from './Supabase';
 import { UserProps, UpdateData } from '@/types/user';
 
 // 모든 사용자 조회
@@ -19,6 +19,20 @@ export async function fetchUserById(userId: string) {
 
   if (error) throw error;
   return data;
+}
+
+// 현재 로그인한 사용자 조회
+export async function fetchCurrentUser() {
+  const { data, error } = await supabase.auth.getUser();
+  if (error) throw error;
+
+  const { user } = data;
+
+  const userData = await fetchUserById(user.id);
+
+  if (!userData) throw new Error('Failed to fetch');
+
+  return userData;
 }
 
 // 사용자 삭제
