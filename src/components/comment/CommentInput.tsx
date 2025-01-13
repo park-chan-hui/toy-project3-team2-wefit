@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import CommentSubmitForm from './CommentSubmitForm';
 import { useComments } from '@/hooks/useComments';
 import { useCommentStore } from '@/store/useCommentStore';
+import { useUsers } from '@/hooks/useUsers';
 
 interface CommentInputProps {
   videoId: string;
@@ -18,6 +19,7 @@ const CommentInput = ({ videoId, onCancel }: CommentInputProps) => {
   const setActiveCommentId = useCommentStore(state => state.setActiveCommentId);
   const { addComment, addReply, isAddingComment, isAddingReply } =
     useComments(videoId);
+  const { currentUserQuery } = useUsers();
 
   const isReplyMode = !!activeCommentId;
 
@@ -42,20 +44,21 @@ const CommentInput = ({ videoId, onCancel }: CommentInputProps) => {
   };
 
   const handleSubmit = async (content: string) => {
-    const userId = 'user9'; // 임시 사용자 정보
-    const nickname = '댓글맨3'; // 임시 사용자 정보
-
     if (isReplyMode) {
       await addReply({
         commentId: activeCommentId,
-        userId,
-        nickname,
+        userId: currentUserQuery.data.user_id,
+        nickname: currentUserQuery.data.nickname,
         content,
       });
       setActiveCommentId(null);
       onCancel?.();
     } else {
-      await addComment({ userId, nickname, content });
+      await addComment({
+        userId: currentUserQuery.data.user_id,
+        nickname: currentUserQuery.data.nickname,
+        content,
+      });
     }
   };
 

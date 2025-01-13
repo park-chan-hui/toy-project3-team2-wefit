@@ -1,4 +1,4 @@
-import { supabase } from './Supabase';
+import { supabase } from './supabase';
 
 import { Comment, Reply } from '@/types/comment';
 
