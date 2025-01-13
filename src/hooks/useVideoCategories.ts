@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 const useVideoCategories = (basicVideoCategories: string[]) => {
   const [selectedTags, setSelectedTags] = useState<string[]>([]); //선택된 태그
-  const [videoCategories, setVideoCategories] =
+  const [videoCategoryList, setVideoCategoryList] =
     useState<string[]>(basicVideoCategories); // 태그 리스트
   const [isAddVideoCategory, setIsAddVideoCategory] = useState(false); // 태그 추가 상태
   const [addVideoCategoryValue, setAddVideoCategoryValue] = useState(''); // 태그 추가 input 핸들러
@@ -22,7 +22,7 @@ const useVideoCategories = (basicVideoCategories: string[]) => {
   //태그 추가
   const addVideoCategories = () => {
     if (isAddVideoCategory && addVideoCategoryValue) {
-      videoCategories.push(addVideoCategoryValue);
+      videoCategoryList.push(addVideoCategoryValue);
       setAddVideoCategoryValue('');
     }
     setIsAddVideoCategory(!isAddVideoCategory);
@@ -32,12 +32,12 @@ const useVideoCategories = (basicVideoCategories: string[]) => {
     selectedTags,
     isAddVideoCategory,
     addVideoCategoryValue,
-    videoCategories,
+    videoCategoryList,
     toggleTag,
     setSelectedTags,
     addVideoCategories,
     handleAddVideoCategoryValue,
-    setVideoCategories,
+    setVideoCategoryList,
     setIsAddVideoCategory,
     setAddVideoCategoryValue,
   };

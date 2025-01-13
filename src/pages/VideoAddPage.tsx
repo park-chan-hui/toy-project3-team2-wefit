@@ -9,19 +9,21 @@ import { useVideoCategories } from '@/hooks/useVideoCategories';
 import { useVideos } from '@/hooks/useVideos';
 import { getYoutubeVideoId } from '@/utils/getYoutubeVideoId';
 import { VideoFormValues, videoSchema } from '@/schema/videoUploadSchema';
-import { uploadVideoCategories } from '@/mocks/videoCategories';
+import { videoCategories } from '@/mocks/videoCategories';
 
 const VideoAddPage = () => {
+  const uploadVideoCategories = [...videoCategories];
+  uploadVideoCategories.shift();
   const {
     selectedTags,
     isAddVideoCategory,
     addVideoCategoryValue,
-    videoCategories,
+    videoCategoryList,
     toggleTag,
     addVideoCategories,
     handleAddVideoCategoryValue,
     setSelectedTags,
-    setVideoCategories,
+    setVideoCategoryList,
     setIsAddVideoCategory,
     setAddVideoCategoryValue,
   } = useVideoCategories(uploadVideoCategories);
@@ -62,7 +64,7 @@ const VideoAddPage = () => {
 
   const handleReset = () => {
     reset();
-    setVideoCategories(uploadVideoCategories);
+    setVideoCategoryList(uploadVideoCategories);
     setIsAddVideoCategory(false);
     setAddVideoCategoryValue('');
     setSelectedTags([]);
@@ -82,7 +84,9 @@ const VideoAddPage = () => {
           )}
         />
         {errors.video_url && (
-          <p className="text-red-500">{errors.video_url.message}</p>
+          <p className="mt-2 text-sm text-red-500">
+            {errors.video_url.message}
+          </p>
         )}
       </section>
 
@@ -99,7 +103,9 @@ const VideoAddPage = () => {
             />
           )}
         />
-        {errors.title && <p className="text-red-500">{errors.title.message}</p>}
+        {errors.title && (
+          <p className="mt-2 text-sm text-red-500">{errors.title.message}</p>
+        )}
       </section>
 
       <section>
@@ -111,7 +117,7 @@ const VideoAddPage = () => {
               selectedTags={field.value || []}
               isAddVideoCategory={isAddVideoCategory}
               addVideoCategoryValue={addVideoCategoryValue}
-              videoCategories={videoCategories}
+              videoCategories={videoCategoryList}
               toggleTag={tag => {
                 toggleTag(tag); // 상태 업데이트
                 if (field.value?.includes(tag)) {
@@ -126,7 +132,7 @@ const VideoAddPage = () => {
           )}
         />
         {errors.hash_tag && (
-          <p className="text-red-500">{errors.hash_tag.message}</p>
+          <p className="mt-2 text-sm text-red-500">{errors.hash_tag.message}</p>
         )}
       </section>
 
