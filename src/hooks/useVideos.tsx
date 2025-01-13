@@ -9,7 +9,7 @@ import {
 import { UploadVideoProps } from '@/types/video';
 import { useUsers } from './useUsers';
 import { useNavigate } from 'react-router-dom';
-import { toastSuccess } from '@/utils/toast';
+import { toastError, toastSuccess } from '@/utils/toast';
 
 const useVideos = (videoId?: string, videosId?: string[]) => {
   const navigate = useNavigate();
@@ -59,12 +59,12 @@ const useVideos = (videoId?: string, videosId?: string[]) => {
         created_at: new Date(),
       }),
     onSuccess: () => {
-      toastSuccess('업로드 성공!');
+      toastSuccess('업로드에 성공했어요!');
       navigate('/home');
     },
     onError: (error: Error) => {
       console.error('업로드 실패:', error);
-      alert('동영상 업로드 중 오류가 발생했습니다.');
+      toastError('동영상 업로드 중 오류가 발생했습니다.');
     },
   });
   return {

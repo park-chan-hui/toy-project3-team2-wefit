@@ -9,20 +9,9 @@ import { useVideoCategories } from '@/hooks/useVideoCategories';
 import { useVideos } from '@/hooks/useVideos';
 import { getYoutubeVideoId } from '@/utils/getYoutubeVideoId';
 import { VideoFormValues, videoSchema } from '@/schema/videoUploadSchema';
+import { uploadVideoCategories } from '@/mocks/videoCategories';
 
 const VideoAddPage = () => {
-  const basicVideoCategories = [
-    '가슴',
-    '등',
-    '어깨',
-    '하체',
-    '복근',
-    '팔',
-    '엉덩이',
-    '종아리',
-    '음악',
-  ];
-
   const {
     selectedTags,
     isAddVideoCategory,
@@ -35,7 +24,7 @@ const VideoAddPage = () => {
     setVideoCategories,
     setIsAddVideoCategory,
     setAddVideoCategoryValue,
-  } = useVideoCategories(basicVideoCategories);
+  } = useVideoCategories(uploadVideoCategories);
 
   const { addVideoMutation } = useVideos();
 
@@ -73,82 +62,89 @@ const VideoAddPage = () => {
 
   const handleReset = () => {
     reset();
-    setVideoCategories(basicVideoCategories);
+    setVideoCategories(uploadVideoCategories);
     setIsAddVideoCategory(false);
     setAddVideoCategoryValue('');
     setSelectedTags([]);
   };
 
   return (
-    <main className="flex flex-col gap-4">
-      <Controller
-        name="video_url"
-        control={control}
-        render={({ field }) => (
-          <VideoUploadBox videoURL={field.value} setVideoURL={field.onChange} />
+    <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
+      <section>
+        <Controller
+          name="video_url"
+          control={control}
+          render={({ field }) => (
+            <VideoUploadBox
+              videoURL={field.value}
+              setVideoURL={field.onChange}
+            />
+          )}
+        />
+        {errors.video_url && (
+          <p className="text-red-500">{errors.video_url.message}</p>
         )}
-      />
-      {errors.video_url && (
-        <p style={{ color: 'red' }}>{errors.video_url.message}</p>
-      )}
+      </section>
 
-      <Controller
-        name="title"
-        control={control}
-        render={({ field }) => (
-          <LabelInput
-            title="영상 제목"
-            placeholder="영상 제목을 입력해주세요."
-            value={field.value}
-            onChange={field.onChange}
-          />
-        )}
-      />
-      {errors.title && <p style={{ color: 'red' }}>{errors.title.message}</p>}
+      <section>
+        <Controller
+          name="title"
+          control={control}
+          render={({ field }) => (
+            <LabelInput
+              title="영상 제목"
+              placeholder="영상 제목을 입력해주세요."
+              value={field.value}
+              onChange={field.onChange}
+            />
+          )}
+        />
+        {errors.title && <p className="text-red-500">{errors.title.message}</p>}
+      </section>
 
-      <Controller
-        name="hash_tag"
-        control={control}
-        render={({ field }) => (
-          <MyPageVideoCategories
-            selectedTags={field.value || []}
-            isAddVideoCategory={isAddVideoCategory}
-            addVideoCategoryValue={addVideoCategoryValue}
-            videoCategories={videoCategories}
-            toggleTag={tag => {
-              toggleTag(tag); // 상태 업데이트
-              if (field.value?.includes(tag)) {
-                field.onChange(field.value.filter(t => t !== tag)); // 태그 제거
-              } else {
-                field.onChange([...(field.value || []), tag]); // 태그 추가
-              }
-            }}
-            addVideoCategories={addVideoCategories}
-            handleAddVideoCategoryValue={handleAddVideoCategoryValue}
-          />
+      <section>
+        <Controller
+          name="hash_tag"
+          control={control}
+          render={({ field }) => (
+            <MyPageVideoCategories
+              selectedTags={field.value || []}
+              isAddVideoCategory={isAddVideoCategory}
+              addVideoCategoryValue={addVideoCategoryValue}
+              videoCategories={videoCategories}
+              toggleTag={tag => {
+                toggleTag(tag); // 상태 업데이트
+                if (field.value?.includes(tag)) {
+                  field.onChange(field.value.filter(t => t !== tag)); // 태그 제거
+                } else {
+                  field.onChange([...(field.value || []), tag]); // 태그 추가
+                }
+              }}
+              addVideoCategories={addVideoCategories}
+              handleAddVideoCategoryValue={handleAddVideoCategoryValue}
+            />
+          )}
+        />
+        {errors.hash_tag && (
+          <p className="text-red-500">{errors.hash_tag.message}</p>
         )}
-      />
-      {errors.hash_tag && (
-        <p style={{ color: 'red' }}>{errors.hash_tag.message}</p>
-      )}
+      </section>
 
-      <Controller
-        name="thumbnail"
-        control={control}
-        render={({ field }) => (
-          <ThumbnailUpload
-            imgFile={field.value || ''}
-            onImageChange={field.onChange}
-          />
-        )}
-      />
+      <section>
+        <Controller
+          name="thumbnail"
+          control={control}
+          render={({ field }) => (
+            <ThumbnailUpload
+              imgFile={field.value || ''}
+              onImageChange={field.onChange}
+            />
+          )}
+        />
+      </section>
 
       <div className="flex w-full gap-small">
-        <Button
-          type="submit"
-          className="w-1/2"
-          onClick={handleSubmit(onSubmit)}
-        >
+        <Button type="submit" className="w-1/2">
           업로드
         </Button>
         <Button
@@ -160,7 +156,7 @@ const VideoAddPage = () => {
           초기화
         </Button>
       </div>
-    </main>
+    </form>
   );
 };
 

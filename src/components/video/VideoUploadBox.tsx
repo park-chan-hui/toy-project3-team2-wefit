@@ -6,9 +6,7 @@ import Button from '../common/button/Button';
 
 type VideoUploadBoxProps = {
   isEditPage?: boolean;
-
   videoURL: string;
-
   setVideoURL: React.Dispatch<React.SetStateAction<string>>;
 };
 const VideoUploadBox = (videoUploadProps: VideoUploadBoxProps) => {
@@ -40,7 +38,11 @@ const VideoUploadBox = (videoUploadProps: VideoUploadBoxProps) => {
       <>
         {!isClick ? (
           <div className="flex aspect-video flex-col items-center justify-center rounded-medium bg-gray-100 p-medium shadow-inner">
-            <Button className="text-nowrap" onClick={clickVideoUpload}>
+            <Button
+              className="text-nowrap"
+              onClick={clickVideoUpload}
+              disabled={!videoURL}
+            >
               영상 확인하기
             </Button>
           </div>
