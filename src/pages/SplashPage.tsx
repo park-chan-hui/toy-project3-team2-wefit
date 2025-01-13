@@ -4,19 +4,20 @@ import { useNavigate } from 'react-router-dom';
 
 import MainLogoHeader from '@/components/header/MainLogoHeader';
 import { ROUTER_PATH } from '@/constants/constants';
+import { useUsers } from '@/hooks/useUsers';
 
 const SplashPage = () => {
-  const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+  const { currentUserQuery } = useUsers();
   const { HOME, LOGIN } = ROUTER_PATH;
   const navigate = useNavigate();
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigate(isLoggedIn ? HOME : LOGIN);
+      navigate(currentUserQuery.data ? HOME : LOGIN);
     }, 1000);
 
     return () => clearTimeout(timer);
-  }, [isLoggedIn, navigate, HOME, LOGIN]);
+  }, [currentUserQuery.data, navigate, HOME, LOGIN]);
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center">
