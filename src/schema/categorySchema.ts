@@ -7,7 +7,6 @@ const categorySchema = z.object({
     .min(1, { message: '썸네일을 선택해주세요' })
     .refine(
       value => {
-        console.log(value);
         const validPrefixes = [
           'data:image/jpg;base64,',
           'data:image/jpeg;base64,',
