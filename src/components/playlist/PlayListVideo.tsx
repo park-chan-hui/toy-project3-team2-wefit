@@ -4,7 +4,7 @@ import { LuTableOfContents } from 'react-icons/lu';
 import type { PlayListVideoProps } from '@/types/playList';
 import EmbedYoutubeVideo from '@/components/video/EmbedYoutubeVideo';
 
-const PlayListVideo = ({ object, thumbnail, videoUrl }: PlayListVideoProps) => {
+const PlayListVideo = ({ object, videoUrl }: PlayListVideoProps) => {
   if (!object) {
     return;
   }
@@ -20,7 +20,7 @@ const PlayListVideo = ({ object, thumbnail, videoUrl }: PlayListVideoProps) => {
       ) : (
         <figure className="relative mb-3 aspect-video h-[80%] w-full overflow-hidden rounded-lg">
           <img
-            src={thumbnail ? thumbnail : object.category_thumbnail}
+            src={object.category_thumbnail}
             alt={object.title}
             className="h-full w-full object-cover"
           />

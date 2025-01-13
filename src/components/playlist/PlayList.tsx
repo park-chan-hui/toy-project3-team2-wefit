@@ -29,12 +29,7 @@ const StrictModeDroppable = ({ children, ...props }: DroppableProps) => {
   return <Droppable {...props}>{children}</Droppable>;
 };
 
-const PlayList = ({
-  object,
-  onThumbnailChange,
-  onVideoUrlChange,
-  thumbnail,
-}: PlayListVideoProps) => {
+const PlayList = ({ object, onVideoUrlChange }: PlayListVideoProps) => {
   const initialVideoList = object?.categoried_videos || [];
   const [videoList, setVideoList] = useState(initialVideoList);
 
@@ -90,8 +85,6 @@ const PlayList = ({
                     >
                       <PlayListItem
                         video={video}
-                        thumbnail={thumbnail}
-                        onThumbnailChange={onThumbnailChange ?? (() => {})}
                         onVideoUrlChange={onVideoUrlChange ?? (() => {})}
                         userData={userData}
                       />

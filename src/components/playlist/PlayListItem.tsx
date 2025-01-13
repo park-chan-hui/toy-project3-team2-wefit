@@ -5,9 +5,6 @@ import { useVideos } from '@/hooks/useVideos';
 
 type PlayListItemProps = {
   video: string;
-  thumbnail: string;
-  // eslint-disable-next-line no-unused-vars
-  onThumbnailChange: (thumbnail: string) => void;
   // eslint-disable-next-line no-unused-vars
   onVideoUrlChange: (videoUrl: string) => void;
   userData?: UserProps;
@@ -15,8 +12,6 @@ type PlayListItemProps = {
 
 const PlayListItem = ({
   video,
-  thumbnail,
-  onThumbnailChange,
   onVideoUrlChange,
   userData,
 }: PlayListItemProps) => {
@@ -29,12 +24,8 @@ const PlayListItem = ({
       {videoData && (
         <div
           key={videoData.video_id}
-          className={cn(
-            'flex cursor-pointer items-center gap-2',
-            videoData.thumbnail === thumbnail ? 'bg-gray-300' : '',
-          )}
+          className={cn('flex cursor-pointer items-center gap-2')}
           onClick={() => {
-            onThumbnailChange(videoData.thumbnail);
             onVideoUrlChange(videoData.video_url);
           }}
         >
