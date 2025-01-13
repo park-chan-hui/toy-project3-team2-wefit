@@ -1,15 +1,18 @@
 import SimpleProfile from '../common/simple-profile/SimpleProfile';
 import CommentActions from './CommentActions';
 import { useCommentStore } from '@/store/useCommentStore';
+import { useUsers } from '@/hooks/useUsers';
 import { CommentItemProps } from '@/types/comment';
 import { getTimeAgo } from '@/utils/getTimeAgo';
 import { cn } from '@/utils/cn';
-import { mockUsers } from '@/mocks/mockUsers';
 
 const CommentItem = ({ comment, isReply = false }: CommentItemProps) => {
   const { expandedComments } = useCommentStore();
+  const { usersQuery } = useUsers();
 
-  const user = mockUsers.find(user => user.user_id === comment.user_id);
+  const allUsers = usersQuery.data;
+
+  const user = allUsers?.find(user => user.user_id === comment.user_id);
   const hasReplies = !isReply && comment.replies && comment.replies.length > 0;
   const isExpanded = expandedComments.includes(comment.comment_id);
 
