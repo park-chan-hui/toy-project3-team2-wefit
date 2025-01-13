@@ -16,7 +16,7 @@ const PlayListVideo = ({ object, videoUrl }: PlayListVideoProps) => {
   return (
     <div className="sticky top-0 z-10 mb-2 bg-white">
       {videoUrl ? (
-        <EmbedYoutubeVideo videoUrl={videoUrl} />
+        <EmbedYoutubeVideo videoUrl={videoUrl} className="mb-3" />
       ) : (
         <figure className="relative mb-3 aspect-video h-[80%] w-full overflow-hidden rounded-lg">
           <img
