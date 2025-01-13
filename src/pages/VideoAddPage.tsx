@@ -1,61 +1,161 @@
-import { useState } from 'react';
-
+import { useForm, Controller } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import Button from '@/components/common/button/Button';
 import LabelInput from '@/components/common/label-input/LabelInput';
 import ThumbnailUpload from '@/components/thumbnail/ThumbnailUpload';
-import { videoCategories } from '@/mocks/videoCategories';
 import VideoUploadBox from '@/components/video/VideoUploadBox';
+import MyPageVideoCategories from '@/components/my-page/MyPageVideoCategories';
+import { useVideoCategories } from '@/hooks/useVideoCategories';
+import { useVideos } from '@/hooks/useVideos';
+import { getYoutubeVideoId } from '@/utils/getYoutubeVideoId';
+import { VideoFormValues, videoSchema } from '@/schema/videoUploadSchema';
 
 const VideoAddPage = () => {
-  const [imgFile, setImgFile] = useState('');
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const basicVideoCategories = [
+    '가슴',
+    '등',
+    '어깨',
+    '하체',
+    '복근',
+    '팔',
+    '엉덩이',
+    '종아리',
+    '음악',
+  ];
 
-  const toggleTag = (tag: string) => {
-    setSelectedTags(prev =>
-      prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag],
-    );
+  const {
+    selectedTags,
+    isAddVideoCategory,
+    addVideoCategoryValue,
+    videoCategories,
+    toggleTag,
+    addVideoCategories,
+    handleAddVideoCategoryValue,
+    setSelectedTags,
+    setVideoCategories,
+    setIsAddVideoCategory,
+    setAddVideoCategoryValue,
+  } = useVideoCategories(basicVideoCategories);
+
+  const { addVideoMutation } = useVideos();
+
+  const {
+    control,
+    handleSubmit,
+    reset,
+    watch,
+    formState: { errors },
+  } = useForm<VideoFormValues>({
+    resolver: zodResolver(videoSchema),
+    defaultValues: {
+      video_url: '',
+      title: '',
+      thumbnail: '',
+      hash_tag: [],
+    },
+  });
+
+  const imgFile = watch('thumbnail');
+
+  const onSubmit = (data: VideoFormValues) => {
+    const videoURLId = getYoutubeVideoId(data.video_url);
+    const newThumbnail =
+      imgFile || `https://img.youtube.com/vi/${videoURLId}/0.jpg`;
+
+    const videoUploadForm = {
+      ...data,
+      thumbnail: newThumbnail,
+      hash_tag: selectedTags,
+    };
+
+    addVideoMutation.mutate(videoUploadForm);
   };
 
-  const handleImageReset = () => {
-    setImgFile('');
+  const handleReset = () => {
+    reset();
+    setVideoCategories(basicVideoCategories);
+    setIsAddVideoCategory(false);
+    setAddVideoCategoryValue('');
+    setSelectedTags([]);
   };
 
   return (
     <main className="flex flex-col gap-4">
-      <VideoUploadBox />
+      <Controller
+        name="video_url"
+        control={control}
+        render={({ field }) => (
+          <VideoUploadBox videoURL={field.value} setVideoURL={field.onChange} />
+        )}
+      />
+      {errors.video_url && (
+        <p style={{ color: 'red' }}>{errors.video_url.message}</p>
+      )}
 
-      <LabelInput title="영상 제목" placeholder="영상 제목을 입력해주세요." />
+      <Controller
+        name="title"
+        control={control}
+        render={({ field }) => (
+          <LabelInput
+            title="영상 제목"
+            placeholder="영상 제목을 입력해주세요."
+            value={field.value}
+            onChange={field.onChange}
+          />
+        )}
+      />
+      {errors.title && <p style={{ color: 'red' }}>{errors.title.message}</p>}
 
-      <section className="flex flex-col gap-2">
-        <p className="text-base font-bold">해시 태그</p>
-        <nav className="flex flex-wrap gap-small">
-          {videoCategories.map((tag, index) => (
-            <Button
-              size="small"
-              variant={selectedTags.includes(tag) ? 'primary' : 'outline'}
-              key={index}
-              onClick={() => toggleTag(tag)}
-            >
-              {tag}
-            </Button>
-          ))}
-          <Button key="addHashTag" size="small" variant="outline">
-            추가 입력
-          </Button>
-        </nav>
-      </section>
+      <Controller
+        name="hash_tag"
+        control={control}
+        render={({ field }) => (
+          <MyPageVideoCategories
+            selectedTags={field.value || []}
+            isAddVideoCategory={isAddVideoCategory}
+            addVideoCategoryValue={addVideoCategoryValue}
+            videoCategories={videoCategories}
+            toggleTag={tag => {
+              toggleTag(tag); // 상태 업데이트
+              if (field.value?.includes(tag)) {
+                field.onChange(field.value.filter(t => t !== tag)); // 태그 제거
+              } else {
+                field.onChange([...(field.value || []), tag]); // 태그 추가
+              }
+            }}
+            addVideoCategories={addVideoCategories}
+            handleAddVideoCategoryValue={handleAddVideoCategoryValue}
+          />
+        )}
+      />
+      {errors.hash_tag && (
+        <p style={{ color: 'red' }}>{errors.hash_tag.message}</p>
+      )}
 
-      <ThumbnailUpload imgFile={imgFile} onImageChange={setImgFile} />
+      <Controller
+        name="thumbnail"
+        control={control}
+        render={({ field }) => (
+          <ThumbnailUpload
+            imgFile={field.value || ''}
+            onImageChange={field.onChange}
+          />
+        )}
+      />
 
       <div className="flex w-full gap-small">
-        <Button type="submit" className="w-1/2">
+        <Button
+          type="submit"
+          className="w-1/2"
+          onClick={handleSubmit(onSubmit)}
+        >
           업로드
         </Button>
         <Button
           type="reset"
           variant="outline"
           className="w-1/2"
-          onClick={handleImageReset}
+          onClick={handleReset}
         >
           초기화
         </Button>

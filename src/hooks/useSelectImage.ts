@@ -19,6 +19,9 @@ export const useSelectImage = (onImageChange: (file: string) => void) => {
   };
 
   const handleInput = () => {
+    if (imgRef.current) {
+      imgRef.current.value = '';
+    }
     imgRef.current?.click();
   };
 
