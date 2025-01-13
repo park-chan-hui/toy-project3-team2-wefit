@@ -8,6 +8,7 @@ const PlayMusicList = () => {
   if (isLoading) {
     return <div>Loading...</div>;
   }
+
   return (
     <>
       {musics?.map(music => (
@@ -15,7 +16,7 @@ const PlayMusicList = () => {
           <div className="mb-2">
             <figure className="relative mb-3 aspect-video h-[80%] w-full overflow-hidden rounded-lg">
               <img
-                src={music.thumbnail}
+                src={music.category_thumbnail}
                 alt={music.title}
                 className="h-full w-full object-cover"
               />
@@ -25,10 +26,12 @@ const PlayMusicList = () => {
                 <h2 className="overflow-hidden text-ellipsis whitespace-nowrap font-bold">
                   {music.title}
                 </h2>
-                <h2 className="font-bold">({music.video_list.length})</h2>
+                <h2 className="font-bold">
+                  ({(music.categoried_videos || []).length})
+                </h2>
               </div>
               <p className="mr-1 flex items-center text-small">
-                최종 수정일 {getTimeAgo(music.created_at)}
+                최종 수정일 {getTimeAgo(music.updated_at)}
               </p>
             </div>
           </div>
