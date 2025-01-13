@@ -1,5 +1,6 @@
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { RouterProvider, createBrowserRouter, Outlet } from 'react-router-dom';
 
+import ProtectedRoute from './ProtectedRoute';
 import Layout from '@/layout/Layout';
 import SplashPage from '@/pages/SplashPage';
 import HomePage from '@/pages/HomePage';
@@ -48,9 +49,21 @@ const Router = () => {
         { path: KAKAO_REDIRECT, element: <KakaoOAuthHandler /> },
         { path: GOOGLE_REDIRECT, element: <GoogleOAuthHandler /> },
         { path: LOGIN, element: <LoginPage /> },
-        { path: HOME, element: <HomePage /> },
+        {
+          path: HOME,
+          element: (
+            <ProtectedRoute>
+              <HomePage />
+            </ProtectedRoute>
+          ),
+        },
         {
           path: MY_PAGE,
+          element: (
+            <ProtectedRoute>
+              <Outlet />
+            </ProtectedRoute>
+          ),
           children: [
             { index: true, element: <MyPage /> },
             { path: MY_PAGE_EDIT, element: <MyPageEdit /> },
@@ -60,15 +73,32 @@ const Router = () => {
         },
         {
           path: PLAYLIST,
+          element: (
+            <ProtectedRoute>
+              <Outlet />
+            </ProtectedRoute>
+          ),
           children: [
             { index: true, element: <PlayListPage /> },
             { path: PLAYLIST_DETAIL, element: <PlayListDetailPage /> },
           ],
         },
-        { path: VIDEO_ADD, element: <VideoAddPage /> },
+        {
+          path: VIDEO_ADD,
+          element: (
+            <ProtectedRoute>
+              <VideoAddPage />
+            </ProtectedRoute>
+          ),
+        },
         { path: VIDEO_DETAIL, element: <VideoDetailPage /> },
         {
           path: BOOKMARK,
+          element: (
+            <ProtectedRoute>
+              <Outlet />
+            </ProtectedRoute>
+          ),
           children: [
             { index: true, element: <BookmarkPage /> },
             {
@@ -77,8 +107,22 @@ const Router = () => {
             },
           ],
         },
-        { path: AUTHOR_DETAIL, element: <AuthorDetailPage /> },
-        { path: '*', element: <NotFoundPage /> },
+        {
+          path: AUTHOR_DETAIL,
+          element: (
+            <ProtectedRoute>
+              <AuthorDetailPage />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: '*',
+          element: (
+            <ProtectedRoute>
+              <NotFoundPage />
+            </ProtectedRoute>
+          ),
+        },
       ],
     },
   ]);

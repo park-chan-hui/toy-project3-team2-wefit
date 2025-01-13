@@ -4,11 +4,13 @@ import NavigationBar from '@/components/navigation-bar/NavigationBar';
 import LogoHeader from '@/components/header/LogoHeader';
 import BackHeader from '@/components/header/BackHeader';
 import ScrollToTop from '@/components/common/scroll/ScrollToTop';
+import { useUsers } from '@/hooks/useUsers';
 import { ROUTER_PATH } from '@/constants/constants';
 import { cn } from '@/utils/cn';
 
 const Layout = () => {
   const { pathname } = useLocation();
+  const { currentUserQuery } = useUsers();
 
   const isLoginPage = pathname === ROUTER_PATH.LOGIN;
   const isSplashPage = pathname === ROUTER_PATH.SPLASH;
@@ -17,7 +19,10 @@ const Layout = () => {
     ROUTER_PATH.GOOGLE_REDIRECT,
   ].includes(pathname);
   const shouldHideHeaderAndNav =
-    isLoginPage || isSplashPage || isOAuthRedirectPage;
+    isLoginPage ||
+    isSplashPage ||
+    isOAuthRedirectPage ||
+    currentUserQuery.isLoading;
 
   const shouldShowBackButton = [
     ROUTER_PATH.MY_PAGE_EDIT,
@@ -35,7 +40,12 @@ const Layout = () => {
       <section className="relative w-full max-w-container bg-white">
         {!shouldHideHeaderAndNav &&
           (shouldShowBackButton ? <BackHeader /> : <LogoHeader />)}
-        <div className={cn('px-3', !shouldHideHeaderAndNav && 'pb-28')}>
+        <div
+          className={cn(
+            !isOAuthRedirectPage && 'px-3',
+            !shouldHideHeaderAndNav && 'pb-28',
+          )}
+        >
           <Outlet />
         </div>
         {!shouldHideHeaderAndNav && <NavigationBar />}
