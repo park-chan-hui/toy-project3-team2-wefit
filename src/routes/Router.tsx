@@ -91,7 +91,14 @@ const Router = () => {
             </ProtectedRoute>
           ),
         },
-        { path: VIDEO_DETAIL, element: <VideoDetailPage /> },
+        {
+          path: VIDEO_DETAIL,
+          element: (
+            <ProtectedRoute>
+              <VideoDetailPage />
+            </ProtectedRoute>
+          ),
+        },
         {
           path: BOOKMARK,
           element: (
