@@ -4,8 +4,8 @@ import VideoStats from './VideoStats';
 import EmbedYoutubeVideo from './EmbedYoutubeVideo';
 import SimpleProfile from '../common/simple-profile/SimpleProfile';
 import Button from '../common/button/Button';
-import { mockUsers } from '@/mocks/mockUsers';
 import { VideoProps } from '@/types/video';
+import { useUsers } from '@/hooks/useUsers';
 
 const VideoItem = ({
   thumbnail,
@@ -19,7 +19,8 @@ const VideoItem = ({
   video_id,
   isVideoDetailPage = false,
 }: VideoProps) => {
-  const userData = mockUsers.find(user => user.user_id === user_id);
+  const { usersQuery } = useUsers();
+  const userData = usersQuery.data?.find(user => user.user_id === user_id);
 
   const ThumbnailContent =
     isVideoDetailPage && video_url ? (
