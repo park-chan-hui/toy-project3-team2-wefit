@@ -8,11 +8,9 @@ import { cn } from '@/utils/cn';
 
 const CommentItem = ({ comment, isReply = false }: CommentItemProps) => {
   const { expandedComments } = useCommentStore();
-  const { usersQuery } = useUsers();
+  const { userQuery } = useUsers(comment.user_id);
 
-  const allUsers = usersQuery.data;
-
-  const user = allUsers?.find(user => user.user_id === comment.user_id);
+  const user = userQuery.data;
   const hasReplies = !isReply && comment.replies && comment.replies.length > 0;
   const isExpanded = expandedComments.includes(comment.comment_id);
 

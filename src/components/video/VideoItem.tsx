@@ -19,8 +19,8 @@ const VideoItem = ({
   video_id,
   isVideoDetailPage = false,
 }: VideoProps) => {
-  const { usersQuery } = useUsers();
-  const userData = usersQuery.data?.find(user => user.user_id === user_id);
+  const { userQuery } = useUsers(user_id);
+  const userData = userQuery.data;
 
   const ThumbnailContent =
     isVideoDetailPage && video_url ? (
