@@ -15,8 +15,8 @@ type PlayListProps = {
 type PlayListVideoProps = {
   object: PlayListProps;
   // eslint-disable-next-line no-unused-vars
-  onThumbnailChange?: (thumbnail: string) => void;
-  thumbnail: string;
+  onVideoUrlChange?: (videoUrl: string) => void;
+  videoUrl?: string;
   updated_at?: Date;
 };
 

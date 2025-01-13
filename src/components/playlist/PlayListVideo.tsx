@@ -2,8 +2,9 @@ import { getTimeAgo } from '@/utils/getTimeAgo';
 import { IoHeartOutline, IoHeartSharp } from 'react-icons/io5';
 import { LuTableOfContents } from 'react-icons/lu';
 import type { PlayListVideoProps } from '@/types/playList';
+import EmbedYoutubeVideo from '@/components/video/EmbedYoutubeVideo';
 
-const PlayListVideo = ({ object, thumbnail }: PlayListVideoProps) => {
+const PlayListVideo = ({ object, videoUrl }: PlayListVideoProps) => {
   if (!object) {
     return;
   }
@@ -14,13 +15,17 @@ const PlayListVideo = ({ object, thumbnail }: PlayListVideoProps) => {
 
   return (
     <div className="sticky top-0 z-10 mb-2 bg-white">
-      <figure className="relative mb-3 aspect-video h-[80%] w-full overflow-hidden rounded-lg">
-        <img
-          src={thumbnail ? thumbnail : object.category_thumbnail}
-          alt={object.title}
-          className="h-full w-full object-cover"
-        />
-      </figure>
+      {videoUrl ? (
+        <EmbedYoutubeVideo videoUrl={videoUrl} className="mb-3" />
+      ) : (
+        <figure className="relative mb-3 aspect-video h-[80%] w-full overflow-hidden rounded-lg">
+          <img
+            src={object.category_thumbnail}
+            alt={object.title}
+            className="h-full w-full object-cover"
+          />
+        </figure>
+      )}
 
       <div className="flex w-full flex-row justify-between gap-1">
         <div className="relative flex w-[90%] flex-row overflow-hidden whitespace-nowrap">
