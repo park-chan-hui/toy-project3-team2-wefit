@@ -11,7 +11,7 @@ import { useMusics } from '@/hooks/useMusics';
 const PlayListDetailPage = () => {
   const { playlistId } = useParams();
   const [thumbnail, setThumbnail] = useState('');
-
+  const [videoUrl, setVideoUrl] = useState('');
   const { videosQuery } = useVideos();
   const categoriesQuery = useCategories('user1');
   const musicsQuery = useMusics();
@@ -54,15 +54,24 @@ const PlayListDetailPage = () => {
     setThumbnail(newThumbnail);
   };
 
+  const handleVideoUrlChange = (newVideoUrl: string) => {
+    setVideoUrl(newVideoUrl); // 업데이트된 videoUrl 저장
+  };
+
   if (filteredPlayLists.length > 0) {
     return (
       <>
         {filteredPlayLists.map(playlist => (
           <div key={playlist.list_id}>
-            <PlayListVideo object={playlist} thumbnail={thumbnail} />
+            <PlayListVideo
+              object={playlist}
+              thumbnail={thumbnail}
+              videoUrl={videoUrl}
+            />
             <PlayList
               object={playlist}
               onThumbnailChange={handleThumbnailChange}
+              onVideoUrlChange={handleVideoUrlChange}
               thumbnail={thumbnail}
             />
           </div>
@@ -74,10 +83,15 @@ const PlayListDetailPage = () => {
       <>
         {filteredMusics.map(music => (
           <div key={music.list_id}>
-            <PlayListVideo object={music} thumbnail={thumbnail} />
+            <PlayListVideo
+              object={music}
+              thumbnail={thumbnail}
+              videoUrl={videoUrl}
+            />
             <PlayList
               object={music}
               onThumbnailChange={handleThumbnailChange}
+              onVideoUrlChange={handleVideoUrlChange}
               thumbnail={thumbnail}
             />
           </div>

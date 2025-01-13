@@ -8,6 +8,8 @@ type PlayListItemProps = {
   thumbnail: string;
   // eslint-disable-next-line no-unused-vars
   onThumbnailChange: (thumbnail: string) => void;
+  // eslint-disable-next-line no-unused-vars
+  onVideoUrlChange: (videoUrl: string) => void;
   userData?: UserProps;
 };
 
@@ -15,6 +17,7 @@ const PlayListItem = ({
   video,
   thumbnail,
   onThumbnailChange,
+  onVideoUrlChange,
   userData,
 }: PlayListItemProps) => {
   const { videoQuery } = useVideos(video);
@@ -32,6 +35,7 @@ const PlayListItem = ({
           )}
           onClick={() => {
             onThumbnailChange(videoData.thumbnail);
+            onVideoUrlChange(videoData.video_url);
           }}
         >
           <figure className="relative flex h-full w-32 items-center">

@@ -32,6 +32,7 @@ const StrictModeDroppable = ({ children, ...props }: DroppableProps) => {
 const PlayList = ({
   object,
   onThumbnailChange,
+  onVideoUrlChange,
   thumbnail,
 }: PlayListVideoProps) => {
   const initialVideoList = object?.categoried_videos || [];
@@ -91,6 +92,7 @@ const PlayList = ({
                         video={video}
                         thumbnail={thumbnail}
                         onThumbnailChange={onThumbnailChange ?? (() => {})}
+                        onVideoUrlChange={onVideoUrlChange ?? (() => {})}
                         userData={userData}
                       />
                     </div>
