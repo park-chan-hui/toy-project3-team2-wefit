@@ -15,7 +15,7 @@ const MyPageProfile = (props: { userData: UserProps }) => {
           <img
             src={userData.user_image}
             alt="프로필 사진"
-            className="w-ull h-full object-cover"
+            className="h-full w-full object-cover"
           />
         </div>
         <div className="flex flex-col justify-center gap-2 font-bold">
