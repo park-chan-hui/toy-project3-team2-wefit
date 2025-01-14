@@ -18,6 +18,9 @@ export const useFollow = (targetUserId: string) => {
 
   const toggleFollowMutation = useMutation({
     mutationFn: () => {
+      if (currentUserQuery.data?.user_id === targetUserId) {
+        throw new Error('SELF_FOLLOW_ERROR');
+      }
       return toggleFollowButton(currentUserQuery.data!.user_id, targetUserId);
     },
     onSuccess: isFollowing => {
@@ -36,8 +39,12 @@ export const useFollow = (targetUserId: string) => {
       toastSuccess(isFollowing ? '팔로우했어요!' : '팔로우를 취소했어요!');
     },
     onError: error => {
-      toastError('팔로우 처리에 실패했어요. 다시 시도해주세요!');
-      console.error('팔로우 처리 실패:', error);
+      if (error.message === 'SELF_FOLLOW_ERROR') {
+        toastError('자기 자신을 팔로우할 수 없어요!');
+      } else {
+        toastError('팔로우 처리에 실패했어요. 다시 시도해주세요!');
+        console.error('팔로우 처리 실패:', error);
+      }
     },
   });
 
