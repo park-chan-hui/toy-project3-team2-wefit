@@ -13,6 +13,7 @@ import { toastSuccess, toastError } from '@/utils/toast';
 import { useForm, Controller } from 'react-hook-form';
 import { categorySchema } from '@/schema/categorySchema';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useUsers } from '@/hooks/useUsers';
 
 type CheckedVideos = {
   [key: string]: boolean;
@@ -24,7 +25,9 @@ type CheckInput = {
   videos: string;
 };
 
-const BookmarkCategoryEditPage = () => {
+const BookmarkCategoryAddPage = () => {
+  const { currentUserQuery } = useUsers();
+  const userId = currentUserQuery.data.user_id;
   const [checkedVideos, setCheckedVideos] = useState<CheckedVideos>({});
 
   const {
@@ -81,8 +84,6 @@ const BookmarkCategoryEditPage = () => {
       toastError('최소 하나의 동영상을 선택해주세요!');
       return;
     }
-
-    const userId = 'user1';
 
     try {
       await SaveCategories({
@@ -199,4 +200,4 @@ const BookmarkCategoryEditPage = () => {
   );
 };
 
-export default BookmarkCategoryEditPage;
+export default BookmarkCategoryAddPage;
