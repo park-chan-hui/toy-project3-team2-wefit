@@ -3,6 +3,7 @@ import blankProfile from '@/assets/user/blank-user.webp';
 import { UserProps } from '@/types/user';
 import { VideoProps } from '@/types/video';
 import { formatNumber } from '@/utils/formatNumber';
+import { useFollow } from '@/hooks/useFollow';
 
 type AuthorProfileProps = {
   author: UserProps;
@@ -15,6 +16,10 @@ type StatItem = {
 };
 
 const AuthorProfile = ({ author, authorVideos }: AuthorProfileProps) => {
+  const { isFollowLoading, isFollowing, toggleFollow } = useFollow(
+    author.user_id,
+  );
+
   const stats: StatItem[] = [
     { label: '팔로워', value: author.follower },
     { label: '팔로잉', value: author.following },
@@ -25,8 +30,13 @@ const AuthorProfile = ({ author, authorVideos }: AuthorProfileProps) => {
     <section className="flex flex-col gap-3">
       <header className="flex items-center gap-4">
         <h1 className="text-xl font-bold">{author.nickname}</h1>
-        <Button variant="outline" size="small">
-          팔로우
+        <Button
+          variant={isFollowing ? 'primary' : 'outline'}
+          size="small"
+          onClick={() => toggleFollow()}
+          disabled={isFollowLoading}
+        >
+          {isFollowing ? '팔로잉' : '팔로우'}
         </Button>
       </header>
 
