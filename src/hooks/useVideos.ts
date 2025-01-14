@@ -2,10 +2,16 @@ import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 
 import { fetchVideos, fetchVideo, fetchSelectVideos } from '@/api/videos';
 
-const useVideos = (videoId?: string, videosId?: string[]) => {
+interface UseVideosOptions {
+  videoId?: string;
+  videosId?: string[];
+  category?: string;
+}
+
+const useVideos = ({ videoId, videosId, category }: UseVideosOptions = {}) => {
   const videosQuery = useInfiniteQuery({
-    queryKey: ['videos'],
-    queryFn: fetchVideos,
+    queryKey: ['videos', category],
+    queryFn: ({ pageParam }) => fetchVideos({ pageParam, category }),
     getNextPageParam: lastPage => lastPage.nextPage,
     select: data => ({
       pages: data.pages.map(page => ({
@@ -42,8 +48,15 @@ const useVideos = (videoId?: string, videosId?: string[]) => {
     enabled: !!videosId,
   });
 
-  // 모든 비디오 데이터를 한 번에 가져오는 편의 함수
-  const allVideos = videosQuery.data?.pages.flatMap(page => page.videos) ?? [];
+  // 현재 카테고리의 모든 비디오 데이터
+  const allVideos =
+    Array.from(
+      new Map(
+        videosQuery.data?.pages
+          .flatMap(page => page.videos)
+          .map(video => [video.video_id, video]),
+      ).values(),
+    ) ?? [];
 
   return {
     videosQuery,
