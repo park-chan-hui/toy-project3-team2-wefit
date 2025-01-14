@@ -7,12 +7,14 @@ import { useCategories } from '@/hooks/useCategories';
 import { useVideos } from '@/hooks/useVideos';
 import { PlayListProps } from '@/types/playList';
 import { useMusics } from '@/hooks/useMusics';
+import { useUsers } from '@/hooks/useUsers';
 
 const PlayListDetailPage = () => {
+  const { currentUserQuery } = useUsers();
+  const categoriesQuery = useCategories(currentUserQuery.data.user_id);
   const { playlistId } = useParams();
   const [videoUrl, setVideoUrl] = useState('');
   const { videosQuery } = useVideos();
-  const categoriesQuery = useCategories('user1');
   const musicsQuery = useMusics();
 
   if (
