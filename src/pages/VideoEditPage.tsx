@@ -12,6 +12,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { VideoFormValues, videoSchema } from '@/schema/videoUploadSchema';
 import { useVideoCategories } from '@/hooks/useVideoCategories';
 import MyPageVideoCategories from '@/components/my-page/MyPageVideoCategories';
+import VideoEditSkeleton from '@/components/skeleton/video/VideoEditSkeleton';
 
 const VideoEditPage = () => {
   const { videoId } = useParams<{ videoId: string }>();
@@ -85,55 +86,7 @@ const VideoEditPage = () => {
     setSelectedTags([videoData.hash_tag]);
   };
   if (isLoading) {
-    return (
-      <div className="mx-auto flex max-w-2xl flex-col gap-4 p-4">
-        <section>
-          <div className="flex aspect-video items-center justify-center rounded-small bg-gray-200"></div>
-        </section>
-
-        <section>
-          <label className="text-base font-bold">영상 제목</label>
-          <input
-            type="text"
-            className="block w-full rounded-md border bg-gray-200 p-2 shadow-sm focus:outline-none"
-          />
-        </section>
-
-        <section>
-          <label className="text-base font-bold">해시 태그</label>
-          <div className="flex flex-wrap gap-2">
-            {videoCategories.map((tag, index) => (
-              <Button key={index} size="small" variant="outline">
-                {tag}
-              </Button>
-            ))}
-            <Button key="addHashTag" size="small" variant="outline">
-              추가입력
-            </Button>
-          </div>
-        </section>
-
-        <section>
-          <label className="text-base font-bold">썸네일</label>
-          <div className="flex aspect-video items-center justify-center rounded-small bg-gray-200"></div>
-        </section>
-
-        {/* 버튼 */}
-        <div className="flex w-full gap-small">
-          <Button type="submit" className="w-1/2">
-            업로드
-          </Button>
-          <Button
-            type="reset"
-            variant="outline"
-            className="w-1/2"
-            onClick={handleReset}
-          >
-            초기화
-          </Button>
-        </div>
-      </div>
-    );
+    return <VideoEditSkeleton />;
   }
   return (
     <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
