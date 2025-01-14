@@ -1,7 +1,12 @@
 import { useEffect, useRef } from 'react';
 
 import { useNavigate } from 'react-router-dom';
-import { useInfiniteQuery, useQuery, useMutation } from '@tanstack/react-query';
+import {
+  useInfiniteQuery,
+  useQuery,
+  useMutation,
+  useQueryClient,
+} from '@tanstack/react-query';
 import { useInView } from 'react-intersection-observer';
 
 import { ROUTER_PATH } from '@/constants/constants';
@@ -35,6 +40,7 @@ const useVideos = ({
 }: UseVideosOptions = {}) => {
   const navigate = useNavigate();
   const { currentUserQuery } = useUsers();
+  const queryClient = useQueryClient();
 
   // 무한 스크롤을 위한 비디오 목록 쿼리
   const videosQuery = useInfiniteQuery({
@@ -156,12 +162,12 @@ const useVideos = ({
   const deleteVideoMutation = useMutation({
     mutationFn: (videoId: string) => deleteVideo(videoId),
     onSuccess: () => {
-      toastSuccess('삭제되었습니다.');
-      navigate(ROUTER_PATH.HOME);
+      toastSuccess('해당 동영상이 삭제되었습니다.');
+      queryClient.invalidateQueries({ queryKey: ['userUploadedVideos'] });
     },
     onError: (error: Error) => {
       console.error('업로드 실패:', error);
-      toastError('동영상 삭제제 중 오류가 발생했습니다.');
+      toastError('동영상 삭제 중 오류가 발생했습니다.');
     },
   });
 
