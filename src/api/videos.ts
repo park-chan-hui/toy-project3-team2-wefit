@@ -42,3 +42,14 @@ export async function addVideo(newVideo: UploadVideoProps) {
   if (error) throw error;
   return data;
 }
+
+// 사용자가 업로드한 영상 조회
+export async function fetchUserUploadVideos(userId: string) {
+  const { data, error } = await supabase
+    .from('videos')
+    .select('*')
+    .eq('user_id', userId);
+
+  if (error) throw error;
+  return data;
+}
