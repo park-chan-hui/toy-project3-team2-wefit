@@ -6,10 +6,11 @@ import Button from '../common/button/Button';
 
 type VideoUploadBoxProps = {
   isEditPage?: boolean;
-  videoURL?: string;
+  videoURL: string;
+  setVideoURL: React.Dispatch<React.SetStateAction<string>>;
 };
 const VideoUploadBox = (videoUploadProps: VideoUploadBoxProps) => {
-  const [youTubeUrl, setYouTubeUrl] = useState('');
+  const { isEditPage, videoURL, setVideoURL } = videoUploadProps;
   const [isClick, setIsClick] = useState(false);
 
   const clickVideoUpload = () => {
@@ -18,11 +19,11 @@ const VideoUploadBox = (videoUploadProps: VideoUploadBoxProps) => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsClick(false);
-    setYouTubeUrl(e.target.value);
+    setVideoURL(e.target.value);
   };
 
-  if (videoUploadProps.isEditPage) {
-    return <EmbedYoutubeVideo videoUrl={youTubeUrl} />;
+  if (isEditPage) {
+    return <EmbedYoutubeVideo videoUrl={videoURL} />;
   }
   return (
     <section className="flex flex-col gap-2">
@@ -30,19 +31,23 @@ const VideoUploadBox = (videoUploadProps: VideoUploadBoxProps) => {
         <LabelInput
           title="영상URL"
           placeholder="원하는 동영상의 URL을 입력해주세요"
-          value={youTubeUrl}
+          value={videoURL}
           onChange={handleInputChange}
         />
       </header>
       <>
         {!isClick ? (
           <div className="flex aspect-video flex-col items-center justify-center rounded-medium bg-gray-100 p-medium shadow-inner">
-            <Button className="text-nowrap" onClick={clickVideoUpload}>
+            <Button
+              className="text-nowrap"
+              onClick={clickVideoUpload}
+              disabled={!videoURL}
+            >
               영상 확인하기
             </Button>
           </div>
         ) : (
-          <EmbedYoutubeVideo videoUrl={youTubeUrl} />
+          <EmbedYoutubeVideo videoUrl={videoURL} />
         )}
       </>
     </section>

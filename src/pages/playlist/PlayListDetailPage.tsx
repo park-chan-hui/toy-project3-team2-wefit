@@ -7,13 +7,14 @@ import { useCategories } from '@/hooks/useCategories';
 import { useVideos } from '@/hooks/useVideos';
 import { PlayListProps } from '@/types/playList';
 import { useMusics } from '@/hooks/useMusics';
+import { useUsers } from '@/hooks/useUsers';
 
 const PlayListDetailPage = () => {
+  const { currentUserQuery } = useUsers();
+  const categoriesQuery = useCategories(currentUserQuery.data.user_id);
   const { playlistId } = useParams();
-  const [thumbnail, setThumbnail] = useState('');
-
+  const [videoUrl, setVideoUrl] = useState('');
   const { videosQuery } = useVideos();
-  const categoriesQuery = useCategories('user1');
   const musicsQuery = useMusics();
 
   if (
@@ -50,8 +51,8 @@ const PlayListDetailPage = () => {
     },
   );
 
-  const handleThumbnailChange = (newThumbnail: string) => {
-    setThumbnail(newThumbnail);
+  const handleVideoUrlChange = (newVideoUrl: string) => {
+    setVideoUrl(newVideoUrl); // 업데이트된 videoUrl 저장
   };
 
   if (filteredPlayLists.length > 0) {
@@ -59,11 +60,10 @@ const PlayListDetailPage = () => {
       <>
         {filteredPlayLists.map(playlist => (
           <div key={playlist.list_id}>
-            <PlayListVideo object={playlist} thumbnail={thumbnail} />
+            <PlayListVideo object={playlist} videoUrl={videoUrl} />
             <PlayList
               object={playlist}
-              onThumbnailChange={handleThumbnailChange}
-              thumbnail={thumbnail}
+              onVideoUrlChange={handleVideoUrlChange}
             />
           </div>
         ))}
@@ -74,12 +74,8 @@ const PlayListDetailPage = () => {
       <>
         {filteredMusics.map(music => (
           <div key={music.list_id}>
-            <PlayListVideo object={music} thumbnail={thumbnail} />
-            <PlayList
-              object={music}
-              onThumbnailChange={handleThumbnailChange}
-              thumbnail={thumbnail}
-            />
+            <PlayListVideo object={music} videoUrl={videoUrl} />
+            <PlayList object={music} onVideoUrlChange={handleVideoUrlChange} />
           </div>
         ))}
       </>
