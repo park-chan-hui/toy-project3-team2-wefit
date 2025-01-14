@@ -48,9 +48,7 @@ const MyPage = () => {
         <section>
           <div className="flex items-center justify-between">
             <p className="text-lg font-bold">내가 업로드한 동영상</p>
-            <Link to={MY_UPLOAD_VIDEO}>
-              <Button size="small">더보기</Button>
-            </Link>
+            <Button size="small">더보기</Button>
           </div>
           <hr className="my-2" aria-hidden="true" />
           <MyPageVideoListSkeleton />
