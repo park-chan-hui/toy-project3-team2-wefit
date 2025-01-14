@@ -19,10 +19,7 @@ const MyPage = () => {
   const setUser = useUserStore(state => state.setUser);
   setUser(currentUserData);
 
-  const myVideoList = [
-    ...(currentUserData?.my_upload_video || []),
-    ...(currentUserData?.my_watched_video || []),
-  ];
+  const myVideoList = [...(currentUserData?.my_watched_video || [])];
 
   const { selectVideosQuery: myVideoQuery } = useVideos(undefined, myVideoList);
   const { data: videosData, isLoading: myVideosLoding } = myVideoQuery;
@@ -30,11 +27,16 @@ const MyPage = () => {
   const watchedVideos = videosData?.filter(video =>
     currentUserData?.my_watched_video.includes(video.video_id),
   );
-  const uploadVideos = videosData?.filter(video =>
-    currentUserData?.my_upload_video.includes(video.video_id),
-  );
 
-  if (userDataLoading || myVideosLoding) {
+  const { userUploadedVideosQuery: myUploadVideos } = useVideos(
+    undefined,
+    undefined,
+    currentUserData.user_id,
+  );
+  const { data: uploadVideos, isLoading: myUploadVideosLoding } =
+    myUploadVideos;
+
+  if (userDataLoading || myVideosLoding || myUploadVideosLoding) {
     return (
       <main className="flex flex-col gap-2">
         <MyPageProfileSkeleton />
@@ -48,9 +50,7 @@ const MyPage = () => {
         <section>
           <div className="flex items-center justify-between">
             <p className="text-lg font-bold">내가 업로드한 동영상</p>
-            <Link to={MY_UPLOAD_VIDEO}>
-              <Button size="small">더보기</Button>
-            </Link>
+            <Button size="small">더보기</Button>
           </div>
           <hr className="my-2" aria-hidden="true" />
           <MyPageVideoListSkeleton />

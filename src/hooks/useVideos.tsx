@@ -5,13 +5,14 @@ import {
   fetchVideo,
   fetchSelectVideos,
   addVideo,
+  fetchUserUploadVideos,
 } from '@/api/videos';
 import { UploadVideoProps } from '@/types/video';
 import { useUsers } from './useUsers';
 import { useNavigate } from 'react-router-dom';
 import { toastError, toastSuccess } from '@/utils/toast';
 
-const useVideos = (videoId?: string, videosId?: string[]) => {
+const useVideos = (videoId?: string, videosId?: string[], userId?: string) => {
   const navigate = useNavigate();
   const { currentUserQuery } = useUsers();
 
@@ -48,6 +49,18 @@ const useVideos = (videoId?: string, videosId?: string[]) => {
     enabled: !!videosId,
   });
 
+  const userUploadedVideosQuery = useQuery({
+    queryKey: ['userUploadedVideos', userId],
+    queryFn: () => fetchUserUploadVideos(userId!),
+    select: data => {
+      return data.map(video => ({
+        ...video,
+        created_at: new Date(video.created_at),
+      }));
+    },
+    enabled: !!userId,
+  });
+
   const addVideoMutation = useMutation({
     mutationFn: (newVideo: UploadVideoProps) =>
       addVideo({
@@ -71,6 +84,7 @@ const useVideos = (videoId?: string, videosId?: string[]) => {
     videosQuery,
     videoQuery,
     selectVideosQuery,
+    userUploadedVideosQuery,
     addVideoMutation,
   };
 };
