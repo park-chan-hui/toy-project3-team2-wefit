@@ -1,4 +1,4 @@
-import { UploadVideoProps } from '@/types/video';
+import { UploadVideoProps, VideoUpdateDataProps } from '@/types/video';
 import { supabase } from './supabase';
 import { PAGE_SIZE } from '@/constants/constants';
 
@@ -93,6 +93,20 @@ export async function deleteVideo(videoId: string) {
     .delete()
     .eq('video_id', videoId)
     .select();
+
+  if (error) throw error;
+  return data;
+}
+
+//영상 수정
+export async function updateVideo(
+  videoId: string,
+  videoUpdateData: VideoUpdateDataProps,
+) {
+  const { data, error } = await supabase
+    .from('videos')
+    .update(videoUpdateData)
+    .eq('video_id', videoId);
 
   if (error) throw error;
   return data;
