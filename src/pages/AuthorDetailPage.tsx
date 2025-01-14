@@ -15,10 +15,10 @@ const AuthorDetailPage = () => {
   const [sortType, setSortType] = useState<'latest' | 'popular'>('latest');
   const { userId } = useParams<{ userId: string }>();
   const { userQuery } = useUsers(userId);
-  const { videosQuery } = useVideos();
+  const { videosQuery, allVideos } = useVideos();
 
   const { data: author, isLoading: isAuthorLoading } = userQuery;
-  const { data: videos, isLoading: isVideosLoading } = videosQuery;
+  const { isLoading: isVideosLoading } = videosQuery;
 
   if (isAuthorLoading || isVideosLoading) {
     return (
@@ -35,8 +35,8 @@ const AuthorDetailPage = () => {
   }
 
   const authorVideos =
-    videos
-      ?.filter(video => video.user_id === userId)
+    allVideos
+      .filter(video => video.user_id === userId)
       .sort((a, b) => {
         if (sortType === 'latest') {
           return (

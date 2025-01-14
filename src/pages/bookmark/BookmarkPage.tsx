@@ -10,10 +10,10 @@ import { VideoProps } from '@/types/video';
 const BookmarkPage = () => {
   const [selectedCategory, setSelectedCategory] = useState('전체');
 
-  const { videosQuery } = useVideos();
+  const { allVideos } = useVideos();
 
   const filteredVideos: VideoProps[] =
-    videosQuery.data?.filter(video => {
+    allVideos.filter(video => {
       if (selectedCategory === '전체' || selectedCategory === '북마크만 보기') {
         return video.is_bookmarked === true;
       }

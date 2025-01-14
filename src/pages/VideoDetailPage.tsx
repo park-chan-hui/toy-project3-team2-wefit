@@ -8,7 +8,7 @@ import { useVideos } from '@/hooks/useVideos';
 
 const VideoDetailPage = () => {
   const { videoId } = useParams<{ videoId: string }>();
-  const { videoQuery } = useVideos(videoId);
+  const { videoQuery } = useVideos({ videoId });
 
   const { data: video, isLoading, isError } = videoQuery;
 

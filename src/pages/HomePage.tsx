@@ -5,25 +5,13 @@ import VideoList from '@/components/video/VideoList';
 import EmptyResult from '@/components/empty/EmptyResult';
 import VideoListSkeleton from '@/components/skeleton/video/VideoListSkeleton';
 import { useVideos } from '@/hooks/useVideos';
-import { useInfiniteScroll } from '@/hooks/useInfiniteScroll';
 
 const HomePage = () => {
   const [selectedCategory, setSelectedCategory] = useState('전체');
-  const {
-    videosQuery,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-    allVideos,
-  } = useVideos({
-    category: selectedCategory,
-  });
-
-  const { ref } = useInfiniteScroll({
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-  });
+  const { videosQuery, infiniteScrollRef, isFetchingNextPage, allVideos } =
+    useVideos({
+      category: selectedCategory,
+    });
 
   const { data, isLoading } = videosQuery;
 
@@ -56,7 +44,7 @@ const HomePage = () => {
       ) : (
         <>
           <VideoList videos={allVideos} />
-          <div ref={ref} className="h-4" />
+          <div ref={infiniteScrollRef} className="h-4" />
           {isFetchingNextPage && <VideoListSkeleton />}
         </>
       )}

@@ -24,7 +24,9 @@ const MyPage = () => {
     ...(currentUserData?.my_watched_video || []),
   ];
 
-  const { selectVideosQuery: myVideoQuery } = useVideos(undefined, myVideoList);
+  const { selectVideosQuery: myVideoQuery } = useVideos({
+    videosId: myVideoList,
+  });
   const { data: videosData, isLoading: myVideosLoding } = myVideoQuery;
 
   const watchedVideos = videosData?.filter(video =>
