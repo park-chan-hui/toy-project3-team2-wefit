@@ -1,3 +1,4 @@
+import { UploadVideoProps } from '@/types/video';
 import { supabase } from './supabase';
 
 // 모든 영상 조회
@@ -20,11 +21,23 @@ export async function fetchVideo(videoId: string) {
   return data;
 }
 
+// 여러 영상 조회
 export async function fetchSelectVideos(videoIds: string[]) {
   const { data, error } = await supabase
     .from('videos')
     .select('*')
     .in('video_id', videoIds);
+
+  if (error) throw error;
+  return data;
+}
+
+// 영상 추가
+export async function addVideo(newVideo: UploadVideoProps) {
+  const { data, error } = await supabase
+    .from('videos')
+    .insert(newVideo)
+    .select();
 
   if (error) throw error;
   return data;

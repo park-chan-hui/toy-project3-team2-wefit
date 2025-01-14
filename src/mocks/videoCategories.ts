@@ -8,6 +8,7 @@ const videoCategories = [
   '팔',
   '엉덩이',
   '종아리',
+  '음악',
 ];
 
 export { videoCategories };

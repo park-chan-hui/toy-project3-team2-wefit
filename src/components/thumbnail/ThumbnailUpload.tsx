@@ -45,7 +45,8 @@ const ThumbnailUpload = ({
           <img
             src={imgFile}
             alt="프로필 이미지"
-            className="h-full w-full object-cover"
+            className="h-full w-full cursor-pointer object-cover"
+            onClick={handleInput}
           />
         ) : (
           <div className="flex aspect-video flex-col items-center justify-center bg-gray-100 p-medium shadow-inner">

@@ -28,5 +28,32 @@ type VideoStatsProps = Omit<
   },
   ''
 >;
+type VideoUploadCategoryProps = {
+  selectedTags: string[];
+  isAddVideoCategory: boolean;
+  addVideoCategoryValue: string;
+  videoCategories: string[];
+  toggleTag: (tag: string) => void;
+  addVideoCategories: () => void;
+  handleAddVideoCategoryValue: (e: React.ChangeEvent<HTMLInputElement>) => void;
+};
+type UploadVideoProps = {
+  video_url: string;
+  user_id?: string;
+  nickname?: string;
+  thumbnail: string;
+  title: string;
+  like_heart?: number;
+  is_bookmarked?: boolean;
+  hash_tag: string[];
+  created_at?: string | Date;
+};
 
-export type { VideoProps, VideoCategoryProps, VideoListProps, VideoStatsProps };
+export type {
+  VideoProps,
+  VideoCategoryProps,
+  VideoListProps,
+  VideoStatsProps,
+  VideoUploadCategoryProps,
+  UploadVideoProps,
+};
