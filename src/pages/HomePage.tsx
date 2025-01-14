@@ -5,42 +5,60 @@ import VideoList from '@/components/video/VideoList';
 import EmptyResult from '@/components/empty/EmptyResult';
 import VideoListSkeleton from '@/components/skeleton/video/VideoListSkeleton';
 import { useVideos } from '@/hooks/useVideos';
+import { useInfiniteScroll } from '@/hooks/useInfiniteScroll';
 
 const HomePage = () => {
   const [selectedCategory, setSelectedCategory] = useState('전체');
-  const { videosQuery } = useVideos();
+  const {
+    videosQuery,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    allVideos,
+  } = useVideos({
+    category: selectedCategory,
+  });
 
-  const { data: videos, isLoading } = videosQuery;
+  const { ref } = useInfiniteScroll({
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  });
+
+  const { data, isLoading } = videosQuery;
+
+  const handleCategoryChange = (category: string) => {
+    setSelectedCategory(category);
+  };
 
   if (isLoading) {
     return (
       <main className="flex flex-col gap-2">
         <VideoCategory
           selectedCategory={selectedCategory}
-          onCategoryChange={setSelectedCategory}
+          onCategoryChange={handleCategoryChange}
         />
         <VideoListSkeleton />
       </main>
     );
   }
 
-  if (!videos) return <EmptyResult message="영상이 아무것도 없어요!" />;
-
-  const filteredVideos = videos.filter(video => {
-    if (selectedCategory === '전체') return true;
-    return video.hash_tag.includes(selectedCategory);
-  });
+  if (!data?.pages) return <EmptyResult message="영상이 아무것도 없어요!" />;
 
   return (
     <main className="flex flex-col gap-2">
       <VideoCategory
         selectedCategory={selectedCategory}
-        onCategoryChange={setSelectedCategory}
+        onCategoryChange={handleCategoryChange}
       />
-      {!filteredVideos.length ? (
+      {!allVideos.length ? (
         <EmptyResult message="해당 카테고리에 대한 영상이 없어요!" />
       ) : (
-        <VideoList videos={filteredVideos} />
+        <>
+          <VideoList videos={allVideos} />
+          <div ref={ref} className="h-4" />
+          {isFetchingNextPage && <VideoListSkeleton />}
+        </>
       )}
     </main>
   );
