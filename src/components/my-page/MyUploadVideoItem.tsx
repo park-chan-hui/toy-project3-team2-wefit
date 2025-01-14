@@ -1,18 +1,27 @@
 import { Link } from 'react-router-dom';
 import SimpleProfile from '../common/simple-profile/SimpleProfile';
-import { mockUsers } from '@/mocks/mockUsers';
 import { VideoProps } from '@/types/video';
 import editLogo from '@/assets/basil_edit-outline.svg';
 import { FaRegTrashAlt } from 'react-icons/fa';
+import { useUserStore } from '@/store/useUserStore';
+import MyPageVideoStats from './MyPageVideoStats';
+import { useComments } from '@/hooks/useComments';
+import { useVideos } from '@/hooks/useVideos';
 
 const MyUploadVideoItem = ({
   thumbnail,
   title,
-  user_id,
   video_id,
+  like_heart,
 }: VideoProps) => {
-  const userData = mockUsers.find(user => user.user_id === user_id);
-
+  const userData = useUserStore(state => state.user);
+  const { comments } = useComments(video_id);
+  const { deleteVideoMutation } = useVideos({ videoId: video_id });
+  const deleteVideos = () => {
+    if (window.confirm('선택한 동영상을 삭제하시겠습니까?')) {
+      deleteVideoMutation.mutate(video_id);
+    }
+  };
   return (
     <article className="mb-1 flex h-16 w-full">
       <figure className="relative flex h-full w-32 items-center">
@@ -35,10 +44,15 @@ const MyUploadVideoItem = ({
           {userData && (
             <SimpleProfile {...userData} imageSize="large" textSize="small" />
           )}
+          <MyPageVideoStats {...{ comments, like_heart }} />
 
           <div className="mt-1 flex w-14 justify-between text-gray">
             <div className="flex flex-grow items-center">
-              <FaRegTrashAlt size={25} className="mr-1 cursor-pointer" />
+              <FaRegTrashAlt
+                size={25}
+                className="mr-1 cursor-pointer"
+                onClick={deleteVideos}
+              />
 
               <Link to={`/mypage/video-edit/${video_id}`}>
                 <img
