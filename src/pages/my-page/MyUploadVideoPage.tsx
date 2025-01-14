@@ -1,18 +1,19 @@
 import MyUploadVideoList from '@/components/my-page/MyUploadVideoList';
-import { mockUsers } from '@/mocks/mockUsers';
-import { mockVideos } from '@/mocks/mockVideos';
+import { useVideos } from '@/hooks/useVideos';
+import { useUserStore } from '@/store/useUserStore';
 
 const MyUploadVideoPage = () => {
-  const userData = mockUsers[0];
-  const uploadVideos = mockVideos.filter(watch =>
-    userData.my_watched_video.includes(watch.video_id),
-  );
+  const currentUserData = useUserStore(state => state.user!);
+  const { userUploadedVideosQuery: myUploadVideos } = useVideos({
+    userId: currentUserData.user_id,
+  });
+  const { data: uploadVideos } = myUploadVideos;
 
   return (
     <main>
       <p className="mb-4 text-lg font-bold">내가 업로드한 동영상</p>
 
-      <MyUploadVideoList videos={uploadVideos} />
+      <MyUploadVideoList videos={uploadVideos!} />
     </main>
   );
 };

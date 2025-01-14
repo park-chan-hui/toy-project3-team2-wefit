@@ -93,3 +93,15 @@ export async function fetchUserUploadVideos(userId: string) {
   if (error) throw error;
   return data;
 }
+
+// 영상 삭제
+export async function deleteVideo(videoId: string) {
+  const { data, error } = await supabase
+    .from('videos')
+    .delete()
+    .eq('video_id', videoId)
+    .select();
+
+  if (error) throw error;
+  return data;
+}
