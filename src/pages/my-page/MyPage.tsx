@@ -21,18 +21,18 @@ const MyPage = () => {
 
   const myVideoList = [...(currentUserData?.my_watched_video || [])];
 
-  const { selectVideosQuery: myVideoQuery } = useVideos(undefined, myVideoList);
+  const { selectVideosQuery: myVideoQuery } = useVideos({
+    videosId: myVideoList,
+  });
   const { data: videosData, isLoading: myVideosLoding } = myVideoQuery;
 
   const watchedVideos = videosData?.filter(video =>
     currentUserData?.my_watched_video.includes(video.video_id),
   );
 
-  const { userUploadedVideosQuery: myUploadVideos } = useVideos(
-    undefined,
-    undefined,
-    currentUserData.user_id,
-  );
+  const { userUploadedVideosQuery: myUploadVideos } = useVideos({
+    userId: currentUserData.user_id,
+  });
   const { data: uploadVideos, isLoading: myUploadVideosLoding } =
     myUploadVideos;
 

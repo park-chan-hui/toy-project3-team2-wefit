@@ -30,4 +30,6 @@ const YOUTUBE_REGEX = {
   SHORT_URL: /(?<=youtu\.be\/)([^?]+)?/g,
 };
 
-export { ROUTER_PATH, NAVIGATION_BAR, YOUTUBE_REGEX };
+const PAGE_SIZE = 10;
+
+export { ROUTER_PATH, NAVIGATION_BAR, YOUTUBE_REGEX, PAGE_SIZE };

@@ -15,7 +15,7 @@ const PlayListItem = ({
   onVideoUrlChange,
   userData,
 }: PlayListItemProps) => {
-  const { videoQuery } = useVideos(video);
+  const { videoQuery } = useVideos({ videoId: video });
 
   const videoData = videoQuery.data;
 

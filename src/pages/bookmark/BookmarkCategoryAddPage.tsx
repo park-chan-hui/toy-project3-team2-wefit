@@ -45,11 +45,11 @@ const BookmarkCategoryAddPage = () => {
     },
   });
 
-  const { videosQuery } = useVideos();
+  const { allVideos } = useVideos();
   const navigate = useNavigate();
 
   const filteredVideos: VideoProps[] =
-    videosQuery.data?.filter(video => video.is_bookmarked === true) || [];
+    allVideos.filter(video => video.is_bookmarked === true) || [];
 
   const handleClick = (videoId: string) => {
     setCheckedVideos(prevState => {
