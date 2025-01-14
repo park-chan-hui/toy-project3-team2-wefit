@@ -34,6 +34,7 @@ export const useBookmark = (videoId: string) => {
   return {
     isBookmarked: bookmarkQuery.data ?? false,
     toggleBookmark: toggleBookmarkMutation.mutateAsync,
-    isLoading: bookmarkQuery.isLoading || toggleBookmarkMutation.isPending,
+    isBookmarkLoading:
+      bookmarkQuery.isLoading || toggleBookmarkMutation.isPending,
   };
 };
