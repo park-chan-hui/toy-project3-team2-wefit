@@ -12,6 +12,7 @@ import {
   fetchSelectVideos,
   addVideo,
   fetchUserUploadVideos,
+  deleteVideo,
 } from '@/api/videos';
 import { UploadVideoProps } from '@/types/video';
 import { useUsers } from './useUsers';
@@ -151,6 +152,19 @@ const useVideos = ({
       ).values(),
     ) ?? [];
 
+  //동영상 삭제 뮤테이션
+  const deleteVideoMutation = useMutation({
+    mutationFn: (videoId: string) => deleteVideo(videoId),
+    onSuccess: () => {
+      toastSuccess('삭제되었습니다.');
+      navigate(ROUTER_PATH.HOME);
+    },
+    onError: (error: Error) => {
+      console.error('업로드 실패:', error);
+      toastError('동영상 삭제제 중 오류가 발생했습니다.');
+    },
+  });
+
   return {
     videosQuery,
     videoQuery,
@@ -162,6 +176,7 @@ const useVideos = ({
     fetchNextPage: videosQuery.fetchNextPage,
     hasNextPage: videosQuery.hasNextPage,
     isFetchingNextPage: videosQuery.isFetchingNextPage,
+    deleteVideoMutation,
   };
 };
 
