@@ -1,6 +1,10 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { fetchBookmarkStatus, toggleBookmark } from '@/api/bookmarks';
+import {
+  fetchBookmarkCheck,
+  fetchBookmarkStatus,
+  toggleBookmark,
+} from '@/api/bookmarks';
 import { useUsers } from '@/hooks/useUsers';
 import { toastSuccess, toastError } from '@/utils/toast';
 
@@ -36,4 +40,21 @@ export const useBookmark = (videoId: string) => {
     toggleBookmark: toggleBookmarkMutation.mutateAsync,
     isLoading: bookmarkQuery.isLoading || toggleBookmarkMutation.isPending,
   };
+};
+
+export const useBookmarkCheck = (userId: string) => {
+  const bookmarkQuery = useQuery({
+    queryKey: ['bookmarkCheck', userId],
+    queryFn: () => fetchBookmarkCheck(userId),
+    select: data =>
+      Array.isArray(data)
+        ? data.map(bookmark => ({
+            ...bookmark,
+            created_at: new Date(bookmark.created_at),
+          }))
+        : [], // 데이터가 배열이 아닐 경우 빈 배열 반환
+    enabled: !!userId,
+  });
+
+  return bookmarkQuery;
 };

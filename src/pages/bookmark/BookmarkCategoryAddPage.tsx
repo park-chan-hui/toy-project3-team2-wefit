@@ -14,6 +14,8 @@ import { useForm, Controller } from 'react-hook-form';
 import { categorySchema } from '@/schema/categorySchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useUsers } from '@/hooks/useUsers';
+import { useBookmarkCheck } from '@/hooks/useBookmarks';
+import EmptyResult from '@/components/empty/EmptyResult';
 
 type CheckedVideos = {
   [key: string]: boolean;
@@ -29,6 +31,9 @@ const BookmarkCategoryAddPage = () => {
   const { currentUserQuery } = useUsers();
   const userId = currentUserQuery.data.user_id;
   const [checkedVideos, setCheckedVideos] = useState<CheckedVideos>({});
+  const bookmarkQuery = useBookmarkCheck(currentUserQuery.data.user_id);
+  const navigate = useNavigate();
+  const { videosAllQuery } = useVideos();
 
   const {
     control,
@@ -45,11 +50,12 @@ const BookmarkCategoryAddPage = () => {
     },
   });
 
-  const { allVideos } = useVideos();
-  const navigate = useNavigate();
-
   const filteredVideos: VideoProps[] =
-    allVideos.filter(video => video.is_bookmarked === true) || [];
+    videosAllQuery.data?.filter((video: VideoProps) => {
+      return bookmarkQuery.data?.some(
+        bookmark => bookmark.video_id === video.video_id,
+      );
+    }) || [];
 
   const handleClick = (videoId: string) => {
     setCheckedVideos(prevState => {
@@ -102,7 +108,7 @@ const BookmarkCategoryAddPage = () => {
       navigate(-1);
     } catch (error) {
       toastError('다시 한번 시도해 주세요!');
-      console.error(error); // Lint 관련 에러로 추가
+      console.error(error);
     }
   };
 
@@ -152,36 +158,40 @@ const BookmarkCategoryAddPage = () => {
 
           <div>
             <p className="my-2 text-base font-bold">카테고리에 넣을 영상</p>
-            <div className="flex flex-col gap-5">
-              {filteredVideos.map(video => (
-                <div key={video.video_id} className="flex items-center gap-2">
-                  {checkedVideos[video.video_id] ? (
-                    <FaCheckCircle
-                      className="flex-shrink-0 cursor-pointer text-3xl"
-                      onClick={() => handleClick(video.video_id)}
-                    />
-                  ) : (
-                    <FaRegCircle
-                      className="flex-shrink-0 cursor-pointer text-3xl"
-                      onClick={() => handleClick(video.video_id)}
-                    />
-                  )}
+            {filteredVideos.length > 0 ? (
+              <div className="flex flex-col gap-5">
+                {filteredVideos.map(video => (
+                  <div key={video.video_id} className="flex items-center gap-2">
+                    {checkedVideos[video.video_id] ? (
+                      <FaCheckCircle
+                        className="flex-shrink-0 cursor-pointer text-3xl"
+                        onClick={() => handleClick(video.video_id)}
+                      />
+                    ) : (
+                      <FaRegCircle
+                        className="flex-shrink-0 cursor-pointer text-3xl"
+                        onClick={() => handleClick(video.video_id)}
+                      />
+                    )}
 
-                  <div
-                    className="w-full cursor-pointer overflow-hidden"
-                    onClick={() => handleClick(video.video_id)}
-                  >
-                    <div className="pointer-events-none flex-1 overflow-hidden">
-                      <BookmarkItem {...video} />
+                    <div
+                      className="w-full cursor-pointer overflow-hidden"
+                      onClick={() => handleClick(video.video_id)}
+                    >
+                      <div className="pointer-events-none flex-1 overflow-hidden">
+                        <BookmarkItem {...video} />
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
-            {errors.videos && (
-              <p className="my-2 text-sm text-red-500">
-                {errors.videos.message}
-              </p>
+                ))}
+                {errors.videos && (
+                  <p className="my-2 text-sm text-red-500">
+                    {errors.videos.message}
+                  </p>
+                )}
+              </div>
+            ) : (
+              <EmptyResult message="북마크가 존재하지 않아요!" />
             )}
           </div>
         </div>

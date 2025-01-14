@@ -41,6 +41,14 @@ export async function fetchVideos({
   };
 }
 
+// 모든 영상 조회
+export async function fetchAllVideos() {
+  const { data, error } = await supabase.from('videos').select('*');
+
+  if (error) throw error;
+  return data;
+}
+
 // 단일 영상 조회
 export async function fetchVideo(videoId: string) {
   const { data, error } = await supabase

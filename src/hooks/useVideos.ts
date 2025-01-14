@@ -12,6 +12,7 @@ import {
   fetchSelectVideos,
   addVideo,
   fetchUserUploadVideos,
+  fetchAllVideos,
 } from '@/api/videos';
 import { UploadVideoProps } from '@/types/video';
 import { useUsers } from './useUsers';
@@ -51,6 +52,17 @@ const useVideos = ({
       pageParams: data.pageParams,
     }),
     initialPageParam: 0,
+  });
+
+  // 모든 비디오 조회 쿼리
+  const videosAllQuery = useQuery({
+    queryKey: ['videosAll'],
+    queryFn: fetchAllVideos,
+    select: data =>
+      data.map(video => ({
+        ...video,
+        created_at: new Date(video.created_at),
+      })),
   });
 
   // 단일 비디오 조회 쿼리
@@ -152,6 +164,7 @@ const useVideos = ({
     ) ?? [];
 
   return {
+    videosAllQuery,
     videosQuery,
     videoQuery,
     selectVideosQuery,
