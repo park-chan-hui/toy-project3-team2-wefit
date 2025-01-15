@@ -53,7 +53,13 @@ const useUsers = (userId?: string) => {
     }: {
       userId: string;
       updateData: UpdateData;
-    }) => updateUser(userId, updateData),
+    }) =>
+      updateUser(
+        userId,
+        updateData.nickname === ''
+          ? { ...updateData, nickname: currentUserQuery.data.nickname }
+          : updateData,
+      ),
     onSuccess: () => {
       toastSuccess('프로필을 수정했습니다.');
       navigate(ROUTER_PATH.MY_PAGE);

@@ -18,16 +18,16 @@ const profileSchema = z.object({
         const isGoogleImage = value.startsWith(
           'https://lh3.googleusercontent.com/',
         );
-        const isValidUrl = /^https?:\/\/.+\.(jpg|jpeg|png)(\?.*)?$/.test(value);
+        const isKakaoUrl = /^https?:\/\/.+\.(jpg|jpeg|png)(\?.*)?$/.test(value);
         //URL들은 구글, 카카오 로그인으로 인해 생성된 URL이기 때문
-        return isBase64Image || isGoogleImage || isValidUrl;
+        return isBase64Image || isGoogleImage || isKakaoUrl;
       },
       {
         message:
           '유효하지 않은 이미지 형식입니다. jpg, jpeg, png 파일만 허용합니다.',
       },
     ),
-  nickname: z.string().nonempty('이름을 입력해주세요'),
+  nickname: z.string().optional(),
   description: z.string().nonempty('소개를 입력해주세요'),
 });
 type ProfileFormValues = z.infer<typeof profileSchema>;
