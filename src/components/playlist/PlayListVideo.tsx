@@ -74,11 +74,11 @@ const PlayListVideo = ({ object, videoUrl }: PlayListVideoProps) => {
         <div>
           {object.user_id === currentUserQuery.data.user_id && (
             <div className="flex gap-2">
-              <Button variant="outline" size="small" onClick={handleEdit}>
+              <Button variant="primary" size="small" onClick={handleEdit}>
                 수정
               </Button>
               <Button
-                variant="outline"
+                variant="primary"
                 size="small"
                 onClick={() => handleDelete(object.category_id)}
               >
