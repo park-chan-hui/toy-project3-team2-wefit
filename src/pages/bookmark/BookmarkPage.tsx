@@ -7,6 +7,7 @@ import { useVideos } from '@/hooks/useVideos';
 import { VideoProps } from '@/types/video';
 import { useUsers } from '@/hooks/useUsers';
 import { useBookmarkCheck } from '@/hooks/useBookmarks';
+import BookmarkMainSkeleton from '@/components/skeleton/bookmark/BookmarkMainSkeleton';
 
 const BookmarkPage = () => {
   const [selectedCategory, setSelectedCategory] = useState('전체');
@@ -14,6 +15,14 @@ const BookmarkPage = () => {
   const { currentUserQuery } = useUsers();
 
   const bookmarkQuery = useBookmarkCheck(currentUserQuery.data.user_id);
+
+  if (
+    bookmarkQuery.isLoading ||
+    videosAllQuery.isLoading ||
+    currentUserQuery.isLoading
+  ) {
+    <BookmarkMainSkeleton />;
+  }
 
   const filteredVideos: VideoProps[] =
     videosAllQuery.data?.filter((video: VideoProps) => {

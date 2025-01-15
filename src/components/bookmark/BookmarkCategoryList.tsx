@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useUsers } from '@/hooks/useUsers';
 import EmptyResult from '@/components/empty/EmptyResult';
 import { cn } from '@/utils/cn';
+import BookmarkCategorySkeleton from '@/components/skeleton/bookmark/BookmarkCategorySkeleton';
 
 const BookmarkCategoryList = ({
   selectedCategory,
@@ -15,7 +16,7 @@ const BookmarkCategoryList = ({
   const { categoriesQuery } = useCategories(currentUserQuery.data.user_id);
 
   if (categoriesQuery.isLoading) {
-    return <div>Loading...</div>;
+    return <BookmarkCategorySkeleton />;
   }
 
   if (categoriesQuery.isError) {
