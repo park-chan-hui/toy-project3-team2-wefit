@@ -7,6 +7,7 @@ import {
   fetchUserById,
   updateUser,
   fetchCurrentUser,
+  checkNickname,
 } from '@/api/users';
 
 import { UserProps, UpdateData } from '@/types/user';
@@ -70,6 +71,12 @@ const useUsers = (userId?: string) => {
     },
   });
 
+  // 닉네임 중복 확인
+  const checkUserNicknameMutation = useMutation({
+    mutationFn: ({ userId, nickname }: { userId: string; nickname: string }) =>
+      checkNickname(userId, nickname),
+  });
+
   return {
     usersQuery,
     userQuery,
@@ -77,6 +84,7 @@ const useUsers = (userId?: string) => {
     addUserMutation,
     deleteUserMutation,
     updateUserMutation,
+    checkUserNicknameMutation,
   };
 };
 

@@ -9,14 +9,16 @@ import { useUsers } from '@/hooks/useUsers';
 
 const MyPageEdit = () => {
   const userData = useUserStore(state => state.user);
-  const { updateUserMutation } = useUsers();
+
   const {
     control,
     formState: { errors },
     handleSubmit,
+    watch,
     setValue,
     clearErrors,
     reset,
+    setError,
   } = useForm<ProfileFormValues>({
     resolver: zodResolver(profileSchema),
     defaultValues: {
@@ -26,6 +28,10 @@ const MyPageEdit = () => {
     },
   });
 
+  const nickname = watch('nickname');
+
+  const { updateUserMutation, checkUserNicknameMutation } = useUsers();
+
   const handleImageChange = (imageFile: string) => {
     setValue('user_image', imageFile, { shouldValidate: true });
   };
@@ -33,8 +39,24 @@ const MyPageEdit = () => {
   const handleReset = () => {
     reset();
   };
-  const onSubmit = (data: ProfileFormValues) => {
-    updateUserMutation.mutate({ userId: userData!.user_id, updateData: data });
+
+  const onSubmit = async (data: ProfileFormValues) => {
+    try {
+      const isAvailable = await checkUserNicknameMutation.mutateAsync({
+        userId: userData!.user_id,
+        nickname: nickname!,
+      });
+      if (!isAvailable) {
+        setError('nickname', { message: '이미 사용 중인 닉네임입니다.' });
+        return;
+      }
+      updateUserMutation.mutate({
+        userId: userData!.user_id,
+        updateData: data,
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
