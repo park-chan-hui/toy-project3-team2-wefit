@@ -10,8 +10,12 @@ import {
 } from '@/api/users';
 
 import { UserProps, UpdateData } from '@/types/user';
+import { toastError, toastSuccess } from '@/utils/toast';
+import { ROUTER_PATH } from '@/constants/constants';
+import { useNavigate } from 'react-router-dom';
 
 const useUsers = (userId?: string) => {
+  const navigate = useNavigate();
   // 모든 사용자 조회
   const usersQuery = useQuery({
     queryKey: ['users'],
@@ -50,6 +54,14 @@ const useUsers = (userId?: string) => {
       userId: string;
       updateData: UpdateData;
     }) => updateUser(userId, updateData),
+    onSuccess: () => {
+      toastSuccess('프로필을 수정했습니다.');
+      navigate(ROUTER_PATH.MY_PAGE);
+    },
+    onError: (error: Error) => {
+      console.error('수정 데이터 업로드 실패:', error);
+      toastError('프로필 수정 중 오류가 발생했습니다.');
+    },
   });
 
   return {
