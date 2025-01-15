@@ -6,6 +6,7 @@ import SimpleProfile from '../common/simple-profile/SimpleProfile';
 import Button from '../common/button/Button';
 import { VideoProps } from '@/types/video';
 import { useUsers } from '@/hooks/useUsers';
+import { useFollow } from '@/hooks/useFollow';
 
 const VideoItem = ({
   thumbnail,
@@ -19,8 +20,11 @@ const VideoItem = ({
   video_id,
   isVideoDetailPage = false,
 }: VideoProps) => {
-  const { userQuery } = useUsers(user_id);
+  const { userQuery, currentUserQuery } = useUsers(user_id);
+  const { isFollowLoading, isFollowing, toggleFollow } = useFollow(user_id);
+
   const userData = userQuery.data;
+  const isSameUser = currentUserQuery.data?.user_id === user_id;
 
   const ThumbnailContent =
     isVideoDetailPage && video_url ? (
@@ -62,9 +66,16 @@ const VideoItem = ({
           {userData && <SimpleProfile {...userData} />}
 
           {isVideoDetailPage ? (
-            <Button variant="outline" size="small">
-              팔로우
-            </Button>
+            !isSameUser && (
+              <Button
+                variant={isFollowing ? 'primary' : 'outline'}
+                size="small"
+                onClick={() => toggleFollow()}
+                disabled={isFollowLoading}
+              >
+                {isFollowing ? '팔로잉' : '팔로우'}
+              </Button>
+            )
           ) : (
             <VideoStats
               {...{ video_id, created_at, is_bookmarked, like_heart }}

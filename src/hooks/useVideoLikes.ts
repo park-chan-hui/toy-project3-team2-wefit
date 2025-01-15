@@ -48,7 +48,7 @@ const useVideoLikes = (videoId: string) => {
 
   return {
     isLiked: likeQuery.data,
-    likesCount: likesCountQuery.data,
+    likesCount: likesCountQuery.data ?? 0,
     toggleLike: toggleLikeMutation.mutateAsync,
     isLikeLoading: likeQuery.isLoading || likesCountQuery.isLoading,
   };
