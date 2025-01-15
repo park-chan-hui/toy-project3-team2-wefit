@@ -19,6 +19,7 @@ import {
   fetchUserUploadVideos,
   fetchAllVideos,
   updateVideo,
+  deleteVideo,
 } from '@/api/videos';
 import { UploadVideoProps, VideoUpdateDataProps } from '@/types/video';
 import { useUsers } from './useUsers';
