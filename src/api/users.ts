@@ -69,3 +69,18 @@ export async function addUser(newUser: UserProps) {
   if (error) throw error;
   return data;
 }
+
+// 닉네임 중복 검사
+export const checkNickname = async (userId: string, nickname: string) => {
+  const { data, error } = await supabase
+    .from('users')
+    .select('*')
+    .eq('nickname', nickname)
+    .neq('user_id', userId); // 본인의 레코드는 제외
+
+  if (error) {
+    throw new Error('닉네임 확인 중 오류가 발생했습니다.');
+  }
+
+  return data.length === 0; // 닉네임이 없으면 true 반환
+};
