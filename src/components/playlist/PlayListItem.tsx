@@ -1,23 +1,36 @@
 import SimpleProfile from '@/components/common/simple-profile/SimpleProfile';
-import { UserProps } from '@/types/user';
 import { cn } from '@/utils/cn';
 import { useVideos } from '@/hooks/useVideos';
+import { useUsers } from '@/hooks/useUsers';
 
 type PlayListItemProps = {
   video: string;
   // eslint-disable-next-line no-unused-vars
   onVideoUrlChange: (videoUrl: string) => void;
-  userData?: UserProps;
 };
 
-const PlayListItem = ({
-  video,
-  onVideoUrlChange,
-  userData,
-}: PlayListItemProps) => {
+const PlayListItem = ({ video, onVideoUrlChange }: PlayListItemProps) => {
   const { videoQuery } = useVideos({ videoId: video });
 
   const videoData = videoQuery.data;
+
+  const { userQuery } = useUsers(videoData?.user_id);
+
+  const userData =
+    videoData && userQuery.data
+      ? {
+          user_id: userQuery.data.user_id,
+          nickname: userQuery.data.nickname,
+          user_image: userQuery.data.user_image,
+        }
+      : null;
+
+  if (videoQuery.isLoading) return <div>비디오 로딩 중...</div>;
+  if (videoQuery.error)
+    return <div>비디오 오류: {videoQuery.error.message}</div>;
+
+  if (userQuery.isLoading) return <div>사용자 로딩 중...</div>;
+  if (userQuery.error) return <div>사용자 오류: {userQuery.error.message}</div>;
 
   return (
     <>
