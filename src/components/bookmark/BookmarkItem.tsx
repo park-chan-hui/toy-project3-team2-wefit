@@ -1,20 +1,22 @@
 import { Link } from 'react-router-dom';
 import BookmarkStatus from './BookmarkStatus';
 import SimpleProfile from '../common/simple-profile/SimpleProfile';
-import { mockUsers } from '@/mocks/mockUsers';
 import { VideoProps } from '@/types/video';
+import { useUsers } from '@/hooks/useUsers';
+
+interface BookmarkItemProps extends VideoProps {
+  onToggleBookmark?: () => Promise<void>;
+}
 
 const BookmarkItem = ({
+  video_id,
+  title,
   thumbnail,
   user_id,
-  title,
-  //like_heart,
-  is_bookmarked,
-  //comments,
-  //created_at,
-  video_id,
-}: VideoProps) => {
-  const userData = mockUsers.find(user => user.user_id === user_id);
+  onToggleBookmark,
+}: BookmarkItemProps) => {
+  const { userQuery } = useUsers(user_id);
+  const userData = userQuery.data;
 
   return (
     <article className="mb-1 flex h-16 w-full">
@@ -37,7 +39,10 @@ const BookmarkItem = ({
           {userData && (
             <SimpleProfile {...userData} imageSize="large" textSize="small" />
           )}
-          <BookmarkStatus is_bookmarked={is_bookmarked} />
+          <BookmarkStatus
+            videoId={video_id}
+            onToggleBookmark={onToggleBookmark}
+          />
         </div>
       </div>
     </article>

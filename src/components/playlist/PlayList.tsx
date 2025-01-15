@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { mockUsers } from '@/mocks/mockUsers';
 import PlayListItem from '@/components/playlist/PlayListItem';
 import {
   DragDropContext,
@@ -64,10 +63,6 @@ const PlayList = ({ object, onVideoUrlChange }: PlayListVideoProps) => {
             className="flex flex-col gap-4"
           >
             {videoList?.map((video, index) => {
-              const userData = mockUsers.find(
-                user => user.user_id === video.user_id,
-              );
-
               const draggableId = String(video.video_id || `video-${index}`);
 
               return (
@@ -86,7 +81,6 @@ const PlayList = ({ object, onVideoUrlChange }: PlayListVideoProps) => {
                       <PlayListItem
                         video={video}
                         onVideoUrlChange={onVideoUrlChange ?? (() => {})}
-                        userData={userData}
                       />
                     </div>
                   )}

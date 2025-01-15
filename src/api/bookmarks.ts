@@ -49,3 +49,16 @@ export async function fetchBookmarkStatus(userId: string, videoId: string) {
 
   return !!bookmark;
 }
+
+// 북마크 모든 값 조회
+
+export async function fetchBookmarkCheck(userId: string) {
+  const { data, error } = await supabase
+    .from('bookmarks')
+    .select('*')
+    .eq('user_id', userId);
+
+  if (error) throw error;
+
+  return data || [];
+}

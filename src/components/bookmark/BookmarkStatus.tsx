@@ -1,18 +1,28 @@
 import { FaStar } from 'react-icons/fa';
-import { FaRegTrashAlt } from 'react-icons/fa';
-import { VideoStatsProps } from '@/types/video';
-import { cn } from '@/utils/cn';
+import { useBookmark } from '@/hooks/useBookmarks';
 
-const BookmarkStatus = ({
-  is_bookmarked,
-}: Pick<VideoStatsProps, 'is_bookmarked'>) => {
+interface BookmarkStatusProps {
+  videoId: string;
+  onToggleBookmark?: () => Promise<void>;
+}
+
+const BookmarkStatus = ({ videoId, onToggleBookmark }: BookmarkStatusProps) => {
+  const { toggleBookmark } = useBookmark(videoId);
+
+  const handleClick = async () => {
+    await toggleBookmark();
+    if (onToggleBookmark) {
+      await onToggleBookmark();
+    }
+  };
+
   return (
     <div className="mt-1 flex w-14 justify-between text-gray">
       <div className="flex flex-grow items-center">
-        <FaRegTrashAlt size={25} className="mr-1 cursor-pointer" />
         <FaStar
           size={25}
-          className={cn('cursor-pointer', is_bookmarked ? 'text-primary' : '')}
+          className="cursor-pointer text-primary"
+          onClick={() => handleClick()}
         />
       </div>
     </div>
