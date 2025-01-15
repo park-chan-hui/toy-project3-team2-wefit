@@ -84,7 +84,7 @@ const PlayListVideo = ({ object, videoUrl }: PlayListVideoProps) => {
                 수정
               </Button>
               <Button
-                variant="primary"
+                variant="danger"
                 size="small"
                 onClick={() => handleDelete(object.category_id)}
               >
