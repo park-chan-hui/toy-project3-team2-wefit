@@ -32,6 +32,10 @@ const PlayList = ({ object, onVideoUrlChange }: PlayListVideoProps) => {
   const initialVideoList = object?.categoried_videos || [];
   const [videoList, setVideoList] = useState(initialVideoList);
 
+  useEffect(() => {
+    setVideoList(object?.categoried_videos || []);
+  }, [object]);
+
   if (!object) return;
 
   const onDragEnd = (result: DropResult) => {

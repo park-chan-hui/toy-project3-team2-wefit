@@ -7,11 +7,12 @@ import Button from '@/components/common/button/Button';
 import { useUsers } from '@/hooks/useUsers';
 import { useDeleteCategory } from '@/hooks/useCategories';
 import { useNavigate } from 'react-router-dom';
-
+import { ROUTER_PATH } from '@/constants/constants';
 const PlayListVideo = ({ object, videoUrl }: PlayListVideoProps) => {
   const navigate = useNavigate();
   const deleteCategoryMutation = useDeleteCategory();
   const { currentUserQuery } = useUsers();
+  const { BOOKMARK_CATEGORY_ADD } = ROUTER_PATH;
 
   if (!object) {
     return;
@@ -20,7 +21,10 @@ const PlayListVideo = ({ object, videoUrl }: PlayListVideoProps) => {
     ? object.categoried_videos.length
     : 0;
 
-  const handleEdit = () => {};
+  const handleEdit = () => {
+    navigate(BOOKMARK_CATEGORY_ADD, { state: { object } });
+  };
+
   const handleDelete = (category_id: string) => {
     const confirmDelete = window.confirm('북마크 카테고리를 삭제하시겠어요?');
     if (confirmDelete) {
