@@ -2,7 +2,9 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { fetchCategories, deleteCategories } from '@/api/categories';
 import { toastError, toastSuccess } from '@/utils/toast';
 
-export const useCategories = (userId: string) => {
+const useCategories = (userId: string) => {
+  const queryClient = useQueryClient();
+
   const categoriesQuery = useQuery({
     queryKey: ['categories', userId],
     queryFn: () => fetchCategories(userId),
@@ -14,14 +16,8 @@ export const useCategories = (userId: string) => {
     enabled: !!userId,
   });
 
-  return categoriesQuery;
-};
-
-export const useDeleteCategory = () => {
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: (categoried_id: string) => deleteCategories(categoried_id),
+  const deleteCategoriesQuery = useMutation({
+    mutationFn: (categoryId: string) => deleteCategories(categoryId),
     onSuccess: () => {
       toastSuccess('해당 카테고리가 삭제되었어요!');
       queryClient.invalidateQueries({ queryKey: ['categories'] });
@@ -31,4 +27,11 @@ export const useDeleteCategory = () => {
       toastError('오류가 발생헜어요 ! 다시 시도해주세요');
     },
   });
+
+  return {
+    categoriesQuery,
+    deleteCategoriesQuery,
+  };
 };
+
+export { useCategories };

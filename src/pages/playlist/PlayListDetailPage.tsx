@@ -11,7 +11,7 @@ import { useUsers } from '@/hooks/useUsers';
 
 const PlayListDetailPage = () => {
   const { currentUserQuery } = useUsers();
-  const categoriesQuery = useCategories(currentUserQuery.data.user_id);
+  const { categoriesQuery } = useCategories(currentUserQuery.data.user_id);
   const { playlistId } = useParams();
   const [videoUrl, setVideoUrl] = useState('');
   const { videosQuery } = useVideos();

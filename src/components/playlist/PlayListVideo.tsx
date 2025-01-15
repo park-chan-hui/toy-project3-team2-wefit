@@ -5,13 +5,15 @@ import type { PlayListVideoProps } from '@/types/playList';
 import EmbedYoutubeVideo from '@/components/video/EmbedYoutubeVideo';
 import Button from '@/components/common/button/Button';
 import { useUsers } from '@/hooks/useUsers';
-import { useDeleteCategory } from '@/hooks/useCategories';
+import { useCategories } from '@/hooks/useCategories';
 import { useNavigate } from 'react-router-dom';
 import { ROUTER_PATH } from '@/constants/constants';
 const PlayListVideo = ({ object, videoUrl }: PlayListVideoProps) => {
   const navigate = useNavigate();
-  const deleteCategoryMutation = useDeleteCategory();
   const { currentUserQuery } = useUsers();
+  const { deleteCategoriesQuery } = useCategories(
+    currentUserQuery.data.user_id,
+  );
   const { BOOKMARK_CATEGORY_ADD } = ROUTER_PATH;
 
   if (!object) {
@@ -28,7 +30,7 @@ const PlayListVideo = ({ object, videoUrl }: PlayListVideoProps) => {
   const handleDelete = (category_id: string) => {
     const confirmDelete = window.confirm('북마크 카테고리를 삭제하시겠어요?');
     if (confirmDelete) {
-      deleteCategoryMutation.mutate(category_id);
+      deleteCategoriesQuery.mutate(category_id);
       navigate(-1);
     }
   };
