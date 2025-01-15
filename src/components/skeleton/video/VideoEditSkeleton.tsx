@@ -3,7 +3,7 @@ import { videoCategories } from '@/mocks/videoCategories';
 
 const VideoEditSkeleton = () => {
   return (
-    <div className="mx-auto flex max-w-2xl flex-col gap-4 p-4">
+    <div className="mx-auto flex max-w-2xl animate-pulse flex-col gap-4 p-4">
       <section>
         <div className="flex aspect-video items-center justify-center rounded-small bg-gray-200" />
       </section>

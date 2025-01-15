@@ -61,7 +61,6 @@ const VideoEditPage = () => {
   const imgFile = watch('thumbnail');
 
   const onSubmit = (data: VideoFormValues) => {
-    console.log('hey');
     const videoURLId = getYoutubeVideoId(data.video_url);
     const newThumbnail =
       imgFile || `https://img.youtube.com/vi/${videoURLId}/0.jpg`;
