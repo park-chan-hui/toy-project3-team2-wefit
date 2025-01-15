@@ -37,8 +37,6 @@ const BookmarkCategoryAddPage = () => {
   const location = useLocation();
   const { object } = location.state || {};
 
-  console.log(object);
-
   const {
     control,
     formState: { errors },
