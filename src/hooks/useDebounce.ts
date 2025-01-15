@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 
-type debounceProps<T> = {
+type DebounceProps<T> = {
   value: T;
   delay: number;
 };
 
-export function useDebounce<T>({ value, delay }: debounceProps<T>): T {
+export function useDebounce<T>({ value, delay }: DebounceProps<T>): T {
   const [debouncedValue, setDebouncedValue] = useState(value);
 
   useEffect(() => {
@@ -16,7 +16,7 @@ export function useDebounce<T>({ value, delay }: debounceProps<T>): T {
     return () => {
       clearTimeout(handler);
     };
-  }, [value, delay]); // warning 때문에 delay 추가
+  }, [value, delay]);
 
   return debouncedValue;
 }
