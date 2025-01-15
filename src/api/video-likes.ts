@@ -25,7 +25,7 @@ export async function toggleVideoLike(userId: string, videoId: string) {
 
     if (deleteError) throw deleteError;
 
-    // videos 테이블에서 좋아요 카운트 감소소
+    // videos 테이블에서 좋아요 카운트 감소
     const { error: updateError } = await supabase
       .from('videos')
       .update({ like_heart: currentLikes - 1 })
@@ -83,4 +83,17 @@ export async function fetchVideoLikesCount(videoId: string) {
   }
 
   return count || 0;
+}
+
+export async function fetchUsersLikeVideos(userId: string) {
+  const { data, error } = await supabase
+    .from('video_likes')
+    .select('video_id')
+    .eq('user_id', userId);
+
+  if (error) throw { error };
+
+  const videoIds = data?.map(item => item.video_id) || [];
+
+  return videoIds;
 }
