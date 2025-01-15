@@ -7,7 +7,7 @@ import EmptyResult from '@/components/empty/EmptyResult';
 const BookmarkCategoryList = () => {
   const { currentUserQuery } = useUsers();
 
-  const categoriesQuery = useCategories(currentUserQuery.data.user_id);
+  const { categoriesQuery } = useCategories(currentUserQuery.data.user_id);
 
   if (categoriesQuery.isLoading) {
     return <div>Loading...</div>;

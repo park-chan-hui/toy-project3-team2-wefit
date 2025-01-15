@@ -10,10 +10,11 @@ type PlayListProps = {
   title: string;
   user_id: string;
   categoried_videos: VideoProps[];
+  category_id: string;
 };
 
 type PlayListVideoProps = {
-  object: PlayListProps;
+  object?: PlayListProps;
   // eslint-disable-next-line no-unused-vars
   onVideoUrlChange?: (videoUrl: string) => void;
   videoUrl?: string;

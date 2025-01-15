@@ -1,4 +1,4 @@
-import { SaveCategories } from '@/api/categories';
+import { saveCategories, updateCategories } from '@/api/categories';
 import BookmarkItem from '@/components/bookmark/BookmarkItem';
 import Button from '@/components/common/button/Button';
 import LabelInput from '@/components/common/label-input/LabelInput';
@@ -8,7 +8,7 @@ import { VideoProps } from '@/types/video';
 import { useState } from 'react';
 import { FaCheckCircle } from 'react-icons/fa';
 import { FaRegCircle } from 'react-icons/fa6';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { toastSuccess, toastError } from '@/utils/toast';
 import { useForm, Controller } from 'react-hook-form';
 import { categorySchema } from '@/schema/categorySchema';
@@ -34,6 +34,8 @@ const BookmarkCategoryAddPage = () => {
   const bookmarkQuery = useBookmarkCheck(currentUserQuery.data.user_id);
   const navigate = useNavigate();
   const { videosAllQuery } = useVideos();
+  const location = useLocation();
+  const { object } = location.state || {};
 
   const {
     control,
@@ -44,18 +46,27 @@ const BookmarkCategoryAddPage = () => {
   } = useForm<CheckInput>({
     resolver: zodResolver(categorySchema),
     defaultValues: {
-      categoryName: '',
-      imgFile: '',
-      videos: '',
+      categoryName: object ? object.title : '',
+      imgFile: object ? object.category_thumbnail : '',
+      videos: object ? object.categoried_videos : '',
     },
   });
 
-  const filteredVideos: VideoProps[] =
-    videosAllQuery.data?.filter((video: VideoProps) => {
-      return bookmarkQuery.data?.some(
-        bookmark => bookmark.video_id === video.video_id,
-      );
-    }) || [];
+  const filteredVideos: VideoProps[] = object
+    ? videosAllQuery.data
+        ?.filter((video: VideoProps) => {
+          return object.categoried_videos.includes(video.video_id);
+        })
+        ?.filter((video: VideoProps) => {
+          return bookmarkQuery.data?.some(
+            bookmark => bookmark.video_id === video.video_id,
+          );
+        }) || []
+    : videosAllQuery.data?.filter((video: VideoProps) => {
+        return bookmarkQuery.data?.some(
+          bookmark => bookmark.video_id === video.video_id,
+        );
+      }) || [];
 
   const handleClick = (videoId: string) => {
     setCheckedVideos(prevState => {
@@ -86,25 +97,28 @@ const BookmarkCategoryAddPage = () => {
   const onSubmit = async (data: CheckInput) => {
     const selectedVideos = getSelectedVideos();
 
-    if (selectedVideos.length === 0) {
-      toastError('최소 하나의 동영상을 선택해주세요!');
-      return;
-    }
+    const props = {
+      checkedVideos: selectedVideos.reduce(
+        (videos, videoId) => {
+          videos[videoId] = true;
+          return videos;
+        },
+        {} as Record<string, boolean>,
+      ),
+      title: data.categoryName,
+      imgFile: data.imgFile,
+      userId,
+      ...(object ? { category_id: object.category_id } : {}),
+    };
 
     try {
-      await SaveCategories({
-        checkedVideos: selectedVideos.reduce(
-          (videos, videoId) => {
-            videos[videoId] = true;
-            return videos;
-          },
-          {} as Record<string, boolean>,
-        ),
-        title: data.categoryName,
-        imgFile: data.imgFile,
-        userId,
-      });
-      toastSuccess('카테고리 저장 성공!');
+      if (object) {
+        await updateCategories(props);
+        toastSuccess('카테고리 수정 성공!');
+      } else {
+        await saveCategories(props);
+        toastSuccess('카테고리 저장 성공!');
+      }
       navigate(-1);
     } catch (error) {
       toastError('다시 한번 시도해 주세요!');
@@ -203,7 +217,7 @@ const BookmarkCategoryAddPage = () => {
           className="my-2 w-full rounded-medium"
           type="submit"
         >
-          해당 카테고리 추가
+          {object ? '해당 카테고리 수정' : '해당 카테고리 추가'}
         </Button>
       </div>
     </form>
