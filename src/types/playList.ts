@@ -10,6 +10,7 @@ type PlayListProps = {
   title: string;
   user_id: string;
   categoried_videos: VideoProps[];
+  category_id: string;
 };
 
 type PlayListVideoProps = {

@@ -47,3 +47,16 @@ export async function SaveCategories(props: SaveCategoriesProps) {
   if (error) throw error;
   return data || [];
 }
+
+// 카테고리 삭제 함수
+
+export async function deleteCategories(category_id: string) {
+  const { data, error } = await supabase
+    .from('categories')
+    .delete()
+    .eq('category_id', category_id);
+
+  if (error) throw error;
+
+  return data;
+}
