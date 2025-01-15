@@ -1,4 +1,4 @@
-import { ChangeEvent, InputHTMLAttributes, useState } from 'react';
+import { ChangeEvent, InputHTMLAttributes, useState, useEffect } from 'react';
 import { useDebounce } from '@/hooks/useDebounce';
 
 type LabelInputProps = InputHTMLAttributes<HTMLInputElement> & {
@@ -13,17 +13,31 @@ type LabelInputProps = InputHTMLAttributes<HTMLInputElement> & {
 const LabelInput = (props: LabelInputProps) => {
   const { title, placeholder, description, value, onChange, ...inputProps } =
     props;
-  const [desc, setDesc] = useState(description);
+
+  const [inputValue, setInputValue] = useState(value || description || '');
 
   const debouncedValue = useDebounce({
-    value: desc,
-    delay: 1000,
+    value: inputValue,
+    delay: 300,
   });
 
-  console.log(debouncedValue); //삭제 예정
+  useEffect(() => {
+    if (value !== undefined) {
+      setInputValue(value);
+    }
+  }, [value]);
+
+  useEffect(() => {
+    if (onChange) {
+      const simulatedEvent = {
+        target: { value: debouncedValue },
+      } as React.ChangeEvent<HTMLInputElement>;
+      onChange(simulatedEvent);
+    }
+  }, [debouncedValue, onChange]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setDesc(e.target.value);
+    setInputValue(e.target.value);
   };
 
   return (
@@ -33,14 +47,8 @@ const LabelInput = (props: LabelInputProps) => {
         {...inputProps}
         className="mt-1 w-full rounded-medium border border-black p-2 px-4 focus:!border-primary focus:outline-none"
         placeholder={placeholder}
-        value={
-          (props.value === '' || props.value) && props.onChange ? value : desc
-        }
-        onChange={
-          (props.value === '' || props.value) && props.onChange
-            ? onChange
-            : handleChange
-        }
+        value={inputValue}
+        onChange={handleChange}
       />
     </div>
   );
