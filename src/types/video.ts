@@ -49,6 +49,13 @@ type UploadVideoProps = {
   created_at?: string | Date;
 };
 
+type VideoUpdateDataProps = {
+  video_url: string;
+  thumbnail: string;
+  title: string;
+  hash_tag: string[];
+};
+
 export type {
   VideoProps,
   VideoCategoryProps,
@@ -56,4 +63,5 @@ export type {
   VideoStatsProps,
   VideoUploadCategoryProps,
   UploadVideoProps,
+  VideoUpdateDataProps,
 };

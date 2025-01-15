@@ -7,7 +7,7 @@ import Button from '../common/button/Button';
 type VideoUploadBoxProps = {
   isEditPage?: boolean;
   videoURL: string;
-  setVideoURL: React.Dispatch<React.SetStateAction<string>>;
+  setVideoURL?: React.Dispatch<React.SetStateAction<string>>;
 };
 const VideoUploadBox = (videoUploadProps: VideoUploadBoxProps) => {
   const { isEditPage, videoURL, setVideoURL } = videoUploadProps;
@@ -19,7 +19,7 @@ const VideoUploadBox = (videoUploadProps: VideoUploadBoxProps) => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsClick(false);
-    setVideoURL(e.target.value);
+    setVideoURL!(e.target.value);
   };
 
   if (isEditPage) {

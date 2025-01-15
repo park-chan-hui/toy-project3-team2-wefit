@@ -18,8 +18,9 @@ import {
   addVideo,
   fetchUserUploadVideos,
   fetchAllVideos,
+  updateVideo,
 } from '@/api/videos';
-import { UploadVideoProps } from '@/types/video';
+import { UploadVideoProps, VideoUpdateDataProps } from '@/types/video';
 import { useUsers } from './useUsers';
 import { toastError, toastSuccess } from '@/utils/toast';
 
@@ -182,6 +183,25 @@ const useVideos = ({
     },
   });
 
+  // 비디오 정보 수정
+  const updateVideoMutation = useMutation({
+    mutationFn: ({
+      videoId,
+      updateData,
+    }: {
+      videoId: string;
+      updateData: VideoUpdateDataProps;
+    }) => updateVideo(videoId, updateData),
+    onSuccess: () => {
+      toastSuccess('해당 동영상을 수정했습니다.');
+      navigate(ROUTER_PATH.MY_UPLOAD_VIDEO);
+    },
+    onError: (error: Error) => {
+      console.error('수정 데이터 업로드 실패:', error);
+      toastError('동영상 수정 중 오류가 발생했습니다.');
+    },
+  });
+
   return {
     videosAllQuery,
     videosQuery,
@@ -195,6 +215,7 @@ const useVideos = ({
     hasNextPage: videosQuery.hasNextPage,
     isFetchingNextPage: videosQuery.isFetchingNextPage,
     deleteVideoMutation,
+    updateVideoMutation,
   };
 };
 
