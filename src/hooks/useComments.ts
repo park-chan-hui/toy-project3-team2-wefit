@@ -1,7 +1,14 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-import { fetchCommentsByVideoId, addComment, addReply } from '@/api/comments';
+import {
+  fetchCommentsByVideoId,
+  addComment,
+  addReply,
+  deleteComment,
+  deleteReply,
+} from '@/api/comments';
 import { Comment } from '@/types/comment';
+import { toastSuccess } from '@/utils/toast';
 
 const useComments = (videoId: string) => {
   const queryClient = useQueryClient();
@@ -58,6 +65,41 @@ const useComments = (videoId: string) => {
     },
   });
 
+  // 댓글 삭제
+  const { mutateAsync: deleteCommentAsync, isPending: isDeletingComment } =
+    useMutation({
+      mutationFn: (commentId: string) => deleteComment(commentId),
+      onSuccess: (_, commentId) => {
+        queryClient.setQueryData<Comment[]>(
+          ['comments', videoId],
+          (oldComments = []) =>
+            oldComments.filter(comment => comment.comment_id !== commentId),
+        );
+
+        toastSuccess('작성하신 댓글이 삭제되었어요!');
+      },
+    });
+
+  // 대댓글 삭제
+  const { mutateAsync: deleteReplyAsync, isPending: isDeletingReply } =
+    useMutation({
+      mutationFn: (replyId: string) => deleteReply(replyId),
+      onSuccess: (_, replyId) => {
+        queryClient.setQueryData<Comment[]>(
+          ['comments', videoId],
+          (oldComments = []) =>
+            oldComments.map(comment => ({
+              ...comment,
+              replies: comment.replies.filter(
+                reply => reply.reply_id !== replyId,
+              ),
+            })),
+        );
+
+        toastSuccess('작성하신 대댓글이 삭제되었어요!');
+      },
+    });
+
   return {
     comments: data ?? [],
     isLoading,
@@ -66,6 +108,10 @@ const useComments = (videoId: string) => {
     isAddingComment,
     addReply: addReplyAsync,
     isAddingReply,
+    deleteComment: deleteCommentAsync,
+    isDeletingComment,
+    deleteReply: deleteReplyAsync,
+    isDeletingReply,
   };
 };
 

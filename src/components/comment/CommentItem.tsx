@@ -1,3 +1,5 @@
+import { GoTrash } from 'react-icons/go';
+
 import SimpleProfile from '../common/simple-profile/SimpleProfile';
 import CommentActions from './CommentActions';
 import { useCommentStore } from '@/store/useCommentStore';
@@ -5,14 +7,35 @@ import { useUsers } from '@/hooks/useUsers';
 import { CommentItemProps } from '@/types/comment';
 import { getTimeAgo } from '@/utils/getTimeAgo';
 import { cn } from '@/utils/cn';
+import { useComments } from '@/hooks/useComments';
 
-const CommentItem = ({ comment, isReply = false }: CommentItemProps) => {
+const CommentItem = ({
+  comment,
+  isReply = false,
+  videoId,
+}: CommentItemProps) => {
   const { expandedComments } = useCommentStore();
-  const { userQuery } = useUsers(comment.user_id);
+  const { userQuery, currentUserQuery } = useUsers(comment.user_id);
+  const { deleteComment, deleteReply } = useComments(videoId);
 
   const user = userQuery.data;
   const hasReplies = !isReply && comment.replies && comment.replies.length > 0;
   const isExpanded = expandedComments.includes(comment.comment_id);
+  const isAuthor = currentUserQuery.data?.user_id === comment.user_id;
+
+  const handleDelete = async () => {
+    if (!window.confirm('정말 삭제하시겠습니까?')) return;
+
+    try {
+      if (isReply) {
+        await deleteReply(comment.reply_id!);
+      } else {
+        await deleteComment(comment.comment_id);
+      }
+    } catch (error) {
+      console.error('댓글 삭제 중 오류가 발생했어요: ', error);
+    }
+  };
 
   return (
     <section
@@ -21,7 +44,7 @@ const CommentItem = ({ comment, isReply = false }: CommentItemProps) => {
         isReply && 'ml-10',
       )}
     >
-      <article className="flex items-center justify-between">
+      <article className="flex w-full items-center justify-between">
         <figure className="flex items-center gap-2">
           {user && (
             <SimpleProfile
@@ -34,6 +57,11 @@ const CommentItem = ({ comment, isReply = false }: CommentItemProps) => {
             {getTimeAgo(comment.created_at)}
           </span>
         </figure>
+        {isAuthor && (
+          <button onClick={handleDelete}>
+            <GoTrash size={16} />
+          </button>
+        )}
       </article>
 
       <article className="mx-6 flex flex-col gap-2">

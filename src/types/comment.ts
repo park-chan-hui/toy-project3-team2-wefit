@@ -42,6 +42,7 @@ type CommentActionsProps = {
 type CommentItemProps = {
   comment: CombinedCommentProps;
   isReply?: boolean;
+  videoId: string;
 };
 
 type CommentSubmitFormProps = {

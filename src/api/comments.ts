@@ -51,8 +51,8 @@ export async function fetchCommentsByVideoId(
 export async function addComment(
   videoId: string,
   content: string,
-  userId: string, // 사용자 정보가 없어서 임시로 추가
-  nickname: string, // 사용자 정보가 없어서 임시로 추가
+  userId: string,
+  nickname: string,
 ): Promise<Comment> {
   const newComment = {
     comment_id: crypto.randomUUID(),
@@ -84,8 +84,8 @@ export async function addComment(
 export async function addReply(
   commentId: string,
   content: string,
-  userId: string, // 사용자 정보가 없어서 임시로 추가
-  nickname: string, // 사용자 정보가 없어서 임시로 추가
+  userId: string,
+  nickname: string,
 ): Promise<Reply> {
   const newReply = {
     reply_id: crypto.randomUUID(),
@@ -108,4 +108,24 @@ export async function addReply(
   if (!data) throw new Error('대댓글을 추가하는 데에 실패했어요!');
 
   return data as Reply;
+}
+
+// 댓글 삭제
+export async function deleteComment(commentId: string): Promise<void> {
+  const { error } = await supabase
+    .from('comments')
+    .delete()
+    .eq('comment_id', commentId);
+
+  if (error) throw error;
+}
+
+// 대댓글 삭제
+export async function deleteReply(replyId: string): Promise<void> {
+  const { error } = await supabase
+    .from('replies')
+    .delete()
+    .eq('reply_id', replyId);
+
+  if (error) throw error;
 }
