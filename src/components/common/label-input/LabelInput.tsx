@@ -21,20 +21,13 @@ const LabelInput = (props: LabelInputProps) => {
     delay: 300,
   });
 
-  useEffect(() => {
-    if (value !== undefined) {
-      setInputValue(value);
-    }
-  }, [value]);
+  const isControlled = (props.value === '' || props.value) && props.onChange;
 
   useEffect(() => {
-    if (onChange) {
-      const simulatedEvent = {
-        target: { value: debouncedValue },
-      } as React.ChangeEvent<HTMLInputElement>;
-      onChange(simulatedEvent);
+    if (!isControlled) {
+      setInputValue(debouncedValue);
     }
-  }, [debouncedValue, onChange]);
+  }, [debouncedValue, isControlled]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -47,8 +40,8 @@ const LabelInput = (props: LabelInputProps) => {
         {...inputProps}
         className="mt-1 w-full rounded-medium border border-black p-2 px-4 focus:!border-primary focus:outline-none"
         placeholder={placeholder}
-        value={inputValue}
-        onChange={handleChange}
+        value={isControlled ? value : inputValue}
+        onChange={isControlled ? onChange : handleChange}
       />
     </div>
   );
