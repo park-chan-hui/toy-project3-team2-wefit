@@ -3,10 +3,10 @@ import EmptyResult from '@/components/empty/EmptyResult';
 import MyPageProfile from '@/components/my-page/MyPageProfile';
 import MyPageUploadVideoList from '@/components/my-page/MyPageUploadVideoList';
 import WatchedVideoList from '@/components/my-page/WatchedVideoList';
-import MyPageProfileSkeleton from '@/components/skeleton/my-page/MyPageProfileSkeleton';
-import MyPageVideoListSkeleton from '@/components/skeleton/my-page/MyPageVideoListSkeleton';
+import MyPageSkeleton from '@/components/skeleton/my-page/MyPageSkeleton';
 import { ROUTER_PATH } from '@/constants/constants';
 import { useUsers } from '@/hooks/useUsers';
+import { useVideoLikes } from '@/hooks/useVideoLikes';
 import { useVideos } from '@/hooks/useVideos';
 import { useUserStore } from '@/store/useUserStore';
 import { Link } from 'react-router-dom';
@@ -14,21 +14,16 @@ import { Link } from 'react-router-dom';
 const MyPage = () => {
   const { MY_UPLOAD_VIDEO } = ROUTER_PATH;
   const { currentUserQuery } = useUsers();
-  const { data: currentUserData, isLoading: userDataLoading } =
-    currentUserQuery;
+  const { data: currentUserData } = currentUserQuery;
   const setUser = useUserStore(state => state.setUser);
   setUser(currentUserData);
 
-  const myVideoList = [...(currentUserData?.my_watched_video || [])];
-
+  const { likeVideoListQuery } = useVideoLikes();
+  const { data: likeVideoList } = likeVideoListQuery;
   const { selectVideosQuery: myVideoQuery } = useVideos({
-    videosId: myVideoList,
+    videosId: likeVideoList,
   });
-  const { data: videosData, isLoading: myVideosLoding } = myVideoQuery;
-
-  const watchedVideos = videosData?.filter(video =>
-    currentUserData?.my_watched_video.includes(video.video_id),
-  );
+  const { data: likeVideosData, isLoading: likeVideosLoding } = myVideoQuery;
 
   const { userUploadedVideosQuery: myUploadVideos } = useVideos({
     userId: currentUserData.user_id,
@@ -36,38 +31,8 @@ const MyPage = () => {
   const { data: uploadVideos, isLoading: myUploadVideosLoding } =
     myUploadVideos;
 
-  if (userDataLoading || myVideosLoding || myUploadVideosLoding) {
-    return (
-      <main className="flex flex-col gap-2">
-        <MyPageProfileSkeleton />
-
-        <section>
-          <p className="text-lg font-bold">내가 시청한 동영상</p>
-          <hr className="my-2" aria-hidden="true" />
-          <MyPageVideoListSkeleton />
-        </section>
-
-        <section>
-          <div className="flex items-center justify-between">
-            <p className="text-lg font-bold">내가 업로드한 동영상</p>
-            <Button size="small">더보기</Button>
-          </div>
-          <hr className="my-2" aria-hidden="true" />
-          <MyPageVideoListSkeleton />
-        </section>
-
-        <section>
-          <p className="text-lg font-bold">내 댓글</p>
-          <hr className="my-2" aria-hidden="true" />
-          <div>
-            <p className="overflow-hidden text-ellipsis whitespace-nowrap font-bold">
-              댓글이 달린 동영상: 댓글 동영상
-            </p>
-            <p className="text-xsmall text-gray">댓글내용</p>
-          </div>
-        </section>
-      </main>
-    );
+  if (likeVideosLoding || myUploadVideosLoding) {
+    return <MyPageSkeleton />;
   }
 
   return (
@@ -75,12 +40,12 @@ const MyPage = () => {
       <MyPageProfile userData={currentUserData} />
 
       <section>
-        <p className="text-lg font-bold">내가 시청한 동영상</p>
+        <p className="text-lg font-bold">내가 좋아요한 동영상</p>
         <hr className="my-2" aria-hidden="true" />
-        {watchedVideos?.length === 0 ? (
+        {likeVideosData?.length === 0 ? (
           <EmptyResult message="시청 영상이 없어요!" />
         ) : (
-          <WatchedVideoList videos={watchedVideos!} />
+          <WatchedVideoList videos={likeVideosData!} />
         )}
       </section>
 
