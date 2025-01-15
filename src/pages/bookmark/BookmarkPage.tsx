@@ -39,7 +39,7 @@ const BookmarkPage = () => {
       />
       {selectedCategory === '전체' && (
         <>
-          <div className="flex max-h-[30vh] w-full flex-col gap-5 overflow-y-auto">
+          <div className="flex max-h-[31vh] w-full flex-col gap-5 overflow-y-auto">
             <BookmarkList videos={filteredVideos} />
           </div>
           <hr className="border-gray my-3 border" />

@@ -64,7 +64,7 @@ const PlayList = ({ object, onVideoUrlChange }: PlayListVideoProps) => {
           <div
             ref={provided.innerRef}
             {...provided.droppableProps}
-            className="flex flex-col gap-4"
+            className="mt-4 flex flex-col gap-4"
           >
             {videoList?.map((video, index) => {
               const draggableId = String(video.video_id || `video-${index}`);

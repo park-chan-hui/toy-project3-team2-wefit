@@ -21,9 +21,7 @@ const PlayListPage = () => {
 
   const mainPlayList = selectedCategory === '전체' && (
     <>
-      <div className="grid w-full grid-cols-2 gap-4 text-sm [&>a>div>div>div]:w-full [&>a>div>div]:flex-col">
-        <BookmarkCategoryList />
-      </div>
+      <BookmarkCategoryList selectedCategory={selectedCategory} />
       <hr className="border-gray my-3 border" />
       <p className="text-large font-bold text-black">
         운동할 때 듣기 좋은 플리
@@ -48,7 +46,7 @@ const PlayListPage = () => {
 
   const onlyPlayList = selectedCategory === '플리만 보기' && (
     <div className="flex w-full flex-col gap-5">
-      <BookmarkCategoryList />
+      <BookmarkCategoryList selectedCategory={selectedCategory} />
     </div>
   );
 
