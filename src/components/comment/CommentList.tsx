@@ -5,9 +5,10 @@ import { cn } from '@/utils/cn';
 
 type CommentListProps = {
   comments: Comment[];
+  videoId: string;
 };
 
-const CommentList = ({ comments }: CommentListProps) => {
+const CommentList = ({ comments, videoId }: CommentListProps) => {
   const { expandedComments } = useCommentStore();
 
   return (
@@ -18,7 +19,7 @@ const CommentList = ({ comments }: CommentListProps) => {
 
         return (
           <li key={comment.comment_id}>
-            <CommentItem comment={comment} />
+            <CommentItem comment={comment} videoId={videoId} />
             {hasReplies && (
               <ul
                 className={cn(
@@ -30,7 +31,11 @@ const CommentList = ({ comments }: CommentListProps) => {
               >
                 {comment.replies.map(reply => (
                   <li key={reply.reply_id}>
-                    <CommentItem comment={reply} isReply={true} />
+                    <CommentItem
+                      comment={reply}
+                      isReply={true}
+                      videoId={videoId}
+                    />
                   </li>
                 ))}
               </ul>

@@ -32,7 +32,7 @@ const VideoComment = ({ videoId }: VideoCommentProps) => {
       <hr className="my-1" aria-hidden="true" />
 
       {comments.length > 0 ? (
-        <CommentList comments={comments} />
+        <CommentList comments={comments} videoId={videoId} />
       ) : (
         <EmptyResult message="작성된 댓글이 없습니다." />
       )}
