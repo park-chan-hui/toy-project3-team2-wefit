@@ -8,7 +8,7 @@ import { cn } from '@/utils/cn';
 const BookmarkCategoryList = ({
   selectedCategory,
 }: {
-  selectedCategory: string;
+  selectedCategory?: string;
 }) => {
   const { currentUserQuery } = useUsers();
 
