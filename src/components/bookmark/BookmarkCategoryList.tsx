@@ -1,10 +1,11 @@
 import { useCategories } from '@/hooks/useCategories';
 import { getTimeAgo } from '@/utils/getTimeAgo';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useUsers } from '@/hooks/useUsers';
 import EmptyResult from '@/components/empty/EmptyResult';
 import { cn } from '@/utils/cn';
 import BookmarkCategorySkeleton from '@/components/skeleton/bookmark/BookmarkCategorySkeleton';
+import MusicSkeleton from '@/components/skeleton/music/MusicSkeleton';
 
 const BookmarkCategoryList = ({
   selectedCategory,
@@ -14,9 +15,11 @@ const BookmarkCategoryList = ({
   const { currentUserQuery } = useUsers();
 
   const { categoriesQuery } = useCategories(currentUserQuery.data.user_id);
+  const location = useLocation();
+  const isBookmark = location.pathname.endsWith('/bookmark');
 
   if (categoriesQuery.isLoading) {
-    return <BookmarkCategorySkeleton />;
+    return isBookmark ? <BookmarkCategorySkeleton /> : <MusicSkeleton />;
   }
 
   if (categoriesQuery.isError) {
