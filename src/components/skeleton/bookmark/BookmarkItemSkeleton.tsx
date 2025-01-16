@@ -1,6 +1,6 @@
 const BookmarkItemSkeleton = () => {
   return (
-    <div className="rounded-md0 h-[30vh] w-full p-5">
+    <div className="h-[30vh] w-full rounded-md p-5">
       <div className="flex">
         <div className="h-20 w-36 rounded-md bg-gray-200" />
         <div className="flex flex-col">
