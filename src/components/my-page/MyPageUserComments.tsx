@@ -14,7 +14,6 @@ const MyPageUserComments = ({ userId }: { userId: string }) => {
     const videoId = videoData?.find(video => video.video_id === data.video_id);
     return { ...data, video: videoId ? videoId : 'N/A' };
   });
-  console.log(userCommentsArray);
 
   return (
     <section>
