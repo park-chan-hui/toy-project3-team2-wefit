@@ -16,7 +16,7 @@ const CommentItem = ({
 }: CommentItemProps) => {
   const { expandedComments } = useCommentStore();
   const { userQuery, currentUserQuery } = useUsers(comment.user_id);
-  const { deleteComment, deleteReply } = useComments(videoId);
+  const { deleteComment, deleteReply } = useComments({ videoId: videoId });
 
   const user = userQuery.data;
   const hasReplies = !isReply && comment.replies && comment.replies.length > 0;

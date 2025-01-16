@@ -2,6 +2,7 @@ import Button from '@/components/common/button/Button';
 import EmptyResult from '@/components/empty/EmptyResult';
 import MyPageProfile from '@/components/my-page/MyPageProfile';
 import MyPageUploadVideoList from '@/components/my-page/MyPageUploadVideoList';
+import MyPageUserComments from '@/components/my-page/MyPageUserComments';
 import WatchedVideoList from '@/components/my-page/WatchedVideoList';
 import MyPageSkeleton from '@/components/skeleton/my-page/MyPageSkeleton';
 import { ROUTER_PATH } from '@/constants/constants';
@@ -64,16 +65,7 @@ const MyPage = () => {
         )}
       </section>
 
-      <section>
-        <p className="text-lg font-bold">내 댓글</p>
-        <hr className="my-2" aria-hidden="true" />
-        <div>
-          <p className="overflow-hidden text-ellipsis whitespace-nowrap font-bold">
-            댓글이 달린 동영상: 댓글 동영상
-          </p>
-          <p className="text-xsmall text-gray">댓글내용</p>
-        </div>
-      </section>
+      <MyPageUserComments userId={currentUserData.user_id} />
     </main>
   );
 };

@@ -151,3 +151,16 @@ export async function deleteReply(replyId: string): Promise<void> {
 
   if (error) throw error;
 }
+
+//사용자가 작성한 댓글 조회
+export async function userComments(userId: string) {
+  const { data: comments, error: commentsError } = await supabase
+    .from('comments')
+    .select('*')
+    .eq('user_id', userId)
+    .order('created_at', { ascending: false });
+
+  if (commentsError) throw commentsError;
+  if (!comments) return [];
+  return comments;
+}
