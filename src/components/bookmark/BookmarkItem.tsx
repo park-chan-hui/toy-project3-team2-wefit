@@ -19,7 +19,7 @@ const BookmarkItem = ({
   const userData = userQuery.data;
 
   return (
-    <article className="mb-1 flex h-16 w-full">
+    <article className="h-18 mb-1 flex w-full">
       <figure className="relative flex h-full w-32 items-center">
         <Link to={`/video/${video_id}`}>
           <img

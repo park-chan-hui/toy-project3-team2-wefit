@@ -173,7 +173,7 @@ const BookmarkCategoryAddPage = () => {
           <div>
             <p className="my-2 text-base font-bold">카테고리에 넣을 영상</p>
             {filteredVideos.length > 0 ? (
-              <div className="flex flex-col gap-5">
+              <div className="flex min-h-72 flex-col gap-5">
                 {filteredVideos.map(video => (
                   <div key={video.video_id} className="flex items-center gap-2">
                     {checkedVideos[video.video_id] ? (

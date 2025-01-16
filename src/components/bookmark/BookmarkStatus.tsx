@@ -17,14 +17,12 @@ const BookmarkStatus = ({ videoId, onToggleBookmark }: BookmarkStatusProps) => {
   };
 
   return (
-    <div className="mt-1 flex w-14 justify-between text-gray">
-      <div className="flex flex-grow items-center">
-        <FaStar
-          size={25}
-          className="cursor-pointer text-primary"
-          onClick={() => handleClick()}
-        />
-      </div>
+    <div className="mt-1 flex w-14 justify-end text-gray">
+      <FaStar
+        size={25}
+        className="mr-3 cursor-pointer text-primary"
+        onClick={() => handleClick()}
+      />
     </div>
   );
 };

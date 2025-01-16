@@ -17,14 +17,6 @@ const PlayListDetailPage = () => {
   const { videosQuery } = useVideos();
   const musicsQuery = useMusics();
 
-  if (
-    videosQuery.isLoading ||
-    categoriesQuery.isLoading ||
-    musicsQuery.isLoading
-  ) {
-    return <div>Loading...</div>;
-  }
-
   if (videosQuery.isError) {
     return <div>Error: {videosQuery.error?.message}</div>;
   }
@@ -60,8 +52,13 @@ const PlayListDetailPage = () => {
       <>
         {filteredPlayLists.map(playlist => (
           <div key={playlist.list_id}>
-            <PlayListVideo object={playlist} videoUrl={videoUrl} />
+            <PlayListVideo
+              key={`video-${playlist.list_id}`}
+              object={playlist}
+              videoUrl={videoUrl}
+            />
             <PlayList
+              key={`playlist-${playlist.list_id}`}
               object={playlist}
               onVideoUrlChange={handleVideoUrlChange}
             />
@@ -74,8 +71,16 @@ const PlayListDetailPage = () => {
       <>
         {filteredMusics.map(music => (
           <div key={music.list_id}>
-            <PlayListVideo object={music} videoUrl={videoUrl} />
-            <PlayList object={music} onVideoUrlChange={handleVideoUrlChange} />
+            <PlayListVideo
+              key={`video-${music.list_id}`}
+              object={music}
+              videoUrl={videoUrl}
+            />
+            <PlayList
+              key={`playlist-${music.list_id}`}
+              object={music}
+              onVideoUrlChange={handleVideoUrlChange}
+            />
           </div>
         ))}
       </>

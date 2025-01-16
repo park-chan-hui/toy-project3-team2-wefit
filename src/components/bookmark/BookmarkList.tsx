@@ -3,6 +3,7 @@ import BookmarkItem from './BookmarkItem';
 import { VideoListProps } from '@/types/video';
 import EmptyResult from '@/components/empty/EmptyResult';
 import { useUsers } from '@/hooks/useUsers';
+import BookmarkItemSkeleton from '@/components/skeleton/bookmark/BookmarkItemSkeleton';
 
 const BookmarkList = ({ videos }: VideoListProps) => {
   const { currentUserQuery } = useUsers();
@@ -11,6 +12,10 @@ const BookmarkList = ({ videos }: VideoListProps) => {
   const bookmarkCheckQuery = useBookmarkCheck(userId || '');
   const bookmarkedIds =
     bookmarkCheckQuery.data?.map(bookmark => bookmark.video_id) || [];
+
+  if (currentUserQuery.isLoading || bookmarkCheckQuery.isLoading) {
+    return <BookmarkItemSkeleton />;
+  }
 
   const bookmarkedVideos = videos.filter(video =>
     bookmarkedIds.includes(video.video_id),
