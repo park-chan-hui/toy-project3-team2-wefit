@@ -1,5 +1,6 @@
 import MusicSkeleton from '@/components/skeleton/music/MusicSkeleton';
 import { useMusics } from '@/hooks/useMusics';
+import { cn } from '@/utils/cn';
 import { getTimeAgo } from '@/utils/getTimeAgo';
 import { Link } from 'react-router-dom';
 
@@ -25,7 +26,12 @@ const PlayMusicList = ({ selectedCategory }: { selectedCategory?: string }) => {
                   className="h-full w-full object-cover"
                 />
               </figure>
-              <div className="flex w-full flex-row justify-between gap-1">
+              <div
+                className={cn(
+                  'flex w-full flex-row justify-between gap-1',
+                  selectedCategory === '전체' && 'flex-col',
+                )}
+              >
                 <div className="relative flex w-[65%] flex-row overflow-hidden whitespace-nowrap">
                   <h2 className="overflow-hidden text-ellipsis whitespace-nowrap font-bold">
                     {music.title}
