@@ -4,11 +4,21 @@ import PlayListHeader from '@/components/playlist/PlayListHeader';
 import PlayMusicList from '@/components/playlist/PlayMusicList';
 import { useState } from 'react';
 import { useMusics } from '@/hooks/useMusics';
+import { useUsers } from '@/hooks/useUsers';
+import { useCategories } from '@/hooks/useCategories';
+import MusicSkeleton from '@/components/skeleton/music/MusicSkeleton';
 
 const PlayListPage = () => {
   const [selectedCategory, setSelectedCategory] = useState('전체');
+  const { currentUserQuery } = useUsers();
+  const { categoriesQuery } = useCategories(currentUserQuery.data?.user_id);
+  const { data: musics, isLoading: isMusicsLoading } = useMusics();
 
-  const { data: musics } = useMusics();
+  const isLoading = isMusicsLoading || categoriesQuery.isLoading;
+
+  if (isLoading) {
+    return <MusicSkeleton />;
+  }
 
   const mainPlayList = selectedCategory === '전체' && (
     <>

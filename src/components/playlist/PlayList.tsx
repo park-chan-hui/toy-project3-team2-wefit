@@ -7,7 +7,7 @@ import {
   DroppableProps,
   DropResult,
 } from 'react-beautiful-dnd';
-import type { PlayListVideoProps } from '@/types/playList';
+import type { PlayListVideoProps, VideoProps } from '@/types/playList';
 
 const StrictModeDroppable = ({ children, ...props }: DroppableProps) => {
   const [enabled, setEnabled] = useState(false);
@@ -29,14 +29,14 @@ const StrictModeDroppable = ({ children, ...props }: DroppableProps) => {
 };
 
 const PlayList = ({ object, onVideoUrlChange }: PlayListVideoProps) => {
-  const initialVideoList = object?.categoried_videos || [];
-  const [videoList, setVideoList] = useState(initialVideoList);
+  const initialVideoList: VideoProps[] = object?.categoried_videos || [];
+  const [videoList, setVideoList] = useState<VideoProps[]>(initialVideoList);
 
   useEffect(() => {
     setVideoList(object?.categoried_videos || []);
   }, [object]);
 
-  if (!object) return;
+  if (!object) return null;
 
   const onDragEnd = (result: DropResult) => {
     if (!result?.destination) return;
@@ -66,7 +66,7 @@ const PlayList = ({ object, onVideoUrlChange }: PlayListVideoProps) => {
             {...provided.droppableProps}
             className="mt-4 flex flex-col gap-4"
           >
-            {videoList?.map((video, index) => {
+            {videoList?.map((video: VideoProps, index: number) => {
               const draggableId = String(video.video_id || `video-${index}`);
 
               return (
@@ -83,7 +83,7 @@ const PlayList = ({ object, onVideoUrlChange }: PlayListVideoProps) => {
                       onClick={handleClick}
                     >
                       <PlayListItem
-                        video={video}
+                        video={String(video)}
                         onVideoUrlChange={onVideoUrlChange ?? (() => {})}
                       />
                     </div>

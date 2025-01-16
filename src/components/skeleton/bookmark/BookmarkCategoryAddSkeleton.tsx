@@ -3,7 +3,7 @@ import Button from '@/components/common/button/Button';
 const BookmarkCategoryAddSkeleton = () => {
   return (
     <>
-      <div className="flex flex-col gap-3">
+      <div className="flex animate-pulse flex-col gap-3">
         <p className="text-base font-bold">카테고리 명</p>
         <input className="w-full rounded-medium border border-black p-2 px-4 focus:!border-primary focus:outline-none" />
         <section className="flex animate-pulse flex-col gap-3">
