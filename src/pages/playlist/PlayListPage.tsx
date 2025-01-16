@@ -13,11 +13,7 @@ const PlayListPage = () => {
   const [selectedCategory, setSelectedCategory] = useState('전체');
   const { BOOKMARK_CATEGORY_ADD } = ROUTER_PATH;
 
-  const { data: musics, isLoading } = useMusics();
-
-  if (isLoading) {
-    return;
-  }
+  const { data: musics } = useMusics();
 
   const mainPlayList = selectedCategory === '전체' && (
     <>

@@ -25,11 +25,9 @@ const PlayListItem = ({ video, onVideoUrlChange }: PlayListItemProps) => {
         }
       : null;
 
-  if (videoQuery.isLoading) return <div>비디오 로딩 중...</div>;
   if (videoQuery.error)
     return <div>비디오 오류: {videoQuery.error.message}</div>;
 
-  if (userQuery.isLoading) return <div>사용자 로딩 중...</div>;
   if (userQuery.error) return <div>사용자 오류: {userQuery.error.message}</div>;
 
   return (

@@ -17,14 +17,6 @@ const PlayListDetailPage = () => {
   const { videosQuery } = useVideos();
   const musicsQuery = useMusics();
 
-  if (
-    videosQuery.isLoading ||
-    categoriesQuery.isLoading ||
-    musicsQuery.isLoading
-  ) {
-    return <div>Loading...</div>;
-  }
-
   if (videosQuery.isError) {
     return <div>Error: {videosQuery.error?.message}</div>;
   }
