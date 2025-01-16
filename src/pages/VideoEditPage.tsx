@@ -82,7 +82,7 @@ const VideoEditPage = () => {
     setVideoCategoryList(uploadVideoCategories);
     setIsAddVideoCategory(false);
     setAddVideoCategoryValue('');
-    setSelectedTags([videoData.hash_tag]);
+    setSelectedTags(videoData.hash_tag);
   };
   if (isLoading) {
     return <VideoEditSkeleton />;
