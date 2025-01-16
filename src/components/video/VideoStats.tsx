@@ -12,7 +12,7 @@ import { useBookmark } from '@/hooks/useBookmarks';
 import { useVideoLikes } from '@/hooks/useVideoLikes';
 
 const VideoStats = ({ video_id, created_at }: VideoStatsProps) => {
-  const { comments } = useComments(video_id);
+  const { totalCount } = useComments(video_id);
   const { isBookmarked, toggleBookmark, isBookmarkLoading } =
     useBookmark(video_id);
   const { isLiked, likesCount, toggleLike, isLikeLoading } =
@@ -40,7 +40,7 @@ const VideoStats = ({ video_id, created_at }: VideoStatsProps) => {
 
       <div className="flex items-center">
         <VscComment size={16} className="mr-1" />
-        <span className="text-xs">{formatNumber(comments.length)}</span>
+        <span className="text-xs">{formatNumber(totalCount)}</span>
       </div>
 
       <button
