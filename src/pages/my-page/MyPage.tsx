@@ -43,10 +43,10 @@ const MyPage = () => {
       <section>
         <p className="text-lg font-bold">내가 좋아요한 동영상</p>
         <hr className="my-2" aria-hidden="true" />
-        {likeVideosData?.length === 0 ? (
-          <EmptyResult message="시청 영상이 없어요!" />
+        {!likeVideosData ? (
+          <EmptyResult message="좋아요한 영상이 없어요!" />
         ) : (
-          <WatchedVideoList videos={likeVideosData!} />
+          <WatchedVideoList videos={likeVideosData} />
         )}
       </section>
 
@@ -58,10 +58,10 @@ const MyPage = () => {
           </Link>
         </div>
         <hr className="my-2" aria-hidden="true" />
-        {uploadVideos?.length === 0 ? (
+        {!uploadVideos ? (
           <EmptyResult message="업로드한 영상이 없어요!" />
         ) : (
-          <MyPageUploadVideoList videos={uploadVideos!} />
+          <MyPageUploadVideoList videos={uploadVideos} />
         )}
       </section>
 
