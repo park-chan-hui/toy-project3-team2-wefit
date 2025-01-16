@@ -30,6 +30,11 @@ type Reply = CommonProps & {
 
 type CombinedCommentProps = Comment | Reply;
 
+type CommentResponse = {
+  comments: Comment[];
+  totalCount: number;
+};
+
 type CommentActionsProps = {
   thumb_up: number;
   thumb_down: number;
@@ -70,4 +75,5 @@ export type {
   CommentItemProps,
   CommentSubmitFormProps,
   CommentStore,
+  CommentResponse,
 };
