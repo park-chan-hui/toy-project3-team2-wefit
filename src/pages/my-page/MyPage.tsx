@@ -44,7 +44,7 @@ const MyPage = () => {
         <p className="text-lg font-bold">내가 좋아요한 동영상</p>
         <hr className="my-2" aria-hidden="true" />
         {!likeVideosData ? (
-          <EmptyResult message="영상 데이터가 없거나 불러오는 데 실패했어요 새로고침 해주세요!" />
+          <EmptyResult message="영상 데이터를 불러오는 데 실패했어요. 새로고침 해주세요!" />
         ) : (
           <WatchedVideoList videos={likeVideosData} />
         )}
@@ -59,7 +59,7 @@ const MyPage = () => {
         </div>
         <hr className="my-2" aria-hidden="true" />
         {!uploadVideos ? (
-          <EmptyResult message="영상 데이터가 없거나 불러오는 데 실패했어요 새로고침 해주세요!" />
+          <EmptyResult message="영상 데이터를 불러오는 데 실패했어요. 새로고침 해주세요!" />
         ) : (
           <MyPageUploadVideoList videos={uploadVideos} />
         )}
