@@ -2,7 +2,7 @@ import SimpleProfile from '@/components/common/simple-profile/SimpleProfile';
 import { cn } from '@/utils/cn';
 import { useVideos } from '@/hooks/useVideos';
 import { useUsers } from '@/hooks/useUsers';
-import VideoListSkeleton from '@/components/skeleton/video/VideoListSkeleton';
+import MusicItemSkeleton from '@/components/skeleton/music/MusicItemSkeleton';
 
 type PlayListItemProps = {
   video: string;
@@ -18,7 +18,7 @@ const PlayListItem = ({ video, onVideoUrlChange }: PlayListItemProps) => {
   const { userQuery } = useUsers(videoData?.user_id);
 
   if (videoQuery.isLoading || userQuery.isLoading) {
-    return <VideoListSkeleton />;
+    return <MusicItemSkeleton />;
   }
 
   const userData =

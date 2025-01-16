@@ -6,6 +6,8 @@ import EmptyResult from '@/components/empty/EmptyResult';
 import { cn } from '@/utils/cn';
 import BookmarkCategorySkeleton from '@/components/skeleton/bookmark/BookmarkCategorySkeleton';
 import MusicSkeleton from '@/components/skeleton/music/MusicSkeleton';
+import Button from '@/components/common/button/Button';
+import { ROUTER_PATH } from '@/constants/constants';
 
 const BookmarkCategoryList = ({
   selectedCategory,
@@ -15,6 +17,7 @@ const BookmarkCategoryList = ({
   const { currentUserQuery } = useUsers();
 
   const { categoriesQuery } = useCategories(currentUserQuery.data.user_id);
+  const { BOOKMARK_CATEGORY_ADD } = ROUTER_PATH;
   const location = useLocation();
   const isBookmark = location.pathname.endsWith('/bookmark');
 
@@ -36,7 +39,20 @@ const BookmarkCategoryList = ({
         className={` ${filteredCategories?.length !== 0 && selectedCategory === '전체' && 'grid w-full grid-cols-2 gap-4'}`}
       >
         {filteredCategories?.length === 0 ? (
-          <EmptyResult message="카테고리를 추가해볼까요?" />
+          <>
+            <EmptyResult message="카테고리를 추가해볼까요?" />
+            {isBookmark ? (
+              ''
+            ) : (
+              <div className="flex justify-center">
+                <Link to={BOOKMARK_CATEGORY_ADD}>
+                  <Button variant="secondary" className="items-center">
+                    플레이리스트 추가하기
+                  </Button>
+                </Link>
+              </div>
+            )}
+          </>
         ) : (
           filteredCategories?.map(category => (
             <Link
