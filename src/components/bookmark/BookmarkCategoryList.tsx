@@ -30,11 +30,7 @@ const BookmarkCategoryList = ({
   return (
     <>
       <div
-        className={
-          filteredCategories?.length !== 0 && selectedCategory === '전체'
-            ? 'grid w-full grid-cols-2 gap-4'
-            : ''
-        }
+        className={` ${filteredCategories?.length !== 0 && selectedCategory === '전체' && 'grid w-full grid-cols-2 gap-4'}`}
       >
         {filteredCategories?.length === 0 ? (
           <EmptyResult message="카테고리를 추가해볼까요?" />

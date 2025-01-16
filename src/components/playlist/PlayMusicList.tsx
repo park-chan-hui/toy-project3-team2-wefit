@@ -13,11 +13,7 @@ const PlayMusicList = ({ selectedCategory }: { selectedCategory?: string }) => {
   return (
     <>
       <div
-        className={
-          musics?.length !== 0 && selectedCategory === '전체'
-            ? 'grid w-full grid-cols-2 gap-4'
-            : ''
-        }
+        className={` ${musics?.length !== 0 && selectedCategory === '전체' && 'grid w-full grid-cols-2 gap-4'}`}
       >
         {musics?.map(music => (
           <Link to={`/playlist/${music.list_id}`} key={music.list_id}>
