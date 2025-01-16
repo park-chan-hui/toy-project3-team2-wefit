@@ -1,14 +1,22 @@
 import { supabase } from './supabase';
 
-import { Comment, Reply } from '@/types/comment';
+import { Comment, Reply, CommentResponse } from '@/types/comment';
 
 type RawComment = Omit<Comment, 'replies'>;
 
 // 모든 댓글과 대댓글 조회
 export async function fetchCommentsByVideoId(
   videoId: string,
-): Promise<Comment[]> {
+): Promise<CommentResponse> {
   try {
+    // 댓글 수 조회
+    const { count: commentsCount, error: countError } = await supabase
+      .from('comments')
+      .select('*', { count: 'exact' })
+      .eq('video_id', videoId);
+
+    if (countError) throw countError;
+
     // 댓글 조회
     const { data: comments, error: commentsError } = await supabase
       .from('comments')
@@ -17,9 +25,20 @@ export async function fetchCommentsByVideoId(
       .order('created_at', { ascending: false });
 
     if (commentsError) throw commentsError;
-    if (!comments) return [];
+    if (!comments) return { comments: [], totalCount: 0 };
 
     const rawComments = comments as RawComment[];
+
+    // 대댓글 수 조회
+    const { count: repliesCount, error: repliesCountError } = await supabase
+      .from('replies')
+      .select('*', { count: 'exact' })
+      .in(
+        'comment_id',
+        rawComments.map(comment => comment.comment_id),
+      );
+
+    if (repliesCountError) throw repliesCountError;
 
     // 대댓글 조회
     const { data: replies, error: repliesError } = await supabase
@@ -40,7 +59,10 @@ export async function fetchCommentsByVideoId(
       ) as Reply[],
     }));
 
-    return commentsWithReplies;
+    return {
+      comments: commentsWithReplies,
+      totalCount: (commentsCount || 0) + (repliesCount || 0),
+    };
   } catch (error) {
     console.error('영상에 대한 댓글을 가져오는 데에 오류가 발생했어요!', error);
     throw error;

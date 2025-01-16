@@ -7,7 +7,7 @@ import {
   deleteComment,
   deleteReply,
 } from '@/api/comments';
-import { Comment } from '@/types/comment';
+import { CommentResponse } from '@/types/comment';
 import { toastSuccess } from '@/utils/toast';
 
 const useComments = (videoId: string) => {
@@ -32,9 +32,12 @@ const useComments = (videoId: string) => {
         nickname: string;
       }) => addComment(videoId, content, userId, nickname),
       onSuccess: newComment => {
-        queryClient.setQueryData<Comment[]>(
+        queryClient.setQueryData<CommentResponse>(
           ['comments', videoId],
-          (oldComments = []) => [...oldComments, newComment],
+          old => ({
+            comments: [...(old?.comments || []), newComment],
+            totalCount: (old?.totalCount || 0) + 1,
+          }),
         );
       },
     });
@@ -53,15 +56,18 @@ const useComments = (videoId: string) => {
       nickname: string;
     }) => addReply(commentId, content, userId, nickname),
     onSuccess: (newReply, { commentId }) => {
-      queryClient.setQueryData<Comment[]>(
-        ['comments', videoId],
-        (oldComments = []) =>
-          oldComments.map(comment =>
+      queryClient.setQueryData<CommentResponse>(['comments', videoId], old => {
+        const comments =
+          old?.comments.map(comment =>
             comment.comment_id === commentId
               ? { ...comment, replies: [...comment.replies, newReply] }
               : comment,
-          ),
-      );
+          ) || [];
+        return {
+          comments,
+          totalCount: (old?.totalCount || 0) + 1,
+        };
+      });
     },
   });
 
@@ -70,10 +76,17 @@ const useComments = (videoId: string) => {
     useMutation({
       mutationFn: (commentId: string) => deleteComment(commentId),
       onSuccess: (_, commentId) => {
-        queryClient.setQueryData<Comment[]>(
+        queryClient.setQueryData<CommentResponse>(
           ['comments', videoId],
-          (oldComments = []) =>
-            oldComments.filter(comment => comment.comment_id !== commentId),
+          old => {
+            const comments = (old?.comments || []).filter(
+              comment => comment.comment_id !== commentId,
+            );
+            return {
+              comments,
+              totalCount: (old?.totalCount || 0) - 1,
+            };
+          },
         );
 
         toastSuccess('작성하신 댓글이 삭제되었어요!');
@@ -85,15 +98,20 @@ const useComments = (videoId: string) => {
     useMutation({
       mutationFn: (replyId: string) => deleteReply(replyId),
       onSuccess: (_, replyId) => {
-        queryClient.setQueryData<Comment[]>(
+        queryClient.setQueryData<CommentResponse>(
           ['comments', videoId],
-          (oldComments = []) =>
-            oldComments.map(comment => ({
+          old => {
+            const comments = (old?.comments || []).map(comment => ({
               ...comment,
               replies: comment.replies.filter(
                 reply => reply.reply_id !== replyId,
               ),
-            })),
+            }));
+            return {
+              comments,
+              totalCount: (old?.totalCount || 0) - 1,
+            };
+          },
         );
 
         toastSuccess('작성하신 대댓글이 삭제되었어요!');
@@ -101,7 +119,8 @@ const useComments = (videoId: string) => {
     });
 
   return {
-    comments: data ?? [],
+    comments: data?.comments ?? [],
+    totalCount: data?.totalCount ?? 0,
     isLoading,
     error,
     addComment: addCommentAsync,

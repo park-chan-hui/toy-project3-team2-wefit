@@ -12,7 +12,7 @@ type VideoCommentProps = {
 };
 
 const VideoComment = ({ videoId }: VideoCommentProps) => {
-  const { comments, isLoading } = useComments(videoId);
+  const { comments, totalCount, isLoading } = useComments(videoId);
   const resetExpandedComments = useCommentStore(
     state => state.resetExapandedComments,
   );
@@ -26,12 +26,10 @@ const VideoComment = ({ videoId }: VideoCommentProps) => {
 
   return (
     <main className="mt-6">
-      <h3 className="text-base font-bold">
-        댓글 {formatNumber(comments.length)}개
-      </h3>
+      <h3 className="text-base font-bold">댓글 {formatNumber(totalCount)}개</h3>
       <hr className="my-1" aria-hidden="true" />
 
-      {comments.length > 0 ? (
+      {totalCount > 0 ? (
         <CommentList comments={comments} videoId={videoId} />
       ) : (
         <EmptyResult message="작성된 댓글이 없습니다." />
