@@ -6,17 +6,24 @@ import {
   addReply,
   deleteComment,
   deleteReply,
+  userComments,
 } from '@/api/comments';
 import { Comment } from '@/types/comment';
 import { toastSuccess } from '@/utils/toast';
 
-const useComments = (videoId: string) => {
+const useComments = ({
+  videoId,
+  userId,
+}: {
+  videoId?: string;
+  userId?: string;
+}) => {
   const queryClient = useQueryClient();
 
   // 모든 댓글 조회
   const { data, isLoading, error } = useQuery({
     queryKey: ['comments', videoId],
-    queryFn: () => fetchCommentsByVideoId(videoId),
+    queryFn: () => fetchCommentsByVideoId(videoId!),
   });
 
   // 댓글 추가
@@ -30,7 +37,7 @@ const useComments = (videoId: string) => {
         content: string;
         userId: string;
         nickname: string;
-      }) => addComment(videoId, content, userId, nickname),
+      }) => addComment(videoId!, content, userId, nickname),
       onSuccess: newComment => {
         queryClient.setQueryData<Comment[]>(
           ['comments', videoId],
@@ -99,7 +106,12 @@ const useComments = (videoId: string) => {
         toastSuccess('작성하신 대댓글이 삭제되었어요!');
       },
     });
-
+  // 사용자 댓글 조회
+  const userCommentsQuery = useQuery({
+    queryKey: ['userComments', userId],
+    queryFn: () => userComments(userId!),
+    enabled: !!userId,
+  });
   return {
     comments: data ?? [],
     isLoading,
@@ -112,6 +124,7 @@ const useComments = (videoId: string) => {
     isDeletingComment,
     deleteReply: deleteReplyAsync,
     isDeletingReply,
+    userCommentsQuery,
   };
 };
 

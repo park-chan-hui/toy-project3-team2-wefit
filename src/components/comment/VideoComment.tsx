@@ -12,7 +12,7 @@ type VideoCommentProps = {
 };
 
 const VideoComment = ({ videoId }: VideoCommentProps) => {
-  const { comments, isLoading } = useComments(videoId);
+  const { comments, isLoading } = useComments({ videoId: videoId });
   const resetExpandedComments = useCommentStore(
     state => state.resetExapandedComments,
   );

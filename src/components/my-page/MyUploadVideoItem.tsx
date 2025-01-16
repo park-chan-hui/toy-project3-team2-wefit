@@ -15,7 +15,7 @@ const MyUploadVideoItem = ({
   like_heart,
 }: VideoProps) => {
   const userData = useUserStore(state => state.user);
-  const { comments } = useComments(video_id);
+  const { comments } = useComments({ videoId: video_id });
   const { deleteVideoMutation } = useVideos({ videoId: video_id });
   const deleteVideos = () => {
     if (window.confirm('선택한 동영상을 삭제하시겠습니까?')) {

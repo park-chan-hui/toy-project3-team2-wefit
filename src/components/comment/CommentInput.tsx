@@ -17,8 +17,9 @@ const CommentInput = ({ videoId, onCancel }: CommentInputProps) => {
   const setInputFocus = useCommentStore(state => state.setInputFocus);
   const activeCommentId = useCommentStore(state => state.activeCommentId);
   const setActiveCommentId = useCommentStore(state => state.setActiveCommentId);
-  const { addComment, addReply, isAddingComment, isAddingReply } =
-    useComments(videoId);
+  const { addComment, addReply, isAddingComment, isAddingReply } = useComments({
+    videoId: videoId,
+  });
   const { currentUserQuery } = useUsers();
 
   const isReplyMode = !!activeCommentId;

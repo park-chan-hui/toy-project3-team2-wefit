@@ -13,7 +13,7 @@ const MyPageVideoItem = ({
   video_id,
   myUploadVideos,
 }: VideoProps & { myUploadVideos?: boolean }) => {
-  const { comments } = useComments(video_id);
+  const { comments } = useComments({ videoId: video_id });
   const { userQuery } = useUsers(user_id);
   const { data: profileData } = userQuery;
 

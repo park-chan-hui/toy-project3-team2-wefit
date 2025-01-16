@@ -21,7 +21,11 @@ import {
   updateVideo,
   deleteVideo,
 } from '@/api/videos';
-import { UploadVideoProps, VideoUpdateDataProps } from '@/types/video';
+import {
+  UploadVideoProps,
+  VideoProps,
+  VideoUpdateDataProps,
+} from '@/types/video';
 import { useUsers } from './useUsers';
 import { toastError, toastSuccess } from '@/utils/toast';
 
@@ -102,7 +106,7 @@ const useVideos = ({
     queryKey: ['userUploadedVideos', userId],
     queryFn: () => fetchUserUploadVideos(userId!),
     select: data => {
-      return data.map(video => ({
+      return data.map((video: VideoProps) => ({
         ...video,
         created_at: new Date(video.created_at),
       }));
