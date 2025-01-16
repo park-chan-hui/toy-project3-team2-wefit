@@ -19,16 +19,20 @@ const MyPageUserComments = ({ userId }: { userId: string }) => {
     <section>
       <p className="text-lg font-bold">내 댓글</p>
       <hr className="my-2" aria-hidden="true" />
-      {userCommentsArray?.map(commentData => (
-        <div className="my-2">
-          <p className="overflow-hidden text-ellipsis whitespace-nowrap font-bold">
-            <Link to={`/video/${commentData.video.video_id}`}>
-              댓글을 작성한 동영상: {commentData.video.title}
-            </Link>
-          </p>
-          <p className="text-xsmall text-gray">{commentData.comment}</p>
-        </div>
-      ))}
+      {userCommentsData?.length !== 0 ? (
+        userCommentsArray?.map(commentData => (
+          <div className="my-2">
+            <p className="overflow-hidden text-ellipsis whitespace-nowrap font-bold">
+              <Link to={`/video/${commentData.video.video_id}`}>
+                댓글을 작성한 동영상: {commentData.video.title}
+              </Link>
+            </p>
+            <p className="text-xsmall text-gray">{commentData.comment}</p>
+          </div>
+        ))
+      ) : (
+        <p className="font-bold"> 작성한 댓글이 없어요!</p>
+      )}
     </section>
   );
 };
