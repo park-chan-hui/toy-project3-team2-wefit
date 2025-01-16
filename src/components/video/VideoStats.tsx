@@ -12,7 +12,7 @@ import { useBookmark } from '@/hooks/useBookmarks';
 import { useVideoLikes } from '@/hooks/useVideoLikes';
 
 const VideoStats = ({ video_id, created_at }: VideoStatsProps) => {
-  const { totalCount } = useComments(video_id);
+  const { totalCount } = useComments({ videoId: video_id });
   const { isBookmarked, toggleBookmark, isBookmarkLoading } =
     useBookmark(video_id);
   const { isLiked, likesCount, toggleLike, isLikeLoading } =
