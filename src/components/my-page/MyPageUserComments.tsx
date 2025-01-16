@@ -1,6 +1,7 @@
 import { useComments } from '@/hooks/useComments';
 import { useVideos } from '@/hooks/useVideos';
 import { Link } from 'react-router-dom';
+import EmptyResult from '../empty/EmptyResult';
 
 const MyPageUserComments = ({ userId }: { userId: string }) => {
   const { userCommentsQuery } = useComments({
@@ -22,16 +23,16 @@ const MyPageUserComments = ({ userId }: { userId: string }) => {
       {userCommentsData?.length !== 0 ? (
         userCommentsArray?.map(commentData => (
           <div className="my-2" key={commentData.comment_id}>
-            <p className="overflow-hidden text-ellipsis whitespace-nowrap font-bold">
+            <p className="overflow-hidden text-ellipsis whitespace-nowrap font-medium">
               <Link to={`/video/${commentData.video.video_id}`}>
-                댓글을 작성한 동영상: {commentData.video.title}
+                {commentData.video.title}
               </Link>
             </p>
-            <p className="text-xsmall text-gray">{commentData.comment}</p>
+            <p className="text-sm text-gray">{commentData.comment}</p>
           </div>
         ))
       ) : (
-        <p className="font-bold"> 작성한 댓글이 없어요!</p>
+        <EmptyResult message="작성한 댓글이 없어요!" />
       )}
     </section>
   );
