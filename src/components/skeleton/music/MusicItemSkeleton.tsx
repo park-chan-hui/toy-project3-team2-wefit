@@ -1,6 +1,6 @@
 const MusicItemSkeleton = () => {
   return (
-    <div className="h-[45vh] w-full rounded-md">
+    <div className="h-[45vh] w-full animate-pulse rounded-md">
       <div className="flex">
         <div className="h-20 w-40 rounded-md bg-gray-200" />
         <div className="flex flex-col">
