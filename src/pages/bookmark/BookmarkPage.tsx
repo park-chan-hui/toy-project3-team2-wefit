@@ -42,8 +42,8 @@ const BookmarkPage = () => {
           <div className="flex max-h-[31vh] w-full flex-col gap-5 overflow-y-auto">
             <BookmarkList videos={filteredVideos} />
           </div>
-          <hr className="border-gray my-3 border" />
-          <p className="text-lg font-bold text-black">북마크 카테고리</p>
+          <hr className="border-gray my-2 border" />
+          <h2 className="text-large font-bold text-black">북마크 카테고리</h2>
           <div className="flex w-full flex-col gap-1 overflow-y-auto">
             <BookmarkCategoryList />
           </div>

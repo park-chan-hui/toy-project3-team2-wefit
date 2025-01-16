@@ -45,7 +45,7 @@ const BookmarkCategoryList = ({
               key={category.category_id}
             >
               <div className="mb-2">
-                <figure className="relative mb-3 aspect-video h-[80%] w-full overflow-hidden rounded-lg">
+                <figure className="relative mb-2 aspect-video h-[80%] w-full overflow-hidden rounded-lg">
                   <img
                     src={category.category_thumbnail}
                     alt={category.category_id}
@@ -66,7 +66,7 @@ const BookmarkCategoryList = ({
                       ({category.categoried_videos?.length || 0})
                     </h2>
                   </div>
-                  <p className="mr-1 flex items-center text-small">
+                  <p className="flex items-center text-small">
                     최종 수정일 {getTimeAgo(category.updated_at)}
                   </p>
                 </div>

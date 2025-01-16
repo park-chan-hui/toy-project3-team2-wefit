@@ -16,7 +16,7 @@ const PlayListPage = () => {
   const { data: musics, isLoading } = useMusics();
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return;
   }
 
   const mainPlayList = selectedCategory === '전체' && (
@@ -26,9 +26,7 @@ const PlayListPage = () => {
       <p className="text-large font-bold text-black">
         운동할 때 듣기 좋은 플리
       </p>
-      <div className="grid w-full grid-cols-2 gap-4 text-sm [&>a>div>div>div]:w-full [&>a>div>div]:flex-col">
-        <PlayMusicList />
-      </div>
+      <PlayMusicList selectedCategory={selectedCategory} />
     </>
   );
 
