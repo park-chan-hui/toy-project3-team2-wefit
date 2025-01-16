@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 import {
+  fetchUsersLikeVideos,
   fetchVideoLikeStatus,
   fetchVideoLikesCount,
   toggleVideoLike,
@@ -8,24 +9,24 @@ import {
 import { useUsers } from './useUsers';
 import { toastSuccess, toastError } from '@/utils/toast';
 
-const useVideoLikes = (videoId: string) => {
+const useVideoLikes = (videoId?: string) => {
   const queryClient = useQueryClient();
   const { currentUserQuery } = useUsers();
 
   const likeQuery = useQuery({
     queryKey: ['videoLike', videoId, currentUserQuery.data?.user_id],
     queryFn: () =>
-      fetchVideoLikeStatus(currentUserQuery.data?.user_id, videoId),
+      fetchVideoLikeStatus(currentUserQuery.data?.user_id, videoId!),
     enabled: !!currentUserQuery.data?.user_id,
   });
 
   const likesCountQuery = useQuery({
     queryKey: ['videoLikesCount', videoId],
-    queryFn: () => fetchVideoLikesCount(videoId),
+    queryFn: () => fetchVideoLikesCount(videoId!),
   });
 
   const toggleLikeMutation = useMutation({
-    mutationFn: () => toggleVideoLike(currentUserQuery.data?.user_id, videoId),
+    mutationFn: () => toggleVideoLike(currentUserQuery.data?.user_id, videoId!),
     onSuccess: isLiked => {
       queryClient.invalidateQueries({
         queryKey: ['videoLike', videoId, currentUserQuery.data?.user_id],
@@ -45,12 +46,18 @@ const useVideoLikes = (videoId: string) => {
       console.error('좋아요를 누르는 데 실패했어요: ', error);
     },
   });
+  const likeVideoListQuery = useQuery({
+    queryKey: ['likeVideoList', currentUserQuery.data?.user_id],
+    queryFn: () => fetchUsersLikeVideos(currentUserQuery.data?.user_id),
+    enabled: !!currentUserQuery.data?.user_id,
+  });
 
   return {
     isLiked: likeQuery.data,
     likesCount: likesCountQuery.data ?? 0,
     toggleLike: toggleLikeMutation.mutateAsync,
     isLikeLoading: likeQuery.isLoading || likesCountQuery.isLoading,
+    likeVideoListQuery,
   };
 };
 
