@@ -21,7 +21,7 @@ const MyPageUserComments = ({ userId }: { userId: string }) => {
       <hr className="my-2" aria-hidden="true" />
       {userCommentsData?.length !== 0 ? (
         userCommentsArray?.map(commentData => (
-          <div className="my-2">
+          <div className="my-2" key={commentData.comment_id}>
             <p className="overflow-hidden text-ellipsis whitespace-nowrap font-bold">
               <Link to={`/video/${commentData.video.video_id}`}>
                 댓글을 작성한 동영상: {commentData.video.title}
