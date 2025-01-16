@@ -8,6 +8,8 @@ import {
   DropResult,
 } from 'react-beautiful-dnd';
 import type { PlayListVideoProps } from '@/types/playList';
+import { useUsers } from '@/hooks/useUsers';
+import { updateTargetCategories } from '@/api/categories';
 
 const StrictModeDroppable = ({ children, ...props }: DroppableProps) => {
   const [enabled, setEnabled] = useState(false);
@@ -31,6 +33,7 @@ const StrictModeDroppable = ({ children, ...props }: DroppableProps) => {
 const PlayList = ({ object, onVideoUrlChange }: PlayListVideoProps) => {
   const initialVideoList = object?.categoried_videos || [];
   const [videoList, setVideoList] = useState(initialVideoList);
+  const { currentUserQuery } = useUsers();
 
   useEffect(() => {
     setVideoList(object?.categoried_videos || []);
@@ -38,7 +41,7 @@ const PlayList = ({ object, onVideoUrlChange }: PlayListVideoProps) => {
 
   if (!object) return;
 
-  const onDragEnd = (result: DropResult) => {
+  const onDragEnd = async (result: DropResult) => {
     if (!result?.destination) return;
 
     const sourceIndex = result.source.index;
@@ -49,11 +52,14 @@ const PlayList = ({ object, onVideoUrlChange }: PlayListVideoProps) => {
     newList.splice(sourceIndex, 1);
     newList.splice(destinationIndex, 0, pickedItem);
     setVideoList(newList);
+    await updateTargetCategories(newList, object.category_id);
   };
 
   const handleClick = (e: React.MouseEvent) => {
     e.stopPropagation();
   };
+
+  const isEditable = currentUserQuery.data.user_id === object?.user_id;
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
@@ -74,6 +80,7 @@ const PlayList = ({ object, onVideoUrlChange }: PlayListVideoProps) => {
                   key={draggableId}
                   draggableId={draggableId}
                   index={index}
+                  isDragDisabled={!isEditable}
                 >
                   {dragProvided => (
                     <div

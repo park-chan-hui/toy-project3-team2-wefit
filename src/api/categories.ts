@@ -1,4 +1,5 @@
 import { supabase } from '@/api/supabase';
+import { VideoProps } from '@/types/video';
 import { getKSTDate } from '@/utils/getTimeNow';
 
 type SaveCategoriesProps = {
@@ -76,6 +77,21 @@ export async function updateCategories(object: SaveCategoriesProps) {
     .eq('category_id', category_id);
 
   if (error) throw error;
+  return data || [];
+}
+
+// 카테고리 특정 데이터만 수정
+export async function updateTargetCategories(
+  categoried_videos: VideoProps[],
+  categoried_id: string,
+) {
+  const { data, error } = await supabase
+    .from('categories')
+    .update({ categoried_videos })
+    .eq('category_id', categoried_id);
+
+  if (error) throw error;
+
   return data || [];
 }
 
