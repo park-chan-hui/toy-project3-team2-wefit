@@ -50,7 +50,7 @@ const PlayListDetailPage = () => {
     return (
       <>
         {filteredPlayLists.map(playlist => (
-          <div key={playlist.list_id}>
+          <div key={`${playlist.list_id}-playlist`}>
             <PlayListVideo
               key={`video-${playlist.list_id}`}
               object={playlist}
@@ -69,7 +69,7 @@ const PlayListDetailPage = () => {
     return (
       <>
         {filteredMusics.map(music => (
-          <div key={music.list_id}>
+          <div key={`${music.list_id}-music`}>
             <PlayListVideo
               key={`video-${music.list_id}`}
               object={music}
