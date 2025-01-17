@@ -6,7 +6,7 @@ import {
   Droppable,
   DroppableProps,
   DropResult,
-} from 'react-beautiful-dnd';
+} from '@hello-pangea/dnd';
 import type { PlayListVideoProps } from '@/types/playList';
 import { useUsers } from '@/hooks/useUsers';
 import { updateTargetCategories } from '@/api/categories';
