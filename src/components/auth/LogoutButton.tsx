@@ -4,15 +4,18 @@ import Button from '../common/button/Button';
 import { supabase } from '@/api/supabase';
 import { toastSuccess, toastError } from '@/utils/toast';
 import { ROUTER_PATH } from '@/constants/constants';
+import { useUserStore } from '@/store/useUserStore';
 
 const LogoutButton = () => {
   const navigate = useNavigate();
+  const clearUser = useUserStore(state => state.clearUser);
 
   const handleLogout = async () => {
     try {
       const { error } = await supabase.auth.signOut();
       if (error) throw error;
       toastSuccess('로그아웃 되었어요!');
+      clearUser();
       navigate(ROUTER_PATH.LOGIN);
     } catch (error) {
       console.error('로그아웃 실패:', error);
