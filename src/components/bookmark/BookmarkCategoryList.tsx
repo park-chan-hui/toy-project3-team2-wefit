@@ -33,6 +33,10 @@ const BookmarkCategoryList = ({
     return category.is_like === true;
   });
 
+  const message = isBookmark
+    ? '카테고리를 추가해볼까요?'
+    : '플레이리스트를 추가해볼까요?';
+
   return (
     <>
       <div
@@ -40,7 +44,7 @@ const BookmarkCategoryList = ({
       >
         {filteredCategories?.length === 0 ? (
           <>
-            <EmptyResult message="카테고리를 추가해볼까요?" />
+            <EmptyResult message={message} />
             {isBookmark ? (
               ''
             ) : (
