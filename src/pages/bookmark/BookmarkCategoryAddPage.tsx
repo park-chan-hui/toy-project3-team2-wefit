@@ -16,6 +16,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useUsers } from '@/hooks/useUsers';
 import { useBookmarkCheck } from '@/hooks/useBookmarks';
 import EmptyResult from '@/components/empty/EmptyResult';
+import BookmarkCategoryAddSkeleton from '@/components/skeleton/bookmark/BookmarkCategoryAddSkeleton';
 
 type CheckedVideos = {
   [key: string]: boolean;
@@ -51,6 +52,14 @@ const BookmarkCategoryAddPage = () => {
       videos: object ? object.categoried_videos : '',
     },
   });
+
+  if (
+    currentUserQuery.isLoading ||
+    bookmarkQuery.isLoading ||
+    videosAllQuery.isLoading
+  ) {
+    return <BookmarkCategoryAddSkeleton />;
+  }
 
   const filteredVideos: VideoProps[] = object
     ? videosAllQuery.data
@@ -172,7 +181,9 @@ const BookmarkCategoryAddPage = () => {
 
           <div>
             <p className="my-2 text-base font-bold">카테고리에 넣을 영상</p>
-            {filteredVideos.length > 0 ? (
+            {videosAllQuery.data &&
+            bookmarkQuery.data &&
+            filteredVideos.length > 0 ? (
               <div className="flex min-h-72 flex-col gap-5">
                 {filteredVideos.map(video => (
                   <div key={video.video_id} className="flex items-center gap-2">
@@ -187,7 +198,6 @@ const BookmarkCategoryAddPage = () => {
                         onClick={() => handleClick(video.video_id)}
                       />
                     )}
-
                     <div
                       className="w-full cursor-pointer overflow-hidden"
                       onClick={() => handleClick(video.video_id)}

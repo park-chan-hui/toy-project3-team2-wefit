@@ -21,4 +21,4 @@ type PlayListVideoProps = {
   updated_at?: Date;
 };
 
-export type { PlayListProps, PlayListVideoProps };
+export type { PlayListProps, PlayListVideoProps, VideoProps };

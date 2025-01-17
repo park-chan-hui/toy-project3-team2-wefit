@@ -1,3 +1,3 @@
-const bookmarkCategories = ['전체', '카테고리', '북마크만 보기'];
+const bookmarkCategories = ['전체', '북마크만 보기', '카테고리'];
 
 export { bookmarkCategories };

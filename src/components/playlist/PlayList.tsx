@@ -90,7 +90,7 @@ const PlayList = ({ object, onVideoUrlChange }: PlayListVideoProps) => {
                       onClick={handleClick}
                     >
                       <PlayListItem
-                        video={video}
+                        video={String(video)}
                         onVideoUrlChange={onVideoUrlChange ?? (() => {})}
                       />
                     </div>

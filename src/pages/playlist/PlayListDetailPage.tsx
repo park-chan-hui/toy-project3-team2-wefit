@@ -1,4 +1,3 @@
-import NotFoundPage from '../NotFoundPage';
 import PlayListVideo from '@/components/playlist/PlayListVideo';
 import PlayList from '@/components/playlist/PlayList';
 import { useParams } from 'react-router-dom';
@@ -85,8 +84,6 @@ const PlayListDetailPage = () => {
         ))}
       </>
     );
-  } else {
-    return <NotFoundPage />;
   }
 };
 

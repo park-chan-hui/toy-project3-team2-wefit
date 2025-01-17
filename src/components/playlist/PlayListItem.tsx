@@ -2,7 +2,7 @@ import SimpleProfile from '@/components/common/simple-profile/SimpleProfile';
 import { cn } from '@/utils/cn';
 import { useVideos } from '@/hooks/useVideos';
 import { useUsers } from '@/hooks/useUsers';
-import VideoListSkeleton from '@/components/skeleton/video/VideoListSkeleton';
+import MusicItemSkeleton from '@/components/skeleton/music/MusicItemSkeleton';
 
 type PlayListItemProps = {
   video: string;
@@ -14,11 +14,10 @@ const PlayListItem = ({ video, onVideoUrlChange }: PlayListItemProps) => {
   const { videoQuery } = useVideos({ videoId: video });
 
   const videoData = videoQuery.data;
-
   const { userQuery } = useUsers(videoData?.user_id);
 
   if (videoQuery.isLoading || userQuery.isLoading) {
-    return <VideoListSkeleton />;
+    return <MusicItemSkeleton />;
   }
 
   const userData =
@@ -32,7 +31,6 @@ const PlayListItem = ({ video, onVideoUrlChange }: PlayListItemProps) => {
 
   if (videoQuery.error)
     return <div>비디오 오류: {videoQuery.error.message}</div>;
-
   if (userQuery.error) return <div>사용자 오류: {userQuery.error.message}</div>;
 
   return (
