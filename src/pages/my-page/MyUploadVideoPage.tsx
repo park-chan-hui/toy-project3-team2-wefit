@@ -1,6 +1,6 @@
 import EmptyResult from '@/components/empty/EmptyResult';
 import MyUploadVideoList from '@/components/my-page/MyUploadVideoList';
-import MyUploadVideoListSkeleton from '@/components/skeleton/my-page/MyUploadVideoListSkeleton';
+import MyUploadVideoPageListSkeleton from '@/components/skeleton/my-page/MyUploadVideoListSkeleton';
 import { useVideos } from '@/hooks/useVideos';
 import { useUserStore } from '@/store/useUserStore';
 
@@ -12,7 +12,7 @@ const MyUploadVideoPage = () => {
   const { data: uploadVideos, isLoading } = myUploadVideos;
 
   if (isLoading) {
-    return <MyUploadVideoListSkeleton />;
+    return <MyUploadVideoPageListSkeleton />;
   }
   return (
     <main>
