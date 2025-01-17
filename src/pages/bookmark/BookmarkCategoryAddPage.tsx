@@ -62,15 +62,9 @@ const BookmarkCategoryAddPage = () => {
   }
 
   const filteredVideos: VideoProps[] = object
-    ? videosAllQuery.data
-        ?.filter((video: VideoProps) => {
-          return object.categoried_videos.includes(video.video_id);
-        })
-        ?.filter((video: VideoProps) => {
-          return bookmarkQuery.data?.some(
-            bookmark => bookmark.video_id === video.video_id,
-          );
-        }) || []
+    ? videosAllQuery.data?.filter((video: VideoProps) => {
+        return object.categoried_videos.includes(video.video_id);
+      }) || []
     : videosAllQuery.data?.filter((video: VideoProps) => {
         return bookmarkQuery.data?.some(
           bookmark => bookmark.video_id === video.video_id,
