@@ -32,6 +32,10 @@ const MyPage = () => {
   const { data: uploadVideos, isLoading: myUploadVideosLoding } =
     myUploadVideos;
 
+  const handleRefresh = () => {
+    window.location.reload();
+  };
+
   if (likeVideosLoding || myUploadVideosLoding) {
     return <MyPageSkeleton />;
   }
@@ -43,25 +47,33 @@ const MyPage = () => {
       <section>
         <p className="text-lg font-bold">내가 좋아요한 동영상</p>
         <hr className="my-2" aria-hidden="true" />
-        {likeVideosData?.length === 0 ? (
-          <EmptyResult message="시청 영상이 없어요!" />
+        {!likeVideosData ? (
+          <div className="flex flex-col items-center [&>main]:my-2">
+            <EmptyResult message="영상 데이터를 불러오는 데 실패했어요." />
+            <Button onClick={handleRefresh}>새로고침</Button>
+          </div>
         ) : (
-          <WatchedVideoList videos={likeVideosData!} />
+          <WatchedVideoList videos={likeVideosData} />
         )}
       </section>
 
       <section>
         <div className="flex items-center justify-between">
           <p className="text-lg font-bold">내가 업로드한 동영상</p>
-          <Link to={MY_UPLOAD_VIDEO}>
-            <Button size="small">더보기</Button>
-          </Link>
+          {uploadVideos && (
+            <Link to={MY_UPLOAD_VIDEO}>
+              <Button size="small">더보기</Button>
+            </Link>
+          )}
         </div>
         <hr className="my-2" aria-hidden="true" />
-        {uploadVideos?.length === 0 ? (
-          <EmptyResult message="업로드한 영상이 없어요!" />
+        {!uploadVideos ? (
+          <div className="flex flex-col items-center [&>main]:my-2">
+            <EmptyResult message="영상 데이터를 불러오는 데 실패했어요." />
+            <Button onClick={handleRefresh}>새로고침</Button>
+          </div>
         ) : (
-          <MyPageUploadVideoList videos={uploadVideos!} />
+          <MyPageUploadVideoList videos={uploadVideos} />
         )}
       </section>
 
