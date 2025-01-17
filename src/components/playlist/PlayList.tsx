@@ -7,7 +7,9 @@ import {
   DroppableProps,
   DropResult,
 } from 'react-beautiful-dnd';
-import type { PlayListVideoProps, VideoProps } from '@/types/playList';
+import type { PlayListVideoProps } from '@/types/playList';
+import { useUsers } from '@/hooks/useUsers';
+import { updateTargetCategories } from '@/api/categories';
 
 const StrictModeDroppable = ({ children, ...props }: DroppableProps) => {
   const [enabled, setEnabled] = useState(false);
@@ -29,16 +31,17 @@ const StrictModeDroppable = ({ children, ...props }: DroppableProps) => {
 };
 
 const PlayList = ({ object, onVideoUrlChange }: PlayListVideoProps) => {
-  const initialVideoList: VideoProps[] = object?.categoried_videos || [];
-  const [videoList, setVideoList] = useState<VideoProps[]>(initialVideoList);
+  const initialVideoList = object?.categoried_videos || [];
+  const [videoList, setVideoList] = useState(initialVideoList);
+  const { currentUserQuery } = useUsers();
 
   useEffect(() => {
     setVideoList(object?.categoried_videos || []);
   }, [object]);
 
-  if (!object) return null;
+  if (!object) return;
 
-  const onDragEnd = (result: DropResult) => {
+  const onDragEnd = async (result: DropResult) => {
     if (!result?.destination) return;
 
     const sourceIndex = result.source.index;
@@ -49,11 +52,14 @@ const PlayList = ({ object, onVideoUrlChange }: PlayListVideoProps) => {
     newList.splice(sourceIndex, 1);
     newList.splice(destinationIndex, 0, pickedItem);
     setVideoList(newList);
+    await updateTargetCategories(newList, object.category_id);
   };
 
   const handleClick = (e: React.MouseEvent) => {
     e.stopPropagation();
   };
+
+  const isEditable = currentUserQuery.data.user_id === object?.user_id;
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
@@ -66,7 +72,7 @@ const PlayList = ({ object, onVideoUrlChange }: PlayListVideoProps) => {
             {...provided.droppableProps}
             className="mt-4 flex flex-col gap-4"
           >
-            {videoList?.map((video: VideoProps, index: number) => {
+            {videoList?.map((video, index) => {
               const draggableId = String(video.video_id || `video-${index}`);
 
               return (
@@ -74,6 +80,7 @@ const PlayList = ({ object, onVideoUrlChange }: PlayListVideoProps) => {
                   key={draggableId}
                   draggableId={draggableId}
                   index={index}
+                  isDragDisabled={!isEditable}
                 >
                   {dragProvided => (
                     <div
