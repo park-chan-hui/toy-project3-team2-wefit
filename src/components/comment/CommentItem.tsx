@@ -75,6 +75,7 @@ const CommentItem = ({
           comment_id={comment.comment_id}
           isExpanded={isExpanded}
           isReply={isReply}
+          videoId={videoId}
         />
       </article>
     </section>

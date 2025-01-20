@@ -4,6 +4,7 @@ import { IoChevronDown } from 'react-icons/io5';
 import { useCommentStore } from '@/store/useCommentStore';
 import { CommentActionsProps } from '@/types/comment';
 import { formatNumber } from '@/utils/formatNumber';
+import { useCommentsThumb } from '@/hooks/useCommentsThumb';
 import { cn } from '@/utils/cn';
 
 const CommentActions = ({
@@ -12,10 +13,15 @@ const CommentActions = ({
   hasReplies,
   comment_id,
   isExpanded,
+  videoId,
   isReply = false,
 }: CommentActionsProps) => {
   const { toggleReplies, setInputFocus, setActiveCommentId } =
     useCommentStore();
+  const { thumbStatus, handleThumbClick, isTogglingThumb } = useCommentsThumb(
+    comment_id,
+    videoId,
+  );
 
   const handleReplyClick = () => {
     setActiveCommentId(comment_id);
@@ -24,11 +30,26 @@ const CommentActions = ({
 
   return (
     <div className="flex items-center gap-4 text-sm text-gray">
-      <button className="tansition-colors flex items-center gap-1 duration-300 hover:text-primary">
+      <button
+        onClick={() => handleThumbClick('up')}
+        className={cn(
+          'flex items-center gap-1 transition-colors duration-300 hover:text-primary',
+          thumbStatus?.thumb_type === 'up' && 'text-primary',
+        )}
+        disabled={isTogglingThumb}
+      >
         <IoMdThumbsUp size={14} />
         <span>{formatNumber(thumb_up)}</span>
       </button>
-      <button className="tansition-colors flex items-center gap-1 duration-300 hover:text-primary">
+
+      <button
+        onClick={() => handleThumbClick('down')}
+        className={cn(
+          'flex items-center gap-1 transition-colors duration-300 hover:text-primary',
+          thumbStatus?.thumb_type === 'down' && 'text-primary',
+        )}
+        disabled={isTogglingThumb}
+      >
         <IoMdThumbsDown size={14} />
         <span>{formatNumber(thumb_down)}</span>
       </button>
