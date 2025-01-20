@@ -10,6 +10,16 @@ type SaveCategoriesProps = {
   category_id?: string;
 };
 
+// 모든 사용자 북마크 카테고리 조회
+export async function fetchAllCategories() {
+  const { data, error } = await supabase
+    .from('categories')
+    .select('*')
+    .order('updated_at', { ascending: false });
+
+  if (error) throw error;
+  return data || [];
+}
 // 특정 사용자 북마크 카테고리 조회
 export async function fetchCategories(userId: string) {
   const { data, error } = await supabase
@@ -17,6 +27,17 @@ export async function fetchCategories(userId: string) {
     .select('*')
     .eq('user_id', userId)
     .order('updated_at', { ascending: false });
+
+  if (error) throw error;
+  return data || [];
+}
+
+// 특정 북마크 id 카테고리 조회
+export async function fetchIdCategories(categoried_id: string) {
+  const { data, error } = await supabase
+    .from('categories')
+    .select('*')
+    .eq('category_id', categoried_id);
 
   if (error) throw error;
   return data || [];

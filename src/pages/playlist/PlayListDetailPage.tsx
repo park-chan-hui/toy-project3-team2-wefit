@@ -6,12 +6,10 @@ import { useCategories } from '@/hooks/useCategories';
 import { useVideos } from '@/hooks/useVideos';
 import { PlayListProps } from '@/types/playList';
 import { useMusics } from '@/hooks/useMusics';
-import { useUsers } from '@/hooks/useUsers';
 
 const PlayListDetailPage = () => {
-  const { currentUserQuery } = useUsers();
-  const { categoriesQuery } = useCategories(currentUserQuery.data.user_id);
   const { playlistId } = useParams();
+  const { categoriesIdQuery } = useCategories(playlistId as string);
   const [videoUrl, setVideoUrl] = useState('');
   const { videosQuery } = useVideos();
   const musicsQuery = useMusics();
@@ -20,8 +18,8 @@ const PlayListDetailPage = () => {
     return <div>Error: {videosQuery.error?.message}</div>;
   }
 
-  if (categoriesQuery.isError) {
-    return <div>Error: {categoriesQuery.error?.message}</div>;
+  if (categoriesIdQuery.isError) {
+    return <div>Error: {categoriesIdQuery.error?.message}</div>;
   }
 
   if (musicsQuery.isError) {
@@ -30,7 +28,7 @@ const PlayListDetailPage = () => {
 
   // 카테고리 필터링
   const filteredPlayLists: PlayListProps[] = (
-    categoriesQuery.data || []
+    categoriesIdQuery.data || []
   ).filter(category => {
     return category.category_id === String(playlistId);
   });

@@ -1,5 +1,10 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { fetchCategories, deleteCategories } from '@/api/categories';
+import {
+  fetchCategories,
+  deleteCategories,
+  fetchAllCategories,
+  fetchIdCategories,
+} from '@/api/categories';
 import { toastError, toastSuccess } from '@/utils/toast';
 
 const useCategories = (userId: string) => {
@@ -8,6 +13,28 @@ const useCategories = (userId: string) => {
   const categoriesQuery = useQuery({
     queryKey: ['categories', userId],
     queryFn: () => fetchCategories(userId),
+    select: data =>
+      data.map(category => ({
+        ...category,
+        updated_at: new Date(category.updated_at),
+      })),
+    enabled: !!userId,
+  });
+
+  const categoriesIdQuery = useQuery({
+    queryKey: ['categoriesId', userId],
+    queryFn: () => fetchIdCategories(userId as string),
+    select: data =>
+      data.map(category => ({
+        ...category,
+        updated_at: new Date(category.updated_at),
+      })),
+    enabled: !!userId,
+  });
+
+  const allCategoriesQuery = useQuery({
+    queryKey: ['allCategories'],
+    queryFn: () => fetchAllCategories(),
     select: data =>
       data.map(category => ({
         ...category,
@@ -29,6 +56,8 @@ const useCategories = (userId: string) => {
   });
 
   return {
+    allCategoriesQuery,
+    categoriesIdQuery,
     categoriesQuery,
     deleteCategoriesQuery,
   };

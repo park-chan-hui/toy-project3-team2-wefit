@@ -100,3 +100,14 @@ export async function fetchFollowStatus(
 
   return !!data;
 }
+
+export async function fetchFollowings(userId: string) {
+  const { data, error } = await supabase
+    .from('user_follow')
+    .select('following_id')
+    .eq('follower_id', userId);
+
+  if (error) throw error;
+
+  return data;
+}

@@ -1,13 +1,11 @@
 import { useCategories } from '@/hooks/useCategories';
-import { getTimeAgo } from '@/utils/getTimeAgo';
 import { Link, useLocation } from 'react-router-dom';
 import { useUsers } from '@/hooks/useUsers';
 import EmptyResult from '@/components/empty/EmptyResult';
-import { cn } from '@/utils/cn';
-import BookmarkCategorySkeleton from '@/components/skeleton/bookmark/BookmarkCategorySkeleton';
-import MusicSkeleton from '@/components/skeleton/music/MusicSkeleton';
 import Button from '@/components/common/button/Button';
 import { ROUTER_PATH } from '@/constants/constants';
+import { useFollow } from '@/hooks/useFollow';
+import { BookmarkCategoryItem } from '@/components/bookmark/BookmarkCategoryItem';
 
 const BookmarkCategoryList = ({
   selectedCategory,
@@ -15,86 +13,65 @@ const BookmarkCategoryList = ({
   selectedCategory?: string;
 }) => {
   const { currentUserQuery } = useUsers();
-
-  const { categoriesQuery } = useCategories(currentUserQuery.data.user_id);
+  const { categoriesQuery, allCategoriesQuery } = useCategories(
+    currentUserQuery.data?.user_id,
+  );
   const { BOOKMARK_CATEGORY_ADD } = ROUTER_PATH;
   const location = useLocation();
   const isBookmark = location.pathname.endsWith('/bookmark');
+  const { followingsIds } = useFollow(currentUserQuery.data?.user_id);
 
-  if (categoriesQuery.isLoading) {
-    return isBookmark ? <BookmarkCategorySkeleton /> : <MusicSkeleton />;
-  }
-
-  if (categoriesQuery.isError) {
-    return <div>Error: {categoriesQuery.error?.message}</div>;
-  }
-
-  const filteredCategories = categoriesQuery.data?.filter(category => {
-    return category.is_like === true;
-  });
+  const filteredCategories = [
+    ...(isBookmark
+      ? categoriesQuery.data?.filter(
+          category => category.user_id === currentUserQuery.data?.user_id,
+        ) || []
+      : [
+          ...(allCategoriesQuery.data?.filter(category =>
+            followingsIds.some(
+              followingId => followingId.following_id === category.user_id,
+            ),
+          ) || []),
+          ...(categoriesQuery.data?.filter(
+            category => category.user_id === currentUserQuery.data?.user_id,
+          ) || []),
+        ]),
+  ];
 
   const message = isBookmark
     ? '카테고리를 추가해볼까요?'
     : '플레이리스트를 추가해볼까요?';
 
-  return (
-    <>
-      <div
-        className={` ${filteredCategories?.length !== 0 && selectedCategory === '전체' && 'grid w-full grid-cols-2 gap-4'}`}
-      >
-        {filteredCategories?.length === 0 ? (
-          <>
-            <EmptyResult message={message} />
-            {isBookmark ? (
-              ''
-            ) : (
-              <div className="flex justify-center">
-                <Link to={BOOKMARK_CATEGORY_ADD}>
-                  <Button variant="secondary" className="items-center">
-                    플레이리스트 추가하기
-                  </Button>
-                </Link>
-              </div>
-            )}
-          </>
-        ) : (
-          filteredCategories?.map(category => (
-            <Link
-              to={`/playlist/${category.category_id}`}
-              key={category.category_id}
-            >
-              <div className="mb-2">
-                <figure className="relative mb-2 aspect-video h-[80%] w-full overflow-hidden rounded-lg">
-                  <img
-                    src={category.category_thumbnail}
-                    alt={category.category_id}
-                    className="h-full w-full object-cover"
-                  />
-                </figure>
-                <div
-                  className={cn(
-                    'flex w-full flex-row justify-between gap-1',
-                    selectedCategory === '전체' && 'flex-col',
-                  )}
-                >
-                  <div className="relative flex w-[65%] flex-row overflow-hidden whitespace-nowrap">
-                    <h2 className="overflow-hidden text-ellipsis whitespace-nowrap font-bold">
-                      {category.title}
-                    </h2>
-                    <h2 className="font-bold">
-                      ({category.categoried_videos?.length || 0})
-                    </h2>
-                  </div>
-                  <p className="flex items-center text-small">
-                    최종 수정일 {getTimeAgo(category.updated_at)}
-                  </p>
-                </div>
-              </div>
+  if (filteredCategories?.length === 0) {
+    return (
+      <>
+        <EmptyResult message={message} />
+        {!isBookmark && (
+          <div className="flex justify-center">
+            <Link to={BOOKMARK_CATEGORY_ADD}>
+              <Button variant="secondary" className="items-center">
+                플레이리스트 추가하기
+              </Button>
             </Link>
-          ))
+          </div>
         )}
-      </div>
-    </>
+      </>
+    );
+  }
+
+  return (
+    <div
+      className={`${selectedCategory === '전체' && 'grid w-full grid-cols-2 gap-4'}`}
+    >
+      {filteredCategories.map(category => (
+        <BookmarkCategoryItem
+          key={category.category_id}
+          category={category}
+          selectedCategory={selectedCategory}
+          isBookmark={isBookmark}
+        />
+      ))}
+    </div>
   );
 };
 

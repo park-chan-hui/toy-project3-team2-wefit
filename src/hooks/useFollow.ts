@@ -1,6 +1,10 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { toggleFollowButton, fetchFollowStatus } from '@/api/user-follow';
+import {
+  toggleFollowButton,
+  fetchFollowStatus,
+  fetchFollowings,
+} from '@/api/user-follow';
 import { useUsers } from '@/hooks/useUsers';
 import { toastSuccess, toastError } from '@/utils/toast';
 
@@ -14,6 +18,12 @@ export const useFollow = (targetUserId: string) => {
       fetchFollowStatus(currentUserQuery.data!.user_id, targetUserId),
     enabled:
       !!currentUserQuery.data && currentUserQuery.data.user_id !== targetUserId,
+  });
+
+  const followingsQuery = useQuery({
+    queryKey: ['followings', currentUserQuery.data?.user_id],
+    queryFn: () => fetchFollowings(currentUserQuery.data.user_id),
+    enabled: !!currentUserQuery.data,
   });
 
   const toggleFollowMutation = useMutation({
@@ -49,6 +59,7 @@ export const useFollow = (targetUserId: string) => {
   });
 
   return {
+    followingsIds: followingsQuery.data ?? [],
     isFollowing: followQuery.data ?? false,
     toggleFollow: toggleFollowMutation.mutateAsync,
     isFollowLoading: followQuery.isLoading || toggleFollowMutation.isPending,
