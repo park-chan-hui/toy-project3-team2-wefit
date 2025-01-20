@@ -14,9 +14,7 @@ const PlayListPage = () => {
   const { categoriesQuery } = useCategories(currentUserQuery.data?.user_id);
   const { data: musics, isLoading: isMusicsLoading } = useMusics();
 
-  const isLoading = isMusicsLoading || categoriesQuery.isLoading;
-
-  if (isLoading) {
+  if (isMusicsLoading || categoriesQuery.isLoading) {
     return <MusicSkeleton />;
   }
 

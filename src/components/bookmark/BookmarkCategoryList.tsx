@@ -19,15 +19,7 @@ const BookmarkCategoryList = ({
   const { BOOKMARK_CATEGORY_ADD } = ROUTER_PATH;
   const location = useLocation();
   const isBookmark = location.pathname.endsWith('/bookmark');
-  const { followingsIds, isFollowLoading } = useFollow(
-    currentUserQuery.data?.user_id,
-  );
-
-  const isLoading = categoriesQuery.isLoading || isFollowLoading;
-
-  if (categoriesQuery.isError) {
-    return <div>Error: {categoriesQuery.error?.message}</div>;
-  }
+  const { followingsIds } = useFollow(currentUserQuery.data?.user_id);
 
   const filteredCategories = [
     ...(isBookmark
@@ -76,7 +68,6 @@ const BookmarkCategoryList = ({
           key={category.category_id}
           category={category}
           selectedCategory={selectedCategory}
-          isLoading={isLoading}
           isBookmark={isBookmark}
         />
       ))}

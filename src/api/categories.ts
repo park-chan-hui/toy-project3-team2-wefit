@@ -32,6 +32,17 @@ export async function fetchCategories(userId: string) {
   return data || [];
 }
 
+// 특정 북마크 id 카테고리 조회
+export async function fetchIdCategories(categoried_id: string) {
+  const { data, error } = await supabase
+    .from('categories')
+    .select('*')
+    .eq('category_id', categoried_id);
+
+  if (error) throw error;
+  return data || [];
+}
+
 // 카테고리 저장 함수
 export async function saveCategories(props: SaveCategoriesProps) {
   const { checkedVideos, title, imgFile, userId } = props;

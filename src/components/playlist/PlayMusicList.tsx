@@ -32,7 +32,7 @@ const PlayMusicList = ({ selectedCategory }: { selectedCategory?: string }) => {
                   selectedCategory === '전체' && 'flex-col',
                 )}
               >
-                <div className="relative flex w-[65%] flex-row overflow-hidden whitespace-nowrap">
+                <div className="relative flex w-[100%] flex-row overflow-hidden whitespace-nowrap">
                   <h2 className="overflow-hidden text-ellipsis whitespace-nowrap font-bold">
                     {music.title}
                   </h2>
@@ -40,7 +40,7 @@ const PlayMusicList = ({ selectedCategory }: { selectedCategory?: string }) => {
                     ({(music.categoried_videos || []).length})
                   </h2>
                 </div>
-                <p className="mr-1 flex items-center text-small">
+                <p className="mr-1 flex min-w-[20%] items-center text-small">
                   최종 수정일 {getTimeAgo(music.updated_at)}
                 </p>
               </div>
