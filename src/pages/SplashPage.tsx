@@ -14,7 +14,7 @@ const SplashPage = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       navigate(currentUserQuery.data ? HOME : LOGIN);
-    }, 1000);
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, [currentUserQuery.data, navigate, HOME, LOGIN]);
