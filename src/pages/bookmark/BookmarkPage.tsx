@@ -32,7 +32,9 @@ const BookmarkPage = () => {
       />
       <BookmarkHeader
         title={
-          selectedCategory === '북마크' ? '나의 북마크 목록' : '북마크 카테고리'
+          selectedCategory === '북마크'
+            ? '나의 북마크 목록'
+            : '나의 북마크 카테고리'
         }
       />
 
