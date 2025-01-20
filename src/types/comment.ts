@@ -45,6 +45,7 @@ type CommentActionsProps = {
   isExpanded: boolean;
   isReply?: boolean;
   videoId: string;
+  original_comment_id: string;
 };
 
 type CommentItemProps = {

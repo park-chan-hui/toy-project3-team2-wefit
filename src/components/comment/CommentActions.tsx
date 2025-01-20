@@ -12,6 +12,7 @@ const CommentActions = ({
   thumb_down,
   hasReplies,
   comment_id,
+  original_comment_id,
   isExpanded,
   videoId,
   isReply = false,
@@ -20,7 +21,9 @@ const CommentActions = ({
     useCommentStore();
   const { thumbStatus, handleThumbClick, isTogglingThumb } = useCommentsThumb(
     comment_id,
+    original_comment_id,
     videoId,
+    isReply,
   );
 
   const handleReplyClick = () => {
