@@ -69,7 +69,7 @@ const BookmarkCategoryItem = ({
           </div>
         </div>
       ) : (
-        <div className="">
+        <div className="mb-4">
           <Link
             to={`/playlist/${category.category_id}`}
             key={`link-${category.category_id}`}
@@ -86,13 +86,13 @@ const BookmarkCategoryItem = ({
           </Link>
           <div
             className={cn(
-              'flex w-full flex-row justify-between gap-1',
+              'flex w-full flex-row items-center justify-between gap-1',
               selectedCategory === '전체' && 'flex-col',
             )}
           >
             <div
               className={cn(
-                'relative flex w-[100%] flex-row items-center overflow-hidden whitespace-nowrap',
+                'relative flex w-[100%] flex-row items-center gap-1 overflow-hidden whitespace-nowrap',
               )}
             >
               <h2 className="overflow-hidden text-ellipsis whitespace-nowrap font-bold">

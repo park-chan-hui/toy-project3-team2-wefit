@@ -18,8 +18,8 @@ const PlayMusicList = ({ selectedCategory }: { selectedCategory?: string }) => {
       >
         {musics?.map(music => (
           <Link to={`/playlist/${music.list_id}`} key={music.list_id}>
-            <div className="mb-2">
-              <figure className="relative mb-3 aspect-video h-[80%] w-full overflow-hidden rounded-lg">
+            <div className="mb-4">
+              <figure className="relative mb-2 aspect-video h-[80%] w-full overflow-hidden rounded-lg">
                 <img
                   src={music.category_thumbnail}
                   alt={music.title}
@@ -28,14 +28,14 @@ const PlayMusicList = ({ selectedCategory }: { selectedCategory?: string }) => {
               </figure>
               <div
                 className={cn(
-                  'flex w-full flex-row justify-between gap-1',
+                  'flex w-full flex-row justify-between',
                   selectedCategory === '전체' && 'flex-col',
                 )}
               >
                 <div
                   className={cn(
                     'relative flex flex-row overflow-hidden whitespace-nowrap',
-                    selectedCategory === '전체' ? 'w-[100%]' : `w-[60%]`,
+                    selectedCategory === '전체' ? 'w-[100%]' : `w-[70%]`,
                   )}
                 >
                   <h2 className="overflow-hidden text-ellipsis whitespace-nowrap font-bold">
@@ -47,7 +47,7 @@ const PlayMusicList = ({ selectedCategory }: { selectedCategory?: string }) => {
                 </div>
                 <div
                   className={cn(
-                    'flex',
+                    'flex items-center',
                     selectedCategory === '음악만 보기' && 'justify-end',
                   )}
                 >
