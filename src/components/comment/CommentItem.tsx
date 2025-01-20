@@ -72,9 +72,11 @@ const CommentItem = ({
           thumb_up={comment.thumb_up}
           thumb_down={comment.thumb_down}
           hasReplies={hasReplies}
-          comment_id={comment.comment_id}
+          comment_id={isReply ? comment.reply_id! : comment.comment_id}
+          original_comment_id={comment.comment_id}
           isExpanded={isExpanded}
           isReply={isReply}
+          videoId={videoId}
         />
       </article>
     </section>

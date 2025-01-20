@@ -35,6 +35,8 @@ type CommentResponse = {
   totalCount: number;
 };
 
+type ThumbType = 'up' | 'down';
+
 type CommentActionsProps = {
   thumb_up: number;
   thumb_down: number;
@@ -42,6 +44,8 @@ type CommentActionsProps = {
   comment_id: string;
   isExpanded: boolean;
   isReply?: boolean;
+  videoId: string;
+  original_comment_id: string;
 };
 
 type CommentItemProps = {
@@ -76,4 +80,5 @@ export type {
   CommentSubmitFormProps,
   CommentStore,
   CommentResponse,
+  ThumbType,
 };
