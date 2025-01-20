@@ -51,7 +51,7 @@ const PlayMusicList = ({ selectedCategory }: { selectedCategory?: string }) => {
                     selectedCategory === '음악만 보기' && 'justify-end',
                   )}
                 >
-                  <p className="mr-1 min-w-[31%] items-center text-small">
+                  <p className="mr-1 min-w-[31%] items-center text-xsmall">
                     최종 수정일 {getTimeAgo(music.updated_at)}
                   </p>
                 </div>
