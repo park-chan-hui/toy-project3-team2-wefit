@@ -81,7 +81,7 @@ const useVideos = ({
   const videoQuery = useQuery({
     queryKey: ['video', videoId],
     queryFn: () => fetchVideo(videoId!),
-    select: data => ({
+    select: (data: VideoProps) => ({
       ...data,
       created_at: new Date(data.created_at),
     }),

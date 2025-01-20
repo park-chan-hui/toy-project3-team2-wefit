@@ -28,15 +28,18 @@ type VideoStatsProps = Omit<
   },
   ''
 >;
+
 type VideoUploadCategoryProps = {
+  initialCategories: string[];
   selectedTags: string[];
   isAddVideoCategory: boolean;
-  addVideoCategoryValue: string;
-  videoCategories: string[];
+  newCategory: string;
   toggleTag: (tag: string) => void;
-  addVideoCategories: () => void;
-  handleAddVideoCategoryValue: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  setNewCategory: (value: string) => void;
+  setIsAddVideoCategory: (state: boolean) => void;
+  addCategory: () => void;
 };
+
 type UploadVideoProps = {
   video_url: string;
   user_id?: string;
