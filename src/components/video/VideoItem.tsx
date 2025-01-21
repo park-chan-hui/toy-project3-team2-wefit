@@ -4,6 +4,7 @@ import VideoStats from './VideoStats';
 import EmbedYoutubeVideo from './EmbedYoutubeVideo';
 import SimpleProfile from '../common/simple-profile/SimpleProfile';
 import Button from '../common/button/Button';
+
 import { VideoProps } from '@/types/video';
 import { useUsers } from '@/hooks/useUsers';
 import { useFollow } from '@/hooks/useFollow';

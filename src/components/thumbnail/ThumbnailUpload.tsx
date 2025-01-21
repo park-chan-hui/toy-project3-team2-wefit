@@ -1,4 +1,5 @@
 import thumnailUpload from '@/assets/thumnail-upload.svg';
+
 import { ThumbnailUploadProps } from '@/types/thumbnail';
 import { useSelectImage } from '@/hooks/useSelectImage';
 

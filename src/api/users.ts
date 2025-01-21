@@ -1,4 +1,5 @@
 import { supabase } from './supabase';
+
 import { UserProps, UpdateData } from '@/types/user';
 
 // 모든 사용자 조회

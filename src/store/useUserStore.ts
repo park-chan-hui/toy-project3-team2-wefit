@@ -1,6 +1,7 @@
-import { UserProps, UserStore } from '@/types/user';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+
+import { UserProps, UserStore } from '@/types/user';
 
 const useUserStore = create(
   persist<UserStore>(

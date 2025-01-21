@@ -1,5 +1,4 @@
 import { NavLink, useLocation } from 'react-router-dom';
-
 import { AiOutlineHome } from 'react-icons/ai';
 import { BsCollectionPlay } from 'react-icons/bs';
 import { HiOutlineBookmark } from 'react-icons/hi';

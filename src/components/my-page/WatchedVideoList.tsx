@@ -1,9 +1,11 @@
-import { VideoProps } from '@/types/video';
-import MyPageVideoItem from './MyPageVideoItem';
-import { getTimeAgo } from '@/utils/getTimeAgo';
 import { BsClockHistory } from 'react-icons/bs';
 import { Swiper, SwiperSlide } from 'swiper/react';
+
+import MyPageVideoItem from './MyPageVideoItem';
 import EmptyResult from '../empty/EmptyResult';
+
+import { getTimeAgo } from '@/utils/getTimeAgo';
+import { VideoProps } from '@/types/video';
 
 type MyPageVideoProps = {
   videos: VideoProps[];

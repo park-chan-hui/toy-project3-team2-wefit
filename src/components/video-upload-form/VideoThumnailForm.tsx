@@ -1,5 +1,7 @@
 import { Control, Controller } from 'react-hook-form';
+
 import ThumbnailUpload from '../thumbnail/ThumbnailUpload';
+
 import { VideoProps } from '@/types/video';
 
 const VideoThumnailForm = ({

@@ -1,5 +1,6 @@
 import { IoHeartOutline } from 'react-icons/io5';
 import { VscComment } from 'react-icons/vsc';
+
 import { formatNumber } from '@/utils/formatNumber';
 import { Comment } from '@/types/comment';
 

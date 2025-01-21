@@ -1,22 +1,25 @@
-import { saveCategories, updateCategories } from '@/api/categories';
+import { useState } from 'react';
+
+import { FaCheckCircle } from 'react-icons/fa';
+import { FaRegCircle } from 'react-icons/fa6';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useForm, Controller } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+
 import BookmarkItem from '@/components/bookmark/BookmarkItem';
 import Button from '@/components/common/button/Button';
 import LabelInput from '@/components/common/label-input/LabelInput';
 import ThumbnailUpload from '@/components/thumbnail/ThumbnailUpload';
-import { useVideos } from '@/hooks/useVideos';
-import { VideoProps } from '@/types/video';
-import { useState } from 'react';
-import { FaCheckCircle } from 'react-icons/fa';
-import { FaRegCircle } from 'react-icons/fa6';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { toastSuccess, toastError } from '@/utils/toast';
-import { useForm, Controller } from 'react-hook-form';
-import { categorySchema } from '@/schema/categorySchema';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useUsers } from '@/hooks/useUsers';
-import { useBookmarkCheck } from '@/hooks/useBookmarks';
 import EmptyResult from '@/components/empty/EmptyResult';
 import BookmarkCategoryAddSkeleton from '@/components/skeleton/bookmark/BookmarkCategoryAddSkeleton';
+
+import { useVideos } from '@/hooks/useVideos';
+import { VideoProps } from '@/types/video';
+import { toastSuccess, toastError } from '@/utils/toast';
+import { categorySchema } from '@/schema/categorySchema';
+import { useUsers } from '@/hooks/useUsers';
+import { useBookmarkCheck } from '@/hooks/useBookmarks';
+import { saveCategories, updateCategories } from '@/api/categories';
 
 type CheckedVideos = {
   [key: string]: boolean;

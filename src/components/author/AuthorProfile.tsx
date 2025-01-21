@@ -1,5 +1,6 @@
 import Button from '../common/button/Button';
 import blankProfile from '@/assets/user/blank-user.webp';
+
 import { UserProps } from '@/types/user';
 import { VideoProps } from '@/types/video';
 import { formatNumber } from '@/utils/formatNumber';

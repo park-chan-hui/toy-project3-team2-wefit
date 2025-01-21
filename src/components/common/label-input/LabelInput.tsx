@@ -1,4 +1,5 @@
 import { ChangeEvent, InputHTMLAttributes, useState, useEffect } from 'react';
+
 import { useDebounce } from '@/hooks/useDebounce';
 
 type LabelInputProps = InputHTMLAttributes<HTMLInputElement> & {

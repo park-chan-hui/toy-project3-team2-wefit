@@ -1,8 +1,9 @@
 import { Link, useLocation } from 'react-router-dom';
 
 import weFitLogo from '@/assets/we-fit-logo.svg';
-import { ROUTER_PATH } from '@/constants/constants';
 import LogoutButton from '../auth/LogoutButton';
+
+import { ROUTER_PATH } from '@/constants/constants';
 
 const LogoHeader = () => {
   const { pathname } = useLocation();

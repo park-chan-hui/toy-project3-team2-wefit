@@ -9,8 +9,9 @@ import {
 } from '@tanstack/react-query';
 import { useInView } from 'react-intersection-observer';
 
-import { ROUTER_PATH } from '@/constants/constants';
+import { useUsers } from './useUsers';
 
+import { ROUTER_PATH } from '@/constants/constants';
 import {
   fetchVideos,
   fetchVideo,
@@ -26,7 +27,6 @@ import {
   VideoProps,
   VideoUpdateDataProps,
 } from '@/types/video';
-import { useUsers } from './useUsers';
 import { toastError, toastSuccess } from '@/utils/toast';
 
 interface UseVideosOptions {

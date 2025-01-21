@@ -1,7 +1,9 @@
-import { VideoProps } from '@/types/video';
-import MyPageVideoItem from './MyPageVideoItem';
 import { Swiper, SwiperSlide } from 'swiper/react';
+
+import MyPageVideoItem from './MyPageVideoItem';
 import EmptyResult from '../empty/EmptyResult';
+
+import { VideoProps } from '@/types/video';
 
 type UploadVideoListProps = {
   videos: VideoProps[];

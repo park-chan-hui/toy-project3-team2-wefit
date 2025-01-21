@@ -2,6 +2,7 @@ import { RiKakaoTalkFill } from 'react-icons/ri';
 import { FcGoogle } from 'react-icons/fc';
 
 import Button from '../common/button/Button';
+
 import { useAuth } from '@/hooks/useAuth';
 
 type SocialProvider = 'kakao' | 'google';

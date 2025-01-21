@@ -3,6 +3,7 @@ import thumbnail2 from '@/assets/thumbnail/thumbnail2.jpg';
 import thumbnail3 from '@/assets/thumbnail/thumbnail3.jpg';
 import thumbnail4 from '@/assets/thumbnail/thumbnail4.jpg';
 import thumbnail5 from '@/assets/thumbnail/thumbnail5.jpg';
+
 import { playListProps } from '@/types/playList';
 
 const mockVideos = [

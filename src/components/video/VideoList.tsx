@@ -1,4 +1,5 @@
 import VideoItem from './VideoItem';
+
 import { VideoListProps } from '@/types/video';
 
 const VideoList = ({ videos }: VideoListProps) => {

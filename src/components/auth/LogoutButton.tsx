@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
 import Button from '../common/button/Button';
+
 import { supabase } from '@/api/supabase';
 import { toastSuccess, toastError } from '@/utils/toast';
 import { ROUTER_PATH } from '@/constants/constants';
@@ -24,7 +25,7 @@ const LogoutButton = () => {
   };
 
   return (
-    <Button size="small" variant="primary" onClick={handleLogout}>
+    <Button size="small" onClick={handleLogout}>
       로그아웃
     </Button>
   );
