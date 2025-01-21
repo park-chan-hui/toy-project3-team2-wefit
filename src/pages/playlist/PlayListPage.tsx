@@ -6,7 +6,6 @@ import { useState } from 'react';
 import { useMusics } from '@/hooks/useMusics';
 import { useUsers } from '@/hooks/useUsers';
 import { useCategories } from '@/hooks/useCategories';
-import MusicSkeleton from '@/components/skeleton/music/MusicSkeleton';
 
 const PlayListPage = () => {
   const [selectedCategory, setSelectedCategory] = useState('전체');
@@ -15,7 +14,7 @@ const PlayListPage = () => {
   const { data: musics, isLoading: isMusicsLoading } = useMusics();
 
   if (isMusicsLoading || categoriesQuery.isLoading) {
-    return <MusicSkeleton />;
+    return null;
   }
 
   const mainPlayList = selectedCategory === '전체' && (
