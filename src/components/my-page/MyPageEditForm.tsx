@@ -57,7 +57,7 @@ const MyPageEditForm = ({ userData }: { userData: UserProps | null }) => {
     }
   };
 
-  if (userData) {
+  if (!userData) {
     return (
       <div className="flex h-[70vh] items-center justify-center">
         <EmptyResult message="내 정보를 불러오는데 실패했어요." />
