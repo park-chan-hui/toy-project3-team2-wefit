@@ -17,7 +17,7 @@ const PlayListPage = () => {
   const { data: musics, isLoading: isMusicsLoading } = useMusics();
 
   if (isMusicsLoading || categoriesQuery.isLoading) {
-    return <MusicSkeleton />;
+    return null;
   }
 
   const mainPlayList = selectedCategory === '전체' && (

@@ -1,18 +1,14 @@
-import { Link } from 'react-router-dom';
-
 import SimpleProfile from '@/components/common/simple-profile/SimpleProfile';
-
-// import BookmarkCategorySkeleton from '@/components/skeleton/bookmark/BookmarkCategorySkeleton';
-// import MusicSkeleton from '@/components/skeleton/music/MusicSkeleton';
 import { useUsers } from '@/hooks/useUsers';
 import { PlayListProps } from '@/types/playList';
 import { cn } from '@/utils/cn';
 import { getTimeAgo } from '@/utils/getTimeAgo';
+import { Link } from 'react-router-dom';
 
 type BookmarkCategoryItemProps = {
   category: PlayListProps;
   selectedCategory?: string;
-  isBookmark: boolean;
+  isBookmark?: boolean;
 };
 
 const BookmarkCategoryItem = ({
@@ -22,9 +18,6 @@ const BookmarkCategoryItem = ({
   const { userQuery } = useUsers(category.user_id);
   const userData = userQuery.data;
 
-  // if (userQuery.isLoading) {
-  //   return isBookmark ? <BookmarkCategorySkeleton /> : <MusicSkeleton />;
-  // }
   return (
     <>
       {selectedCategory === '전체' ? (

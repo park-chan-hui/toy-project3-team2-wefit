@@ -1,13 +1,12 @@
+import { useCategories } from '@/hooks/useCategories';
 import { Link, useLocation } from 'react-router-dom';
-
+import { useUsers } from '@/hooks/useUsers';
 import EmptyResult from '@/components/empty/EmptyResult';
 import Button from '@/components/common/button/Button';
-import { BookmarkCategoryItem } from '@/components/bookmark/BookmarkCategoryItem';
-
-import { useCategories } from '@/hooks/useCategories';
-import { useUsers } from '@/hooks/useUsers';
 import { ROUTER_PATH } from '@/constants/constants';
 import { useFollow } from '@/hooks/useFollow';
+import { BookmarkCategoryItem } from '@/components/bookmark/BookmarkCategoryItem';
+import BookmarkPlayListSkeleton from '@/components/skeleton/bookmark/BookmarkPlayListSkeleton';
 
 const BookmarkCategoryList = ({
   selectedCategory,
@@ -22,6 +21,17 @@ const BookmarkCategoryList = ({
   const location = useLocation();
   const isBookmark = location.pathname.endsWith('/bookmark');
   const { followingsIds } = useFollow(currentUserQuery.data?.user_id);
+
+  const isLoading =
+    currentUserQuery.isLoading ||
+    categoriesQuery.isLoading ||
+    allCategoriesQuery.isLoading;
+
+  const areFollowingsLoaded = followingsIds && followingsIds.length > 0;
+
+  if (isLoading || !areFollowingsLoaded) {
+    return <BookmarkPlayListSkeleton />;
+  }
 
   const filteredCategories = [
     ...(isBookmark
@@ -44,7 +54,7 @@ const BookmarkCategoryList = ({
     ? '카테고리를 추가해볼까요?'
     : '플레이리스트를 추가해볼까요?';
 
-  if (filteredCategories?.length === 0) {
+  if (filteredCategories.length === 0) {
     return (
       <>
         <EmptyResult message={message} />
