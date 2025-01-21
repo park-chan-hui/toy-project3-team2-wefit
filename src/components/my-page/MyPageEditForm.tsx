@@ -6,6 +6,7 @@ import { Controller, useForm } from 'react-hook-form';
 import MyPageEditProfileImage from './MyPageEditProfileImage';
 import LabelInput from '../common/label-input/LabelInput';
 import Button from '../common/button/Button';
+import EmptyResult from '../empty/EmptyResult';
 
 const MyPageEditForm = ({ userData }: { userData: UserProps | null }) => {
   const { updateUserMutation, checkUserNicknameMutation } = useUsers();
@@ -58,9 +59,9 @@ const MyPageEditForm = ({ userData }: { userData: UserProps | null }) => {
 
   if (!userData) {
     return (
-      <div className="flex h-[70vh] flex-col items-center justify-center gap-4 text-xl">
-        <p className="">유저 정보가 없습니다.</p>
-        <p className="">로그인 상태를 확인해 주세요</p>
+      <div className="flex h-[70vh] flex-col items-center justify-center [&>main]:my-2 [&_p]:text-lg">
+        <EmptyResult message={`유저 정보가 없습니다.`} />
+        <p>로그인 상태를 확인해 주세요.</p>
       </div>
     );
   }
