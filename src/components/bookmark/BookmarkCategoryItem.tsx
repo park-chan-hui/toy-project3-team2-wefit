@@ -1,6 +1,4 @@
 import SimpleProfile from '@/components/common/simple-profile/SimpleProfile';
-// import BookmarkCategorySkeleton from '@/components/skeleton/bookmark/BookmarkCategorySkeleton';
-// import MusicSkeleton from '@/components/skeleton/music/MusicSkeleton';
 import { useUsers } from '@/hooks/useUsers';
 import { PlayListProps } from '@/types/playList';
 import { cn } from '@/utils/cn';
@@ -20,9 +18,6 @@ const BookmarkCategoryItem = ({
   const { userQuery } = useUsers(category.user_id);
   const userData = userQuery.data;
 
-  // if (userQuery.isLoading) {
-  //   return isBookmark ? <BookmarkCategorySkeleton /> : <MusicSkeleton />;
-  // }
   return (
     <>
       {selectedCategory === '전체' ? (

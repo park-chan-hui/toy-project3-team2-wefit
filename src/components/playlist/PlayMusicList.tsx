@@ -1,25 +1,14 @@
 import { useMusics } from '@/hooks/useMusics';
 import { cn } from '@/utils/cn';
 import { getTimeAgo } from '@/utils/getTimeAgo';
-import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 type MusicCategoryListProps = {
   selectedCategory?: string;
-  setIsPlayMusicLoaded?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const PlayMusicList = ({
-  selectedCategory,
-  setIsPlayMusicLoaded,
-}: MusicCategoryListProps) => {
+const PlayMusicList = ({ selectedCategory }: MusicCategoryListProps) => {
   const { data: musics, isLoading } = useMusics();
-
-  useEffect(() => {
-    if (!isLoading && setIsPlayMusicLoaded) {
-      setIsPlayMusicLoaded(true);
-    }
-  }, [isLoading, setIsPlayMusicLoaded]);
 
   if (isLoading) {
     return null;
