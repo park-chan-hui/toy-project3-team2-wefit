@@ -57,11 +57,10 @@ const MyPageEditForm = ({ userData }: { userData: UserProps | null }) => {
     }
   };
 
-  if (!userData) {
+  if (userData) {
     return (
-      <div className="flex h-[70vh] flex-col items-center justify-center [&>main]:my-2 [&_p]:text-lg">
-        <EmptyResult message={`유저 정보가 없습니다.`} />
-        <p>로그인 상태를 확인해 주세요.</p>
+      <div className="flex h-[70vh] items-center justify-center">
+        <EmptyResult message="내 정보를 불러오는데 실패했어요." />
       </div>
     );
   }
