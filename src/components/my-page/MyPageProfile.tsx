@@ -1,7 +1,9 @@
-import { UserProps } from '@/types/user';
-import editLogo from '@/assets/basil_edit-outline.svg';
-import { formatNumber } from '@/utils/formatNumber';
 import { Link } from 'react-router-dom';
+
+import editLogo from '@/assets/basil_edit-outline.svg';
+
+import { UserProps } from '@/types/user';
+import { formatNumber } from '@/utils/formatNumber';
 import { ROUTER_PATH } from '@/constants/constants';
 
 const MyPageProfile = (props: { userData: UserProps }) => {

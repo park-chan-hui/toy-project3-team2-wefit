@@ -19,6 +19,7 @@ import MyUploadVideoPage from '@/pages/my-page/MyUploadVideoPage';
 import NotFoundPage from '@/pages/NotFoundPage';
 import KakaoOAuthHandler from '@/components/auth/KakaoOAuthHandler';
 import GoogleOAuthHandler from '@/components/auth/GoogleOAuthHandler';
+
 import { ROUTER_PATH } from '@/constants/constants';
 
 const Router = () => {

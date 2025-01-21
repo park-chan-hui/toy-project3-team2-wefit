@@ -1,5 +1,6 @@
-import { UploadVideoProps, VideoUpdateDataProps } from '@/types/video';
 import { supabase } from './supabase';
+
+import { UploadVideoProps, VideoUpdateDataProps } from '@/types/video';
 import { PAGE_SIZE } from '@/constants/constants';
 
 interface FetchVideosParams {

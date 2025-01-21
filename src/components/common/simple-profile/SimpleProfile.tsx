@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import blankProfile from '@/assets/user/blank-user.webp';
+
 import { UserProps } from '@/types/user';
 import { cn } from '@/utils/cn';
 

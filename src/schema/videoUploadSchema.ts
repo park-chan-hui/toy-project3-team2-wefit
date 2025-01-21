@@ -1,4 +1,5 @@
 import { z } from 'zod';
+
 import { getYoutubeVideoId } from '@/utils/getYoutubeVideoId';
 
 const videoSchema = z.object({

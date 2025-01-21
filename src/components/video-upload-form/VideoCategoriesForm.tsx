@@ -1,5 +1,7 @@
 import { Control, Controller } from 'react-hook-form';
+
 import MyPageVideoCategories from '../my-page/MyPageVideoCategories';
+
 import { VideoUploadCategoryProps } from '@/types/video';
 
 const VideoCategoriesForm = ({

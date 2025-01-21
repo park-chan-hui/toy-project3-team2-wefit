@@ -1,4 +1,5 @@
 import Button from '../common/button/Button';
+
 import { videoCategories } from '@/mocks/videoCategories';
 import { VideoCategoryProps } from '@/types/video';
 

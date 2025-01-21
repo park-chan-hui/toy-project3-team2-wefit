@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom';
-import SimpleProfile from '../common/simple-profile/SimpleProfile';
-import { VideoProps } from '@/types/video';
-import editLogo from '@/assets/basil_edit-outline.svg';
 import { FaRegTrashAlt } from 'react-icons/fa';
-import { useUserStore } from '@/store/useUserStore';
+
+import SimpleProfile from '../common/simple-profile/SimpleProfile';
+import editLogo from '@/assets/basil_edit-outline.svg';
 import MyPageVideoStats from './MyPageVideoStats';
+
+import { VideoProps } from '@/types/video';
+import { useUserStore } from '@/store/useUserStore';
 import { useComments } from '@/hooks/useComments';
 import { useVideos } from '@/hooks/useVideos';
 

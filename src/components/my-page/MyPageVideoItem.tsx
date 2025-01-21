@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
+
 import SimpleProfile from '../common/simple-profile/SimpleProfile';
 import MyPageVideoStats from './MyPageVideoStats';
+
 import { VideoProps } from '@/types/video';
 import { useComments } from '@/hooks/useComments';
 import { useUsers } from '@/hooks/useUsers';

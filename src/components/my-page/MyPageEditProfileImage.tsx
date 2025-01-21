@@ -1,4 +1,5 @@
 import PlusCircle from '@/assets/plus-circle.svg';
+
 import { ThumbnailUploadProps } from '@/types/thumbnail';
 import { useSelectImage } from '@/hooks/useSelectImage';
 

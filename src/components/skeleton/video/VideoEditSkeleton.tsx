@@ -1,4 +1,5 @@
 import Button from '@/components/common/button/Button';
+
 import { videoCategories } from '@/mocks/videoCategories';
 
 const VideoEditSkeleton = () => {

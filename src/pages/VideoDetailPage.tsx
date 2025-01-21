@@ -4,6 +4,7 @@ import NotFoundPage from './NotFoundPage';
 import VideoItem from '@/components/video/VideoItem';
 import VideoComment from '@/components/comment/VideoComment';
 import VideoItemSkeleton from '@/components/skeleton/video/VideoItemSkeleton';
+
 import { useVideos } from '@/hooks/useVideos';
 
 const VideoDetailPage = () => {

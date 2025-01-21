@@ -1,8 +1,10 @@
+import { Link } from 'react-router-dom';
+
 import MusicSkeleton from '@/components/skeleton/music/MusicSkeleton';
+
 import { useMusics } from '@/hooks/useMusics';
 import { cn } from '@/utils/cn';
 import { getTimeAgo } from '@/utils/getTimeAgo';
-import { Link } from 'react-router-dom';
 
 const PlayMusicList = ({ selectedCategory }: { selectedCategory?: string }) => {
   const { data: musics, isLoading } = useMusics();

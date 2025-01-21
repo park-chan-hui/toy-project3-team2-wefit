@@ -4,6 +4,7 @@ import NavigationBar from '@/components/navigation-bar/NavigationBar';
 import LogoHeader from '@/components/header/LogoHeader';
 import BackHeader from '@/components/header/BackHeader';
 import ScrollToTop from '@/components/common/scroll/ScrollToTop';
+
 import { useUsers } from '@/hooks/useUsers';
 import { ROUTER_PATH } from '@/constants/constants';
 import { cn } from '@/utils/cn';
