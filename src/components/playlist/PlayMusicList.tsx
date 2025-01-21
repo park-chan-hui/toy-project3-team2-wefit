@@ -1,7 +1,8 @@
+import { Link } from 'react-router-dom';
+
 import { useMusics } from '@/hooks/useMusics';
 import { cn } from '@/utils/cn';
 import { getTimeAgo } from '@/utils/getTimeAgo';
-import { Link } from 'react-router-dom';
 
 type MusicCategoryListProps = {
   selectedCategory?: string;
