@@ -1,14 +1,28 @@
-import MusicSkeleton from '@/components/skeleton/music/MusicSkeleton';
 import { useMusics } from '@/hooks/useMusics';
 import { cn } from '@/utils/cn';
 import { getTimeAgo } from '@/utils/getTimeAgo';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-const PlayMusicList = ({ selectedCategory }: { selectedCategory?: string }) => {
+type MusicCategoryListProps = {
+  selectedCategory?: string;
+  setIsPlayMusicLoaded?: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const PlayMusicList = ({
+  selectedCategory,
+  setIsPlayMusicLoaded,
+}: MusicCategoryListProps) => {
   const { data: musics, isLoading } = useMusics();
 
+  useEffect(() => {
+    if (!isLoading && setIsPlayMusicLoaded) {
+      setIsPlayMusicLoaded(true);
+    }
+  }, [isLoading, setIsPlayMusicLoaded]);
+
   if (isLoading) {
-    return <MusicSkeleton />;
+    return null;
   }
 
   return (
@@ -35,7 +49,7 @@ const PlayMusicList = ({ selectedCategory }: { selectedCategory?: string }) => {
                 <div
                   className={cn(
                     'relative flex flex-row overflow-hidden whitespace-nowrap',
-                    selectedCategory === '전체' ? 'w-[100%]' : `w-[70%]`,
+                    selectedCategory === '전체' ? 'w-[100%]' : 'w-[70%]',
                   )}
                 >
                   <h2 className="overflow-hidden text-ellipsis whitespace-nowrap font-bold">

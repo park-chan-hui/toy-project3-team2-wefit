@@ -1,3 +1,4 @@
+import { useEffect, useMemo } from 'react';
 import { useCategories } from '@/hooks/useCategories';
 import { Link, useLocation } from 'react-router-dom';
 import { useUsers } from '@/hooks/useUsers';
@@ -7,11 +8,15 @@ import { ROUTER_PATH } from '@/constants/constants';
 import { useFollow } from '@/hooks/useFollow';
 import { BookmarkCategoryItem } from '@/components/bookmark/BookmarkCategoryItem';
 
+type BookmarkCategoryListProps = {
+  selectedCategory?: string;
+  setIsBookmarkLoaded?: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
 const BookmarkCategoryList = ({
   selectedCategory,
-}: {
-  selectedCategory?: string;
-}) => {
+  setIsBookmarkLoaded,
+}: BookmarkCategoryListProps) => {
   const { currentUserQuery } = useUsers();
   const { categoriesQuery, allCategoriesQuery } = useCategories(
     currentUserQuery.data?.user_id,
@@ -21,28 +26,52 @@ const BookmarkCategoryList = ({
   const isBookmark = location.pathname.endsWith('/bookmark');
   const { followingsIds } = useFollow(currentUserQuery.data?.user_id);
 
-  const filteredCategories = [
-    ...(isBookmark
-      ? categoriesQuery.data?.filter(
-          category => category.user_id === currentUserQuery.data?.user_id,
-        ) || []
-      : [
-          ...(allCategoriesQuery.data?.filter(category =>
-            followingsIds.some(
-              followingId => followingId.following_id === category.user_id,
-            ),
-          ) || []),
-          ...(categoriesQuery.data?.filter(
+  const filteredCategories = useMemo(() => {
+    return [
+      ...(isBookmark
+        ? categoriesQuery.data?.filter(
             category => category.user_id === currentUserQuery.data?.user_id,
-          ) || []),
-        ]),
-  ];
+          ) || []
+        : [
+            ...(allCategoriesQuery.data?.filter(category =>
+              followingsIds.some(
+                followingId => followingId.following_id === category.user_id,
+              ),
+            ) || []),
+            ...(categoriesQuery.data?.filter(
+              category => category.user_id === currentUserQuery.data?.user_id,
+            ) || []),
+          ]),
+    ];
+  }, [
+    isBookmark,
+    categoriesQuery.data,
+    allCategoriesQuery.data,
+    followingsIds,
+    currentUserQuery.data?.user_id,
+  ]);
+
+  useEffect(() => {
+    if (
+      !categoriesQuery.isLoading &&
+      !allCategoriesQuery.isLoading &&
+      setIsBookmarkLoaded
+    ) {
+      console.log('Filtered Categories:', filteredCategories);
+      setIsBookmarkLoaded(filteredCategories.length > 0);
+    }
+  }, [
+    categoriesQuery.isLoading,
+    allCategoriesQuery.isLoading,
+    filteredCategories,
+    setIsBookmarkLoaded,
+  ]);
 
   const message = isBookmark
     ? '카테고리를 추가해볼까요?'
     : '플레이리스트를 추가해볼까요?';
 
-  if (filteredCategories?.length === 0) {
+  if (filteredCategories.length === 0) {
     return (
       <>
         <EmptyResult message={message} />

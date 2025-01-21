@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 type BookmarkCategoryItemProps = {
   category: PlayListProps;
   selectedCategory?: string;
-  isBookmark: boolean;
+  isBookmark?: boolean;
 };
 
 const BookmarkCategoryItem = ({
