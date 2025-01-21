@@ -1,13 +1,15 @@
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+
 import VideoCategoriesForm from './VideoCategoriesForm';
 import VideoTitleForm from './VideoTitleForm';
 import Button from '../common/button/Button';
 import VideoThumnailForm from './VideoThumnailForm';
 import VideoUrlForm from './VideoUrlForm';
-import { VideoProps } from '@/types/video';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { VideoFormValues, videoSchema } from '@/schema/videoUploadSchema';
 import VideoUploadBox from '../video/VideoUploadBox';
+
+import { VideoProps } from '@/types/video';
+import { VideoFormValues, videoSchema } from '@/schema/videoUploadSchema';
 import { useVideos } from '@/hooks/useVideos';
 import { useVideoCategories } from '@/hooks/useVideoCategories';
 import { getYoutubeVideoId } from '@/utils/getYoutubeVideoId';

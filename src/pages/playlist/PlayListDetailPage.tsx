@@ -1,7 +1,10 @@
+import { useState } from 'react';
+
+import { useParams } from 'react-router-dom';
+
 import PlayListVideo from '@/components/playlist/PlayListVideo';
 import PlayList from '@/components/playlist/PlayList';
-import { useParams } from 'react-router-dom';
-import { useState } from 'react';
+
 import { useCategories } from '@/hooks/useCategories';
 import { useVideos } from '@/hooks/useVideos';
 import { PlayListProps } from '@/types/playList';

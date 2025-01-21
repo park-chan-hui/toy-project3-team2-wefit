@@ -1,4 +1,5 @@
 import { FaStar } from 'react-icons/fa';
+
 import { useBookmark } from '@/hooks/useBookmarks';
 
 interface BookmarkStatusProps {

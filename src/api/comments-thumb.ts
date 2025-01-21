@@ -1,4 +1,5 @@
 import { supabase } from './supabase';
+
 import { toastError } from '@/utils/toast';
 import { ThumbType } from '@/types/comment';
 

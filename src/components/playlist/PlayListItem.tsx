@@ -1,8 +1,9 @@
 import SimpleProfile from '@/components/common/simple-profile/SimpleProfile';
+import MusicItemSkeleton from '@/components/skeleton/music/MusicItemSkeleton';
+
 import { cn } from '@/utils/cn';
 import { useVideos } from '@/hooks/useVideos';
 import { useUsers } from '@/hooks/useUsers';
-import MusicItemSkeleton from '@/components/skeleton/music/MusicItemSkeleton';
 
 type PlayListItemProps = {
   video: string;

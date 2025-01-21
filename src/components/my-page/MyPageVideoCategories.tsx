@@ -1,5 +1,6 @@
-import { VideoUploadCategoryProps } from '@/types/video';
 import Button from '../common/button/Button';
+
+import { VideoUploadCategoryProps } from '@/types/video';
 
 const MyPageVideoCategories = ({
   initialCategories,

@@ -1,5 +1,6 @@
-import { VideoListProps } from '@/types/video';
 import MyUploadVideoItem from './MyUploadVideoItem';
+
+import { VideoListProps } from '@/types/video';
 
 const MyUploadVideoList = ({ videos }: VideoListProps) => {
   return (

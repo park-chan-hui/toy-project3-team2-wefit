@@ -1,11 +1,13 @@
+import { Link } from 'react-router-dom';
+
 import SimpleProfile from '@/components/common/simple-profile/SimpleProfile';
+
 // import BookmarkCategorySkeleton from '@/components/skeleton/bookmark/BookmarkCategorySkeleton';
 // import MusicSkeleton from '@/components/skeleton/music/MusicSkeleton';
 import { useUsers } from '@/hooks/useUsers';
 import { PlayListProps } from '@/types/playList';
 import { cn } from '@/utils/cn';
 import { getTimeAgo } from '@/utils/getTimeAgo';
-import { Link } from 'react-router-dom';
 
 type BookmarkCategoryItemProps = {
   category: PlayListProps;

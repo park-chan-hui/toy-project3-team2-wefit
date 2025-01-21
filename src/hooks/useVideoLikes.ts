@@ -1,12 +1,13 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
+import { useUsers } from './useUsers';
+
 import {
   fetchUsersLikeVideos,
   fetchVideoLikeStatus,
   fetchVideoLikesCount,
   toggleVideoLike,
 } from '@/api/video-likes';
-import { useUsers } from './useUsers';
 import { toastSuccess, toastError } from '@/utils/toast';
 
 const useVideoLikes = (videoId?: string) => {

@@ -1,6 +1,7 @@
 import { Navigate, useLocation } from 'react-router-dom';
 
 import Spinner from '@/components/common/spinner/Spinner';
+
 import { useUsers } from '@/hooks/useUsers';
 import { ROUTER_PATH } from '@/constants/constants';
 

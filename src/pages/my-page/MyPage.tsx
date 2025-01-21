@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import Button from '@/components/common/button/Button';
 import EmptyResult from '@/components/empty/EmptyResult';
 import MyPageProfile from '@/components/my-page/MyPageProfile';
@@ -5,12 +7,12 @@ import MyPageUploadVideoList from '@/components/my-page/MyPageUploadVideoList';
 import MyPageUserComments from '@/components/my-page/MyPageUserComments';
 import WatchedVideoList from '@/components/my-page/WatchedVideoList';
 import MyPageSkeleton from '@/components/skeleton/my-page/MyPageSkeleton';
+
 import { ROUTER_PATH } from '@/constants/constants';
 import { useUsers } from '@/hooks/useUsers';
 import { useVideoLikes } from '@/hooks/useVideoLikes';
 import { useVideos } from '@/hooks/useVideos';
 import { useUserStore } from '@/store/useUserStore';
-import { Link } from 'react-router-dom';
 
 const MyPage = () => {
   const { MY_UPLOAD_VIDEO } = ROUTER_PATH;

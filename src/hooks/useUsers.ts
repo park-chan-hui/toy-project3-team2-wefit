@@ -1,4 +1,5 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
 
 import {
   addUser,
@@ -9,11 +10,9 @@ import {
   fetchCurrentUser,
   checkNickname,
 } from '@/api/users';
-
 import { UserProps, UpdateData } from '@/types/user';
 import { toastError, toastSuccess } from '@/utils/toast';
 import { ROUTER_PATH } from '@/constants/constants';
-import { useNavigate } from 'react-router-dom';
 
 const useUsers = (userId?: string) => {
   const navigate = useNavigate();

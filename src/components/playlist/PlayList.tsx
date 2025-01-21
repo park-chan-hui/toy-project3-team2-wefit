@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import PlayListItem from '@/components/playlist/PlayListItem';
+
 import {
   DragDropContext,
   Draggable,
@@ -7,6 +7,9 @@ import {
   DroppableProps,
   DropResult,
 } from '@hello-pangea/dnd';
+
+import PlayListItem from '@/components/playlist/PlayListItem';
+
 import type { PlayListVideoProps } from '@/types/playList';
 import { useUsers } from '@/hooks/useUsers';
 import { updateTargetCategories } from '@/api/categories';

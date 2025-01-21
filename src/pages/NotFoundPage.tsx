@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 
 import Button from '@/components/common/button/Button';
 import warningSvg from '@/assets/warning.svg';
+
 import { ROUTER_PATH } from '@/constants/constants';
 
 const NotFoundPage = () => {

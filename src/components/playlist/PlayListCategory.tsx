@@ -1,6 +1,7 @@
+import Button from '@/components/common/button/Button';
+
 import { VideoCategoryProps } from '@/types/video';
 import { playListCategories } from '@/mocks/playListCategories';
-import Button from '@/components/common/button/Button';
 const PlayListCategory = ({
   selectedCategory,
   onCategoryChange,

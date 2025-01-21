@@ -2,6 +2,7 @@ import { GoTrash } from 'react-icons/go';
 
 import SimpleProfile from '../common/simple-profile/SimpleProfile';
 import CommentActions from './CommentActions';
+
 import { useCommentStore } from '@/store/useCommentStore';
 import { useUsers } from '@/hooks/useUsers';
 import { CommentItemProps } from '@/types/comment';

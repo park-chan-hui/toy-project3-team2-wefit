@@ -1,9 +1,11 @@
+import { Controller, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+
 import Button from '@/components/common/button/Button';
 import LabelInput from '@/components/common/label-input/LabelInput';
 import MyPageEditProfileImage from '@/components/my-page/MyPageEditProfileImage';
+
 import { useUserStore } from '@/store/useUserStore';
-import { Controller, useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { ProfileFormValues, profileSchema } from '@/schema/profileSchema';
 import { useUsers } from '@/hooks/useUsers';
 

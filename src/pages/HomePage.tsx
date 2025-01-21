@@ -4,6 +4,7 @@ import VideoCategory from '@/components/video/VideoCategory';
 import VideoList from '@/components/video/VideoList';
 import EmptyResult from '@/components/empty/EmptyResult';
 import VideoListSkeleton from '@/components/skeleton/video/VideoListSkeleton';
+
 import { useVideos } from '@/hooks/useVideos';
 
 const HomePage = () => {

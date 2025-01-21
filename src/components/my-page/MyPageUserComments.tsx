@@ -1,7 +1,9 @@
+import { Link } from 'react-router-dom';
+
+import EmptyResult from '../empty/EmptyResult';
+
 import { useComments } from '@/hooks/useComments';
 import { useVideos } from '@/hooks/useVideos';
-import { Link } from 'react-router-dom';
-import EmptyResult from '../empty/EmptyResult';
 
 const MyPageUserComments = ({ userId }: { userId: string }) => {
   const { userCommentsQuery } = useComments({

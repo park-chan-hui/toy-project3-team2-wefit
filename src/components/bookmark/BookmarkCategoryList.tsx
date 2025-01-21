@@ -1,11 +1,13 @@
-import { useCategories } from '@/hooks/useCategories';
 import { Link, useLocation } from 'react-router-dom';
-import { useUsers } from '@/hooks/useUsers';
+
 import EmptyResult from '@/components/empty/EmptyResult';
 import Button from '@/components/common/button/Button';
+import { BookmarkCategoryItem } from '@/components/bookmark/BookmarkCategoryItem';
+
+import { useCategories } from '@/hooks/useCategories';
+import { useUsers } from '@/hooks/useUsers';
 import { ROUTER_PATH } from '@/constants/constants';
 import { useFollow } from '@/hooks/useFollow';
-import { BookmarkCategoryItem } from '@/components/bookmark/BookmarkCategoryItem';
 
 const BookmarkCategoryList = ({
   selectedCategory,
