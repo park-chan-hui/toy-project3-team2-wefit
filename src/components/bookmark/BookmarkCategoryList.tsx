@@ -6,6 +6,7 @@ import Button from '@/components/common/button/Button';
 import { ROUTER_PATH } from '@/constants/constants';
 import { useFollow } from '@/hooks/useFollow';
 import { BookmarkCategoryItem } from '@/components/bookmark/BookmarkCategoryItem';
+import BookmarkPlayListSkeleton from '@/components/skeleton/bookmark/BookmarkPlayListSkeleton';
 
 const BookmarkCategoryList = ({
   selectedCategory,
@@ -29,7 +30,7 @@ const BookmarkCategoryList = ({
   const areFollowingsLoaded = followingsIds && followingsIds.length > 0;
 
   if (isLoading || !areFollowingsLoaded) {
-    return null;
+    return <BookmarkPlayListSkeleton />;
   }
 
   const filteredCategories = [
