@@ -32,7 +32,7 @@ export default {
         xxsmall: 'var(--font-xxsmall)',
       },
       fontFamily: {
-        sans: ['var(--font-sans)', 'Arial', 'sans-serif'],
+        sans: ['var(--font-pretendard)', 'Arial', 'sans-serif'],
       },
       borderRadius: {
         small: 'var(--border-radius-small)',

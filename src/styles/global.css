@@ -1,3 +1,5 @@
+@import 'swiper/css';
+@import './font.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -26,9 +28,9 @@
   --color-neutral-variant: #8f9285;
 
   /* Text */
-  --color-text-dark: #4a493f;
+  --color-text-dark: #000000;
   --color-text-light: #ffffff;
-  --color-text-gray: #91918b;
+  --color-text-gray: #4b5563;
 
   /* Background */
   --color-background-light: #fafafa;
@@ -45,7 +47,7 @@
   --font-xxsmall: 0.625rem; /* 10px */
 
   /* Paragraph */
-  --font-sans: 'Pretendard', sans-serif;
+  --font-pretendard: 'Pretendard', sans-serif;
 
   /** border radius **/
   --border-radius-small: 4px;
@@ -67,7 +69,7 @@
 }
 
 body {
-  font-family: var(--font-sans);
+  font-family: var(--font-pretendard);
   line-height: 1.5;
   font-weight: 400;
   color: var(--color-text-dark);

@@ -1,5 +1,4 @@
 import { NavLink, useLocation } from 'react-router-dom';
-
 import { AiOutlineHome } from 'react-icons/ai';
 import { BsCollectionPlay } from 'react-icons/bs';
 import { HiOutlineBookmark } from 'react-icons/hi';
@@ -11,6 +10,13 @@ import { cn } from '@/utils/cn';
 
 const NavigationBar = () => {
   const location = useLocation();
+  const pathname = location.pathname;
+
+  const isHomeActive = [
+    ROUTER_PATH.HOME,
+    ROUTER_PATH.VIDEO_DETAIL.replace(':videoId', ''),
+    ROUTER_PATH.AUTHOR_DETAIL.replace(':userId', ''),
+  ].some(path => pathname.startsWith(path));
 
   return (
     <nav className="fixed bottom-0 w-full max-w-container rounded-t-xl bg-primary text-light">
@@ -18,12 +24,10 @@ const NavigationBar = () => {
         <li className="flex-1 text-center">
           <NavLink
             to={ROUTER_PATH.HOME}
-            className={({ isActive }) =>
-              cn(
-                'flex flex-col items-center gap-1',
-                isActive ? 'text-black' : 'text-light',
-              )
-            }
+            className={cn(
+              'flex flex-col items-center gap-1',
+              isHomeActive ? 'text-black' : 'text-light',
+            )}
           >
             <AiOutlineHome size={34} />
             <span className="text-xxsmall">{NAVIGATION_BAR.HOME}</span>

@@ -1,5 +1,11 @@
+import MyPageEditForm from '@/components/my-page/MyPageEditForm';
+
+import { useUserStore } from '@/store/useUserStore';
+
 const MyPageEdit = () => {
-  return <h1>My Page Edit!</h1>;
+  const userData = useUserStore(state => state.user);
+
+  return <MyPageEditForm userData={userData} />;
 };
 
 export default MyPageEdit;

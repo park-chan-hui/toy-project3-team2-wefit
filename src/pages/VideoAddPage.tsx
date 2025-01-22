@@ -1,5 +1,7 @@
+import VideoUploadForm from '@/components/video-upload-form/VideoUploadForm';
+
 const VideoAddPage = () => {
-  return <h1>Video Add Page!</h1>;
+  return <VideoUploadForm isEditPage={false} />;
 };
 
 export default VideoAddPage;
