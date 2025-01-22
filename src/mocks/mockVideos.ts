@@ -4,7 +4,7 @@ import thumbnail3 from '@/assets/thumbnail/thumbnail3.jpg';
 import thumbnail4 from '@/assets/thumbnail/thumbnail4.jpg';
 import thumbnail5 from '@/assets/thumbnail/thumbnail5.jpg';
 
-import { playListProps } from '@/types/playList';
+import { MockCategoriedVideosProps } from '@/types/playList';
 
 const mockVideos = [
   {
@@ -76,7 +76,7 @@ const mockVideos = [
   },
 ];
 
-const mockBookmarks: playListProps[] = [
+const mockBookmarks: MockCategoriedVideosProps[] = [
   {
     list_id: '1',
     title: '내 가슴을 울리는 북마크1🔥🔥🔥',

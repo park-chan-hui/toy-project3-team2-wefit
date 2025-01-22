@@ -59,6 +59,11 @@ type VideoUpdateDataProps = {
   hash_tag: string[];
 };
 
+type VideoSortNavProps = {
+  sortType: 'latest' | 'popular';
+  onSortChange: (sortType: 'latest' | 'popular') => void;
+};
+
 export type {
   VideoProps,
   VideoCategoryProps,
@@ -67,4 +72,5 @@ export type {
   VideoUploadCategoryProps,
   UploadVideoProps,
   VideoUpdateDataProps,
+  VideoSortNavProps,
 };

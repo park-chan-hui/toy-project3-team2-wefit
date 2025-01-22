@@ -21,4 +21,21 @@ type PlayListVideoProps = {
   updated_at?: Date;
 };
 
-export type { PlayListProps, PlayListVideoProps, VideoProps };
+type MockCategoriedVideosProps = {
+  list_id: string;
+  created_at: Date;
+  is_like: boolean;
+  is_open: boolean;
+  nickname: string;
+  thumbnail: string;
+  title: string;
+  user_id: string;
+  video_list: VideoProps[];
+};
+
+export type {
+  PlayListProps,
+  PlayListVideoProps,
+  VideoProps,
+  MockCategoriedVideosProps,
+};
