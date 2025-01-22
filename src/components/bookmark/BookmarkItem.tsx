@@ -22,12 +22,12 @@ const BookmarkItem = ({
 
   return (
     <article className="mb-1 flex">
-      <figure className="relative flex h-full w-32 items-center">
+      <figure className="relative flex aspect-video w-32 items-center">
         <Link to={`/video/${video_id}`}>
           <img
             src={thumbnail}
             alt={title}
-            className="aspect-video h-full max-w-32 rounded-small object-cover"
+            className="aspect-video max-w-32 rounded-small object-cover"
           />
         </Link>
       </figure>
