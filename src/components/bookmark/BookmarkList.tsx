@@ -27,7 +27,7 @@ const BookmarkList = ({ videos }: VideoListProps) => {
   };
 
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-2">
       {bookmarkedVideos.length === 0 ? (
         <EmptyResult message="북마크를 추가해볼까요?" />
       ) : (

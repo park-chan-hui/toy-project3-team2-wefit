@@ -22,7 +22,7 @@ const MyPageVideoItem = ({
   return (
     <article className="mb-1">
       <Link to={`/video/${video_id}`}>
-        <figure className="relative mb-3 aspect-video w-full overflow-hidden rounded-lg">
+        <figure className="relative mb-2 aspect-video w-full overflow-hidden rounded-lg">
           <img
             src={thumbnail}
             alt={title}
@@ -32,7 +32,7 @@ const MyPageVideoItem = ({
       </Link>
 
       <div className="px-1">
-        <div className="mb-2 flex items-center justify-between">
+        <div className="mb-1 flex items-center justify-between">
           {profileData && <SimpleProfile imageSize="small" {...profileData} />}
         </div>
 
