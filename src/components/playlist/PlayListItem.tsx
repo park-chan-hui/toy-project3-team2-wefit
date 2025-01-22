@@ -59,11 +59,7 @@ const PlayListItem = ({ video, onVideoUrlChange }: PlayListItemProps) => {
 
             {userData && (
               <div className="pointer-events-none">
-                <SimpleProfile
-                  {...userData}
-                  imageSize="large"
-                  textSize="small"
-                />
+                <SimpleProfile {...userData} textSize="small" />
               </div>
             )}
           </div>

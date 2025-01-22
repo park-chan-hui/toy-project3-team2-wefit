@@ -1,7 +1,7 @@
 import MyUploadVideoPageItemSkeleton from './MyUploadVideoItem';
 
 const MyUploadVideoPageListSkeleton = () => {
-  const emptyArray = Array.from({ length: 6 }, (_, index) => index + 1);
+  const emptyArray = Array.from({ length: 8 }, (_, index) => index + 1);
 
   return (
     <>

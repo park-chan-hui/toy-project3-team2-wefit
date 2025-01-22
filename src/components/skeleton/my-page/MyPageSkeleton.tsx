@@ -4,7 +4,7 @@ import MyPageVideoListSkeleton from './MyPageVideoListSkeleton';
 
 const MyPageSkeleton = () => {
   return (
-    <main className="flex flex-col gap-2">
+    <main className="flex flex-col gap-5">
       <MyPageProfileSkeleton />
 
       <section>
@@ -25,11 +25,9 @@ const MyPageSkeleton = () => {
       <section>
         <p className="text-lg font-bold">내 댓글</p>
         <hr className="my-2" aria-hidden="true" />
-        <div>
-          <p className="overflow-hidden text-ellipsis whitespace-nowrap font-bold">
-            댓글이 달린 동영상: 댓글 동영상
-          </p>
-          <p className="text-xsmall text-gray">댓글내용</p>
+        <div className="flex animate-pulse flex-col gap-2">
+          <div className="h-5 w-full rounded bg-gray-200" />
+          <div className="h-4 w-1/2 rounded bg-gray-200" />
         </div>
       </section>
     </main>
