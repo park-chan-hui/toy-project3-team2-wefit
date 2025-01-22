@@ -65,5 +65,8 @@
       "prettier --cache --write",
       "eslint --cache --fix --max-warnings=0"
     ]
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "^4.31.0"
   }
 }
