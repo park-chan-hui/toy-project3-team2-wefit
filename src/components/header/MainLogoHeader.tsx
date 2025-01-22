@@ -10,10 +10,10 @@ const MainLogoHeader = ({ isSplashPage }: MainLogoHeaderProps) => {
     <header className="mb-12 flex flex-col items-center justify-center gap-4">
       <div className="flex flex-col justify-start gap-2">
         <h1 className="text-2xl font-bold">당신의 운동 파트너🏃‍♂️</h1>
-        <img src={logoSvg} alt="WeFitlogo" className="h-auto w-64" />
+        <img src={logoSvg} alt="WeFitlogo" className="h-auto w-56" />
       </div>
       {!isSplashPage && (
-        <img src={treadmillSvg} alt="treadmillIcon" className="h-64 w-64" />
+        <img src={treadmillSvg} alt="treadmillIcon" className="h-52 w-52" />
       )}
     </header>
   );
