@@ -20,7 +20,7 @@ const NavigationBar = () => {
 
   return (
     <nav className="fixed bottom-0 w-full max-w-container rounded-t-xl bg-primary text-light">
-      <ul className="flex items-center justify-between px-2 py-2">
+      <ul className="flex items-center justify-between px-2 py-1">
         <li className="flex-1 text-center">
           <NavLink
             to={ROUTER_PATH.HOME}
@@ -29,7 +29,7 @@ const NavigationBar = () => {
               isHomeActive ? 'text-black' : 'text-light',
             )}
           >
-            <AiOutlineHome size={34} />
+            <AiOutlineHome size={28} />
             <span className="text-xxsmall">{NAVIGATION_BAR.HOME}</span>
           </NavLink>
         </li>
@@ -43,18 +43,18 @@ const NavigationBar = () => {
               )
             }
           >
-            <BsCollectionPlay size={34} />
+            <BsCollectionPlay size={28} />
             <span className="text-xxsmall">{NAVIGATION_BAR.PLAYLIST}</span>
           </NavLink>
         </li>
-        <li className="relative -top-5 flex-1 text-center">
+        <li className="relative -top-4 flex-1 text-center">
           <NavLink
             to={ROUTER_PATH.VIDEO_ADD}
             className="flex flex-col items-center gap-1"
           >
-            <div className="rounded-full bg-secondary p-5">
+            <div className="rounded-full bg-secondary p-4">
               <FaPlus
-                size={34}
+                size={28}
                 color={cn(
                   location.pathname === ROUTER_PATH.VIDEO_ADD
                     ? 'black'
@@ -74,7 +74,7 @@ const NavigationBar = () => {
               )
             }
           >
-            <HiOutlineBookmark size={34} />
+            <HiOutlineBookmark size={28} />
             <span className="text-xxsmall">{NAVIGATION_BAR.BOOKMARK}</span>
           </NavLink>
         </li>
@@ -88,7 +88,7 @@ const NavigationBar = () => {
               )
             }
           >
-            <CgProfile size={34} />
+            <CgProfile size={28} />
             <span className="text-xxsmall">{NAVIGATION_BAR.MY_PAGE}</span>
           </NavLink>
         </li>
