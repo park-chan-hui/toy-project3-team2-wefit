@@ -29,9 +29,7 @@ const BookmarkCategoryList = ({
     categoriesQuery.isLoading ||
     allCategoriesQuery.isLoading;
 
-  const areFollowingsLoaded = followingsIds && followingsIds.length > 0;
-
-  if (isLoading || !areFollowingsLoaded) {
+  if (isLoading) {
     return <BookmarkPlayListSkeleton />;
   }
 
