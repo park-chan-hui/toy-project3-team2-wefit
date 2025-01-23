@@ -206,8 +206,8 @@ const BookmarkCategoryAddPage = () => {
                   </div>
                 ))}
                 {errors.videos && (
-                  <p className="my-2 text-sm text-red-500">
-                    {errors.videos.message}
+                  <p className="text-sm text-red-500">
+                    최소 하나의 동영상을 선택해주세요
                   </p>
                 )}
               </div>
